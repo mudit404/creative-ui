@@ -1,0 +1,33 @@
+{
+  "name": "creative-ui",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Source-first creative UI component library: shadcn-style distribution, premium interaction quality.",
+  "engines": {
+    "node": ">=24",
+    "pnpm": ">=10"
+  },
+  "packageManager": "pnpm@12.15.0",
+  "scripts": {
+    "dev": "turbo run dev --filter=docs",
+    "build": "turbo run build",
+    "build:registry": "node scripts/build-registry.ts",
+    "check:registry": "node scripts/build-registry.ts --check",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:e2e": "pnpm --filter e2e e2e",
+    "scaffold": "node scripts/scaffold-component.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test:e2e:update": "pnpm --filter e2e e2e:update"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.10",
+    "tsx": "^4.23.15",
+    "turbo": "^2.11.10",
+    "typescript": "~5.9.3",
+    "zod": "^4.6.7"
+  },
+  "type": "module"
+}

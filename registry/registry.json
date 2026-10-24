@@ -1,0 +1,482 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "creative-ui",
+  "homepage": "http://localhost:3000",
+  "items": [
+    {
+      "name": "use-reduced-motion",
+      "type": "registry:hook",
+      "title": "useReducedMotion",
+      "description": "Hydration-safe prefers-reduced-motion hook.",
+      "files": [
+        {
+          "path": "packages/ui/src/hooks/use-reduced-motion.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "springs",
+      "type": "registry:lib",
+      "title": "Spring math",
+      "description": "Damped spring step, easing helpers and a seeded RNG.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/springs.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "rounded-outline",
+      "type": "registry:lib",
+      "title": "Rounded outline geometry",
+      "description": "Arc-length parameterised rounded rectangle outline: points, normals, closest point.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/rounded-outline.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "pointer-field",
+      "type": "registry:lib",
+      "title": "Shared pointer tracker",
+      "description": "One window pointer listener shared by every subscribing component.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/pointer-field.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "magnetic-field",
+      "type": "registry:lib",
+      "title": "Magnetic field math",
+      "description": "Displacement toward a pointer within a radius of a box. Pure, testable.",
+      "registryDependencies": [
+        "springs"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/lib/magnetic-field.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "use-magnetic-field",
+      "type": "registry:hook",
+      "title": "useMagneticField",
+      "description": "Sprung x/y/proximity motion values that follow a nearby pointer.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "magnetic-field",
+        "pointer-field"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/hooks/use-magnetic-field.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "use-scroll-direction",
+      "type": "registry:hook",
+      "title": "useScrollDirection",
+      "description": "Direction of the last meaningful scroll (up/down/idle) for the window or a container; re-renders only on change.",
+      "files": [
+        {
+          "path": "packages/ui/src/hooks/use-scroll-direction.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "strand-field",
+      "type": "registry:lib",
+      "title": "StrandField simulation",
+      "description": "Framework-free Verlet goo strand simulation around a rounded body.",
+      "registryDependencies": [
+        "springs",
+        "rounded-outline"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/lib/strand-field.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "strand-renderer",
+      "type": "registry:lib",
+      "title": "Strand renderer",
+      "description": "Canvas 2D renderer for StrandField: ribbons, fillets, webs, highlights.",
+      "registryDependencies": [
+        "strand-field",
+        "rounded-outline",
+        "springs"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/lib/strand-renderer.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "use-strand-field",
+      "type": "registry:hook",
+      "title": "useStrandField",
+      "description": "Binds a StrandField to a canvas overlay with visibility gating and idle scheduling.",
+      "registryDependencies": [
+        "strand-field",
+        "strand-renderer",
+        "pointer-field"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/hooks/use-strand-field.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "material-button",
+      "type": "registry:ui",
+      "title": "Material Button",
+      "description": "A slab of goo that reaches for the pointer, grips it, and snaps back. Real <button>, reduced-motion and touch fallbacks.",
+      "author": "Creative UI",
+      "categories": [
+        "buttons",
+        "creative"
+      ],
+      "dependencies": [
+        "motion",
+        "@radix-ui/react-slot",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "use-strand-field"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/material-button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/material-button"
+      }
+    },
+    {
+      "name": "field-magnet",
+      "type": "registry:ui",
+      "title": "Field Magnet",
+      "description": "A primitive that pulls its content toward a nearby pointer with springs. Children keep their semantics.",
+      "author": "Creative UI",
+      "categories": [
+        "primitives",
+        "creative"
+      ],
+      "dependencies": [
+        "motion",
+        "@radix-ui/react-slot",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "use-magnetic-field"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/field-magnet.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "free",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/field-magnet"
+      }
+    },
+    {
+      "name": "liquid-switch",
+      "type": "registry:ui",
+      "title": "LiquidSnap Toggle",
+      "description": "A switch whose thumb pours from one side to the other. Native role=\"switch\", controlled/uncontrolled, form support, reduced-motion fallback.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/liquid-switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "free",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/liquid-switch"
+      },
+      "author": "Creative UI",
+      "categories": [
+        "inputs",
+        "creative"
+      ]
+    },
+    {
+      "name": "adaptive-rail",
+      "type": "registry:ui",
+      "title": "Contextual Floating Rail",
+      "description": "A floating action rail (role=toolbar) that collapses to priority items while scrolling down, expands on scroll-up/idle/hover/focus, and scopes items to a context.",
+      "author": "Creative UI",
+      "categories": [
+        "navigation",
+        "creative"
+      ],
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "use-scroll-direction",
+        "use-magnetic-field"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/adaptive-rail.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "free",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/adaptive-rail"
+      }
+    },
+    {
+      "name": "ghost-trace-text",
+      "type": "registry:ui",
+      "title": "GhostTrace Headline",
+      "description": "A headline traced by a ghost stroke before it settles into type. Semantic heading kept for AT; SVG is decorative; reduced-motion renders plain text.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/ghost-trace-text.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "free",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/ghost-trace-text"
+      },
+      "author": "Creative UI",
+      "categories": [
+        "text",
+        "creative"
+      ]
+    },
+    {
+      "name": "orbital-menu",
+      "type": "registry:ui",
+      "title": "Orbital Action Menu",
+      "description": "Actions that orbit a trigger and settle into reach. Real menu semantics (aria-haspopup, role=menu, roving arrows, Escape), staggered spring launch, magnetic items.",
+      "dependencies": [
+        "motion",
+        "@radix-ui/react-slot",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "use-magnetic-field"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/orbital-menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/orbital-menu"
+      },
+      "author": "Creative UI",
+      "categories": [
+        "navigation",
+        "creative"
+      ]
+    },
+    {
+      "name": "elastic-grid",
+      "type": "registry:ui",
+      "title": "ElasticCatalog",
+      "description": "A catalog grid whose columns stretch toward the pointer and settle back, with layout animation for filtering and sorting. Plain list semantics.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "pointer-field"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/elastic-grid.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/elastic-grid"
+      },
+      "author": "Creative UI",
+      "categories": [
+        "layout",
+        "creative"
+      ]
+    },
+    {
+      "name": "expanding-product-grid",
+      "type": "registry:ui",
+      "title": "ProductCard Expand",
+      "description": "Product cards that expand in place into a detail view: full-row expansion with layout animation, one open at a time, aria-expanded title buttons and labelled detail regions.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/expanding-product-grid.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/expanding-product-grid"
+      },
+      "author": "Creative UI",
+      "categories": [
+        "layout",
+        "creative"
+      ]
+    },
+    {
+      "name": "flow-stack-gallery",
+      "type": "registry:ui",
+      "title": "ThumbnailFlow Gallery",
+      "description": "A gallery where thumbnails fly into a stacked viewer. Tabs/tabpanel semantics, deck shuffle with next/previous, arrow keys and drag, reduced-motion crossfade.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/flow-stack-gallery.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/flow-stack-gallery"
+      },
+      "author": "Creative UI",
+      "categories": [
+        "media",
+        "creative"
+      ]
+    },
+    {
+      "name": "mosaic-menu",
+      "type": "registry:ui",
+      "title": "MosaicRoute Menu",
+      "description": "A full-screen route menu built from shifting mosaic tiles: modal dialog in a portal with focus trap, Escape, scroll lock and focus return; tiles assemble from the centre with staggered springs.",
+      "dependencies": [
+        "motion",
+        "@radix-ui/react-slot",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "use-magnetic-field"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/mosaic-menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/mosaic-menu"
+      },
+      "author": "Creative UI",
+      "categories": [
+        "navigation",
+        "creative"
+      ]
+    }
+  ]
+}

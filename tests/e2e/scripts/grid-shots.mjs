@@ -1,0 +1,23 @@
+/** Dev tool: capture the ElasticGrid at rest, hovered and filtered. node scripts/grid-shots.mjs <outDir> */
+import { chromium } from "@playwright/test";
+const out = process.argv[2] ?? "grid";
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1200, height: 900 }, deviceScaleFactor: 2 });
+await page.goto("http://localhost:3000/components/elastic-grid");
+const stage = page.getByTestId("playground-stage");
+const list = stage.getByRole("list", { name: "Work" });
+await page.waitForTimeout(400);
+const clip = await stage.boundingBox();
+await page.screenshot({ path: `${out}/1-rest.png`, clip });
+const box = await list.boundingBox();
+await page.mouse.move(box.x + box.width * 0.62, box.y + box.height * 0.4, { steps: 10 });
+await page.waitForTimeout(700);
+await page.screenshot({ path: `${out}/2-hover.png`, clip });
+await page.mouse.move(5, 5);
+await page.getByLabel("Filter (demo)").selectOption("film");
+await page.waitForTimeout(120);
+await page.screenshot({ path: `${out}/3-filtering.png`, clip });
+await page.waitForTimeout(700);
+await page.screenshot({ path: `${out}/4-filtered.png`, clip });
+await browser.close();
+console.log("ok");

@@ -1,0 +1,249 @@
+@import "tailwindcss";
+
+/* The docs run the distributed component sources directly; Tailwind must scan them too. */
+@source "../../../../packages/ui/src";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ───────────────────────── design tokens ───────────────────────── */
+:root {
+  --paper: #f3f1ec;
+  --paper-2: #ebe8e1;
+  --card: #faf9f6;
+  --ink: #141311;
+  --ink-2: #3b3934;
+  --muted: #6e6b64;
+  --line: rgba(20, 19, 17, 0.1);
+  --line-strong: rgba(20, 19, 17, 0.22);
+  --ember: #ff4d1c;
+  --ember-ink: #c8360d;
+  --code-bg: #171612;
+  --code-fg: #e7e3da;
+  --stage: #f6f4ef;
+  --stage-dark: #121210;
+  --radius: 14px;
+  --shadow-card: 0 1px 2px rgba(20, 19, 17, 0.06), 0 12px 32px -16px rgba(20, 19, 17, 0.18);
+}
+
+.dark {
+  --paper: #0f0f0d;
+  --paper-2: #151513;
+  --card: #171715;
+  --ink: #ecebe6;
+  --ink-2: #c9c7c0;
+  --muted: #8d8a82;
+  --line: rgba(236, 235, 230, 0.09);
+  --line-strong: rgba(236, 235, 230, 0.2);
+  --ember: #ff5a2b;
+  --ember-ink: #ff7a52;
+  --code-bg: #0b0b0a;
+  --code-fg: #e7e3da;
+  --stage: #1a1a18;
+  --stage-dark: #0a0a09;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 16px 40px -20px rgba(0, 0, 0, 0.7);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ember: var(--ember);
+  --color-ember-ink: var(--ember-ink);
+  --color-code-bg: var(--code-bg);
+  --color-code-fg: var(--code-fg);
+  --color-stage: var(--stage);
+  --color-stage-dark: var(--stage-dark);
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), "Iowan Old Style", Georgia, serif;
+  --font-mono: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --radius-card: var(--radius);
+  --shadow-card: var(--shadow-card);
+}
+
+/* ───────────────────────── base ───────────────────────── */
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection {
+  background: var(--ember);
+  color: white;
+}
+
+/* paper grain */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  mix-blend-mode: multiply;
+}
+.dark .grain::before {
+  mix-blend-mode: screen;
+  opacity: 0.035;
+}
+
+/* ───────────────────────── typography ───────────────────────── */
+.display {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 0.98;
+}
+.display em {
+  font-style: italic;
+  color: var(--ember-ink);
+}
+.prose-docs {
+  color: var(--ink-2);
+  line-height: 1.65;
+}
+.prose-docs h2 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.9rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-top: 3rem;
+  margin-bottom: 0.9rem;
+  scroll-margin-top: 6rem;
+}
+.prose-docs h3 {
+  font-weight: 600;
+  color: var(--ink);
+  margin-top: 1.9rem;
+  margin-bottom: 0.5rem;
+  scroll-margin-top: 6rem;
+}
+.prose-docs p {
+  margin: 0.7rem 0;
+}
+.prose-docs ul {
+  list-style: disc;
+  padding-left: 1.3rem;
+  margin: 0.6rem 0;
+}
+.prose-docs ol {
+  list-style: decimal;
+  padding-left: 1.3rem;
+  margin: 0.6rem 0;
+}
+.prose-docs li {
+  margin: 0.25rem 0;
+}
+.prose-docs a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 3px;
+}
+.prose-docs a:hover {
+  text-decoration-color: var(--ember);
+}
+.prose-docs code {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.86em;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.1em 0.4em;
+  color: var(--ink);
+}
+.prose-docs pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+.prose-docs table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  margin: 1rem 0;
+}
+.prose-docs th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line-strong);
+  padding: 0.5rem 0.6rem;
+}
+.prose-docs td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.55rem 0.6rem;
+  vertical-align: top;
+}
+
+/* ───────────────────────── code highlighting ───────────────────────── */
+.code-block {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  background: var(--code-bg);
+  color: var(--code-fg);
+  tab-size: 2;
+}
+.tok-kw { color: #ff8a65; }
+.tok-str { color: #c3e88d; }
+.tok-num { color: #f7c86b; }
+.tok-tag { color: #82aaff; }
+.tok-attr { color: #c792ea; }
+.tok-cm { color: #7a776f; font-style: italic; }
+.tok-pn { color: #a6a39b; }
+.tok-fn { color: #89ddff; }
+
+/* ───────────────────────── stage (component preview floor) ─────────────────────────
+   Stages are studio floors for product shots: their colour is independent of the site
+   theme so a component looks the same in light and dark docs. */
+.stage {
+  --mb-ring-offset: #f6f4ef;
+  color: #141311;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, 0.7), transparent 60%),
+    #f1efe9;
+}
+.stage-dark {
+  --mb-ring-offset: #121210;
+  color: #ecebe6;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, 0.06), transparent 60%),
+    #121210;
+}
+.stage-grid {
+  background-image:
+    linear-gradient(to right, rgba(127, 127, 127, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(127, 127, 127, 0.14) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.stage .stage-label {
+  color: rgba(20, 19, 17, 0.5);
+}
+.stage-dark .stage-label {
+  color: rgba(236, 235, 230, 0.5);
+}
+
+/* thin scrollbars for panels */
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+

@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f4f2ee;
+  color: #15140f;
+}
+
+/* app-wide theming through the component's CSS variables */
+.brand-blue [data-slot="material-button"] {
+  --mb-surface: #1d2a6b;
+  --mb-goo: #1d2a6b;
+  --mb-label: #f2f0ff;
+  --mb-ring-offset: #171717;
+}

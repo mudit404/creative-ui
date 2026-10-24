@@ -1,0 +1,6 @@
+node_modules
+dist
+# written by the registry during the install check; the committed state is "before install"
+src/components/
+src/hooks/
+src/lib/
