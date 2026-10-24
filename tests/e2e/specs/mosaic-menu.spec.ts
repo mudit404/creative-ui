@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("mosaic menu", () => {
   test("opens a modal mosaic, traps focus, navigates with arrows and closes with Escape", async ({ page }) => {

@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("scroll film", () => {
   test("the story example scrubs with scroll, reports times and never plays audio", async ({ page }) => {

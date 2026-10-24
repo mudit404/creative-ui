@@ -45,6 +45,10 @@ Verify: open `/components/<slug>`; the page must show no "Example renderer missi
 
 Add a spec in `tests/e2e/specs` covering: sections present, live interaction, keyboard, playground round-trip, registry item. Add visual baselines for rest states under reduced motion.
 
+Import `test` and `expect` from `../fixtures`, never from `@playwright/test`: the fixture's `page.goto` waits for `<html data-hydrated="true">` (set by `HydrationMarker`, rendered as the last child of every page; under `cacheComponents` the page hydrates in a later pass than the root layout, so a layout-level marker would fire too early) so the first fill, focus or click cannot land on un-hydrated markup. That race never shows on a fast machine and fails on CI. If an example mounts content later (measurement, media, WebGL), still wait for its own readiness attribute before interacting.
+
+`pnpm build` regenerates the registry JSON (root task `//#build:registry`) and the Playwright server serves that build on port 3100, so build before running the suite without `BASE_URL`.
+
 ```bash
 BASE_URL=http://localhost:3000 pnpm test:e2e
 ```

@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("activity capsule", () => {
   test("summary button expands a task list, morphs width and never nests actions", async ({ page }) => {

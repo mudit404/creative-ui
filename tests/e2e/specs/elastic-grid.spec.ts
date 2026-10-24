@@ -1,4 +1,4 @@
-import { expect, test, type Locator } from "@playwright/test";
+import { expect, test, type Locator } from "../fixtures";
 
 async function columnWidths(list: Locator): Promise<number[]> {
   return list.evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(" ").map(parseFloat));

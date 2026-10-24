@@ -1,4 +1,4 @@
-import { expect, test, type Locator, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "../fixtures";
 
 /** Starts a tab drag and moves to a point given as fractions of the workspace; returns the root box measured after scrolling. */
 async function dragTab(page: Page, root: Locator, tab: Locator, to: { fx: number; fy: number }) {

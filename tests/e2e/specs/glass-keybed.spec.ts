@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("glass keybed", () => {
   test("silent on mount; enabling sound is explicit; one activation is one note by pointer or keyboard", async ({ page }) => {

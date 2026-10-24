@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("continuity chart", () => {
   test("rows keep identity across snapshots and bars become dots at the same endpoint", async ({ page }) => {

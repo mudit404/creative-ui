@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Hero } from "~/components/site/hero";
+import { HydrationMarker } from "~/components/site/hydration-marker";
 import { ComponentCard } from "~/components/catalog/component-card";
 import { components } from "~/content/components";
 import { registryItemUrl } from "~/lib/registry-url";
@@ -18,10 +19,14 @@ export default function HomePage() {
           <div>
             <h2 className="display text-4xl text-ink">Featured</h2>
             <p className="mt-2 max-w-lg text-ink-2">
-              Every preview on this site is the real, installable component. No simplified demo builds.
+              Every preview on this site is the real, installable component. No simplified demo
+              builds.
             </p>
           </div>
-          <Link href="/components" className="text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ember">
+          <Link
+            href="/components"
+            className="text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ember"
+          >
             All components →
           </Link>
         </div>
@@ -54,6 +59,7 @@ export default function HomePage() {
           />
         </div>
       </section>
+      <HydrationMarker />
     </main>
   );
 }

@@ -1,7 +1,9 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("split flap board", () => {
-  test("only changed digits flip, interruptions re-route to the newest value, NaN shows the placeholder", async ({ page }) => {
+  test("only changed digits flip, interruptions re-route to the newest value, NaN shows the placeholder", async ({
+    page,
+  }) => {
     await page.goto("/components/split-flap-board");
     await expect(page.getByRole("heading", { level: 1, name: "Split Flap Board" })).toBeVisible();
     await expect(page.getByText("Example renderer missing")).toHaveCount(0);
@@ -11,23 +13,43 @@ test.describe("split flap board", () => {
     const text = root.locator(".sr-only");
     await expect(text).toHaveText(/1234/);
     await expect(root).toHaveAttribute("data-state", "settled");
+    // record which cells leave the settled phase: the "flipping" state lasts ~300 ms and cannot be caught reliably under load
+    await root.evaluate((el) => {
+      const flipped = new Set<number>();
+      const cells = () => Array.from(el.querySelectorAll("[data-cell]"));
+      const observer = new MutationObserver((mutations) => {
+        for (const m of mutations) {
+          const t = m.target as HTMLElement;
+          if (t.dataset.phase && t.dataset.phase !== "0") flipped.add(cells().indexOf(t));
+        }
+      });
+      observer.observe(el, { attributes: true, subtree: true, attributeFilter: ["data-phase"] });
+      (window as unknown as { __flipped: Set<number> }).__flipped = flipped;
+    });
     await ex.getByRole("button", { name: "+137", exact: true }).click();
     await expect(text).toHaveText(/1371/); // the accessible value changes immediately
-    await expect(root).toHaveAttribute("data-state", "flipping");
     await expect(root).toHaveAttribute("data-state", "settled", { timeout: 5000 });
     await expect(ex.getByRole("list", { name: "Event log" })).toContainText("onSettled(");
+    const flipped = await page.evaluate(() =>
+      Array.from((window as unknown as { __flipped: Set<number> }).__flipped).sort(),
+    );
+    expect(flipped).toEqual([3, 4, 5]); // 1234 → 1371 in six right-aligned cells: only the three changed cells flipped
     const faces = await root.locator("[data-cell]").count();
     expect(faces).toBe(6);
     await ex.getByRole("button", { name: /interrupt/ }).click();
     await expect(text).toHaveText(/2376/);
     await expect(root).toHaveAttribute("data-state", "settled", { timeout: 5000 });
-    await expect(ex.getByRole("list", { name: "Event log" }).locator("li").first()).toContainText("2376");
+    await expect(ex.getByRole("list", { name: "Event log" }).locator("li").first()).toContainText(
+      "2376",
+    );
     await ex.getByRole("button", { name: "NaN" }).click();
     await expect(text).toHaveText(/—/);
     await expect(root).toHaveAttribute("data-state", "settled", { timeout: 3000 });
   });
 
-  test("shaped scripts fall back to whole-content mode; paused boards still update their text", async ({ page }) => {
+  test("shaped scripts fall back to whole-content mode; paused boards still update their text", async ({
+    page,
+  }) => {
     await page.goto("/components/split-flap-board");
     const scripts = page.getByTestId("example-scripts");
     await scripts.scrollIntoViewIfNeeded();
@@ -43,7 +65,12 @@ test.describe("split flap board", () => {
     const dep = page.getByTestId("example-departures");
     await dep.scrollIntoViewIfNeeded();
     await dep.getByLabel(/Pause flaps/).check();
-    const status = dep.locator('[data-slot="split-flap-board"][aria-label="LONDON status"], [data-slot="split-flap-board"]').filter({ has: page.locator('[aria-label="LONDON status"]') }).first();
+    const status = dep
+      .locator(
+        '[data-slot="split-flap-board"][aria-label="LONDON status"], [data-slot="split-flap-board"]',
+      )
+      .filter({ has: page.locator('[aria-label="LONDON status"]') })
+      .first();
     const before = await status.locator(".sr-only").textContent();
     await expect
       .poll(async () => status.locator(".sr-only").textContent(), { timeout: 8000 })
@@ -51,7 +78,9 @@ test.describe("split flap board", () => {
     await expect(status).toHaveAttribute("data-state", "settled");
   });
 
-  test("reduced motion swaps instantly and announces; the playground generates code", async ({ page }) => {
+  test("reduced motion swaps instantly and announces; the playground generates code", async ({
+    page,
+  }) => {
     await page.goto("/components/split-flap-board");
     const red = page.getByTestId("example-reduced");
     await red.scrollIntoViewIfNeeded();
@@ -64,7 +93,11 @@ test.describe("split flap board", () => {
 
     const stage = page.getByTestId("playground-stage");
     await stage.scrollIntoViewIfNeeded();
-    await expect(stage.locator('[data-slot="split-flap-board"]')).toHaveAttribute("data-state", "settled", { timeout: 5000 });
+    await expect(stage.locator('[data-slot="split-flap-board"]')).toHaveAttribute(
+      "data-state",
+      "settled",
+      { timeout: 5000 },
+    );
     await expect(page.getByTestId("playground-code")).toContainText('value="BOARDING"');
   });
 });

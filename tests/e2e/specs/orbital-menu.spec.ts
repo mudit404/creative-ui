@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("orbital menu", () => {
   test("opens into a ring, navigates by keyboard, and closes with Escape", async ({ page }) => {

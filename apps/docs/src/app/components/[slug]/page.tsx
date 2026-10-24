@@ -8,6 +8,7 @@ import { CodeBlock } from "~/components/docs/code-block";
 import { DocBody } from "~/components/docs/doc-section";
 import { StatusBadge, TierBadge } from "~/components/docs/badges";
 import { DocsSidebar } from "~/components/site/docs-sidebar";
+import { HydrationMarker } from "~/components/site/hydration-marker";
 import { readUiSource } from "~/lib/source";
 import { registryItemUrl } from "~/lib/registry-url";
 
@@ -15,7 +16,9 @@ export function generateStaticParams() {
   return components.filter((c) => c.status !== "planned").map((c) => ({ slug: c.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps<"/components/[slug]">): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps<"/components/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const meta = getComponent(slug);
   if (!meta) return {};
@@ -214,12 +217,20 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
       </main>
 
       <aside className="hidden xl:block">
-        <nav aria-label="On this page" className="scroll-thin sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain text-sm">
-          <div className="mb-2 font-mono text-[11px] uppercase tracking-wider text-muted">On this page</div>
+        <nav
+          aria-label="On this page"
+          className="scroll-thin sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain text-sm"
+        >
+          <div className="mb-2 font-mono text-[11px] uppercase tracking-wider text-muted">
+            On this page
+          </div>
           <ul className="flex flex-col gap-1 border-l border-line">
             {toc.map((t) => (
               <li key={t.id}>
-                <a href={`#${t.id}`} className="-ml-px block border-l border-transparent py-0.5 pl-3 text-muted hover:border-ink hover:text-ink">
+                <a
+                  href={`#${t.id}`}
+                  className="-ml-px block border-l border-transparent py-0.5 pl-3 text-muted hover:border-ink hover:text-ink"
+                >
                   {t.title}
                 </a>
               </li>
@@ -227,6 +238,7 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
           </ul>
         </nav>
       </aside>
+      <HydrationMarker />
     </div>
   );
 }

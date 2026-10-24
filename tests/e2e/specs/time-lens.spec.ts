@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, stableBox, test } from "../fixtures";
 
 test.describe("time lens", () => {
   test.beforeEach(async ({ page }) => {
@@ -16,12 +16,16 @@ test.describe("time lens", () => {
     const t0 = Number(await start.getAttribute("aria-valuemin"));
     const H = 36e5;
     expect(Number(await start.getAttribute("aria-valuenow"))).toBe(t0 + 5 * H);
+    await expect(stage.locator('[data-slot="time-lens"]')).toHaveAttribute("data-measured", "true"); // layout after ResizeObserver, not the 600 px SSR fallback
     const win = stage.locator("[data-window]");
-    const wb = (await win.boundingBox())!;
+    const wb = await stableBox(win);
     await page.mouse.move(wb.x + wb.width / 2, wb.y + wb.height / 2);
     await page.mouse.down();
     await page.mouse.move(wb.x + wb.width / 2 + 60, wb.y + wb.height / 2, { steps: 6 });
-    await expect(stage.locator('[data-slot="time-lens"]')).toHaveAttribute("data-state", "brushing");
+    await expect(stage.locator('[data-slot="time-lens"]')).toHaveAttribute(
+      "data-state",
+      "brushing",
+    );
     await expect(log).not.toContainText("· pan");
     await page.mouse.up();
     await expect(log).toContainText("· pan");
@@ -42,38 +46,55 @@ test.describe("time lens", () => {
     await expect(stage.getByRole("alert")).toContainText("offset");
   });
 
-  test("equal intervals take equal space; DST display keeps order; list selection brings events into view", async ({ page }) => {
+  test("equal intervals take equal space; DST display keeps order; list selection brings events into view", async ({
+    page,
+  }) => {
     await page.goto("/components/time-lens");
     const ex = page.getByTestId("example-incidents");
     await ex.scrollIntoViewIfNeeded();
+    await expect(ex.locator('[data-slot="time-lens"]')).toHaveAttribute("data-measured", "true");
     const alarm = ex.getByRole("button", { name: /^Alarm fired, / });
     const rollback = ex.getByRole("button", { name: /^Rollback to 2.3, / });
     const resolved = ex.getByRole("button", { name: /^Resolved, / });
-    const a = (await alarm.boundingBox())!.x;
-    const r = (await rollback.boundingBox())!.x;
-    const z = (await resolved.boundingBox())!.x;
-    expect(Math.abs((r - a) - ((z - r) * 1) / 1.75)).toBeLessThan(3); // 1h vs 1.75h gaps
+    // event positions transition for 240 ms after the measured layout lands, so poll the ratio rather than read once
+    await expect
+      .poll(async () => {
+        const a = (await alarm.boundingBox())!.x;
+        const r = (await rollback.boundingBox())!.x;
+        const z = (await resolved.boundingBox())!.x;
+        return Math.abs(r - a - (z - r) / 1.75); // 1h vs 1.75h gaps
+      })
+      .toBeLessThan(3);
     await expect(alarm).toHaveAccessibleName(/01:30/); // 06:30Z is 01:30 EST on the DST day
     await expect(rollback).toHaveAccessibleName(/03:30/); // 07:30Z is 03:30 EDT
     await ex.getByRole("button", { name: "UTC" }).click();
     await expect(alarm).toHaveAccessibleName(/06:30/);
     await expect(ex.getByRole("button", { name: /^Postmortem, / })).toHaveCount(0);
-    await ex.getByRole("list", { name: /All events/ }).getByRole("button", { name: /Postmortem/ }).click();
+    await ex
+      .getByRole("list", { name: /All events/ })
+      .getByRole("button", { name: /Postmortem/ })
+      .click();
     await expect(ex.getByRole("button", { name: /^Postmortem, / })).toBeVisible();
     await expect(ex.locator("[data-details]")).toContainText("Postmortem");
   });
 
-  test("wheel does not scroll-zoom by default; 500 events render; reduced motion drops transitions", async ({ page }) => {
+  test("wheel does not scroll-zoom by default; 500 events render; reduced motion drops transitions", async ({
+    page,
+  }) => {
     await page.goto("/components/time-lens");
     const stage = page.getByTestId("playground-stage");
     const lane = stage.getByRole("region", { name: /^Detail/ });
-    const before = await stage.getByRole("slider", { name: "Window start" }).getAttribute("aria-valuenow");
+    const before = await stage
+      .getByRole("slider", { name: "Window start" })
+      .getAttribute("aria-valuenow");
     const lb = (await lane.boundingBox())!;
     await page.mouse.move(lb.x + lb.width / 2, lb.y + lb.height / 2);
     const scrollBefore = await page.evaluate(() => window.scrollY);
     await page.mouse.wheel(0, 300);
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(scrollBefore);
-    expect(await stage.getByRole("slider", { name: "Window start" }).getAttribute("aria-valuenow")).toBe(before);
+    expect(
+      await stage.getByRole("slider", { name: "Window start" }).getAttribute("aria-valuenow"),
+    ).toBe(before);
 
     const stress = page.getByTestId("example-stress");
     await stress.scrollIntoViewIfNeeded();
@@ -81,7 +102,10 @@ test.describe("time lens", () => {
     expect(await stress.locator("[data-event]").count()).toBeGreaterThan(20);
 
     await page.getByLabel("Reduced motion").check();
-    await expect(stage.locator('[data-slot="time-lens"]')).toHaveAttribute("data-motion", "reduced");
+    await expect(stage.locator('[data-slot="time-lens"]')).toHaveAttribute(
+      "data-motion",
+      "reduced",
+    );
     await expect(stage.locator("[data-event]").first()).toHaveCSS("transition-duration", "0s");
   });
 
@@ -90,6 +114,8 @@ test.describe("time lens", () => {
     expect(res.ok()).toBeTruthy();
     const item = await res.json();
     expect(item.files[0].content).toContain("onWindowCommit");
-    expect(item.registryDependencies.some((d: string) => d.endsWith("/r/time-scale.json"))).toBeTruthy();
+    expect(
+      item.registryDependencies.some((d: string) => d.endsWith("/r/time-scale.json")),
+    ).toBeTruthy();
   });
 });

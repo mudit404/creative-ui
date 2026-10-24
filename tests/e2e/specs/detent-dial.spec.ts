@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("detent dial", () => {
   test("vertical drag previews, snaps to detents and commits once on release", async ({ page }) => {

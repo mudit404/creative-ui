@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 const svg = (body: string, w = 400, h = 300) => Buffer.from(`<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}' viewBox='0 0 ${w} ${h}'>${body}</svg>`);
 const SIX = svg(["#dc281e", "#1e5ac8", "#28aa50", "#f0c828", "#783ca0", "#141414"].map((c, i) => `<rect x='${(i % 3) * 134}' y='${Math.floor(i / 3) * 150}' width='134' height='150' fill='${c}'/>`).join(""));

@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("elastic range", () => {
   test("drag previews, releases commit once, and overshoot never leaks into the value", async ({ page }) => {

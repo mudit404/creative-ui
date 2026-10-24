@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("expanding product grid", () => {
   test("expands a card to the full row, reflows, and collapses with Escape", async ({ page }) => {

@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("particle morph", () => {
   test("targets prepare, morph and complete; the stage changes between emblems", async ({ page }) => {

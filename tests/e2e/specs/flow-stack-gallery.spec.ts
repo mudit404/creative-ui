@@ -1,9 +1,13 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("flow stack gallery", () => {
-  test("thumbnails fly into the viewer, controls shuffle the deck, keyboard works", async ({ page }) => {
+  test("thumbnails fly into the viewer, controls shuffle the deck, keyboard works", async ({
+    page,
+  }) => {
     await page.goto("/components/flow-stack-gallery");
-    await expect(page.getByRole("heading", { level: 1, name: "ThumbnailFlow Gallery" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { level: 1, name: "ThumbnailFlow Gallery" }),
+    ).toBeVisible();
     await expect(page.getByText("Example renderer missing")).toHaveCount(0);
 
     const stage = page.getByTestId("playground-stage");
@@ -22,10 +26,15 @@ test.describe("flow stack gallery", () => {
     await gallery.getByRole("tab", { name: /Night bus/ }).click();
     await expect(gallery.locator('[data-slot="flow-stack-flight"]')).toHaveCount(1);
     await expect(gallery).toHaveAttribute("data-index", "2");
-    await expect(gallery.locator('[data-slot="flow-stack-flight"]')).toHaveCount(0, { timeout: 4000 });
+    await expect(gallery.locator('[data-slot="flow-stack-flight"]')).toHaveCount(0, {
+      timeout: 4000,
+    });
     await expectTop(/Night bus/);
     await expect(panel.locator('[data-offset="0"]')).toHaveCSS("opacity", "1");
-    await expect(gallery.getByRole("tab", { name: /Night bus/ })).toHaveAttribute("aria-selected", "true");
+    await expect(gallery.getByRole("tab", { name: /Night bus/ })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
 
     // next / previous
     await gallery.getByRole("button", { name: "Next image" }).click();
@@ -48,10 +57,12 @@ test.describe("flow stack gallery", () => {
     const stage = page.getByTestId("playground-stage");
     const gallery = stage.getByRole("group", { name: "Lookbook" });
     const card = gallery.locator('[data-offset="0"]');
+    await card.scrollIntoViewIfNeeded();
     const box = (await card.boundingBox())!;
     await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
     await page.mouse.down();
-    for (let i = 1; i <= 10; i++) await page.mouse.move(box.x + box.width / 2 - i * 20, box.y + box.height / 2);
+    for (let i = 1; i <= 10; i++)
+      await page.mouse.move(box.x + box.width / 2 - i * 20, box.y + box.height / 2);
     await page.mouse.up();
     await expect(gallery).toHaveAttribute("data-index", "1");
     await expect(gallery.locator('[data-offset="0"]')).toHaveCount(1);

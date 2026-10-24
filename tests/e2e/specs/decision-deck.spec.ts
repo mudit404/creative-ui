@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("decision deck", () => {
   test("swipe commits once, pending locks the controls, the host advances the deck", async ({ page }) => {

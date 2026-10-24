@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("ascii media", () => {
   test("an image converts to a glyph grid; Show original keeps the same element", async ({ page }) => {

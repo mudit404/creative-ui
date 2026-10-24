@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("adaptive rail", () => {
   test("collapses while scrolling down and expands on scroll up or idle", async ({ page }) => {
