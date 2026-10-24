@@ -15,9 +15,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 12
+      - uses: pnpm/action-setup@v4 # version comes from package.json "packageManager"
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -61,7 +59,9 @@ jobs:
         run: |
           (cd apps/docs && npx serve -l 3100 public >/dev/null 2>&1 &)
           sleep 2
+          # every registry:ui item, so the consumer's App.tsx (which uses them all) compiles
+          urls() { node -e "console.log(require('$GITHUB_WORKSPACE/registry/registry.json').items.filter((i) => i.type === 'registry:ui').map((i) => 'http://localhost:3100/r/' + i.name + '.json').join(' '))"; }
           cd examples/vite-consumer
           pnpm install
-          pnpm dlx shadcn@latest add http://localhost:3100/r/material-button.json --yes --overwrite
+          pnpm dlx shadcn@latest add $(urls) --yes --overwrite
           pnpm build
