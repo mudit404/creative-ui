@@ -52,15 +52,21 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # 127.0.0.1, not localhost: Node resolves localhost to ::1 first and the static server listens on IPv4,
+      # and the item JSON embeds this origin in its registryDependencies.
       - run: pnpm build:registry
         env:
-          REGISTRY_URL: http://localhost:3100
+          REGISTRY_URL: http://127.0.0.1:3100
       - name: Serve the registry and install into examples/vite-consumer
         run: |
-          (cd apps/docs && npx serve -l 3100 public >/dev/null 2>&1 &)
-          sleep 2
+          npx --yes serve -l 3100 apps/docs/public > /tmp/serve.log 2>&1 &
+          for i in $(seq 1 60); do
+            curl -sf http://127.0.0.1:3100/r/material-button.json > /dev/null && break
+            sleep 1
+          done
+          curl -sf http://127.0.0.1:3100/r/material-button.json > /dev/null || { echo "registry server did not start"; cat /tmp/serve.log; exit 1; }
           # every registry:ui item, so the consumer's App.tsx (which uses them all) compiles
-          urls() { node -e "console.log(require('$GITHUB_WORKSPACE/registry/registry.json').items.filter((i) => i.type === 'registry:ui').map((i) => 'http://localhost:3100/r/' + i.name + '.json').join(' '))"; }
+          urls() { node -e "console.log(require('$GITHUB_WORKSPACE/registry/registry.json').items.filter((i) => i.type === 'registry:ui').map((i) => 'http://127.0.0.1:3100/r/' + i.name + '.json').join(' '))"; }
           cd examples/vite-consumer
           pnpm install
           pnpm dlx shadcn@latest add $(urls) --yes --overwrite
