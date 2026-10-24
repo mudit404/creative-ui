@@ -9,6 +9,39 @@ import { ExpandingProductGrid, ExpandingProductCard } from "@/components/ui/expa
 import { FlowStackGallery } from "@/components/ui/flow-stack-gallery";
 import { MosaicMenu, MosaicMenuTrigger } from "@/components/ui/mosaic-menu";
 import { AdaptiveRail, AdaptiveRailItem, AdaptiveRailSeparator } from "@/components/ui/adaptive-rail";
+import { ElasticRange } from "@/components/ui/elastic-range";
+import { DetentDial } from "@/components/ui/detent-dial";
+import { ActivityCapsule } from "@/components/ui/activity-capsule";
+import { CompareWorkbench } from "@/components/ui/compare-workbench";
+import { PaletteComposer } from "@/components/ui/palette-composer";
+import { DecisionDeck } from "@/components/ui/decision-deck";
+import { TransferBoard } from "@/components/ui/transfer-board";
+import { CablePatchbay } from "@/components/ui/cable-patchbay";
+import { TimeLens } from "@/components/ui/time-lens";
+import { ContinuityChart } from "@/components/ui/continuity-chart";
+import { FocusGraph } from "@/components/ui/focus-graph";
+import { ScrollFilm } from "@/components/ui/scroll-film";
+import { ExplodedProduct } from "@/components/ui/exploded-product";
+import { CutawayViewer } from "@/components/ui/cutaway-viewer";
+import { FinishConfigurator } from "@/components/ui/finish-configurator";
+import { SplitFlapBoard } from "@/components/ui/split-flap-board";
+import { ParticleMorph } from "@/components/ui/particle-morph";
+import { AsciiMedia } from "@/components/ui/ascii-media";
+import { GlassKeybed } from "@/components/ui/glass-keybed";
+import { DockWorkspace } from "@/components/ui/dock-workspace";
+import { BoxGeometry, Group, Mesh, MeshStandardMaterial } from "three";
+
+function tinyModel() {
+  const root = new Group();
+  for (const [name, y] of [["Top", 0.6], ["Base", -0.6]] as const) {
+    const m = new Mesh(new BoxGeometry(1, 1, 1), new MeshStandardMaterial({ color: "#b78d5a" }));
+    m.name = name;
+    m.position.y = y;
+    m.userData.closed = true;
+    root.add(m);
+  }
+  return root;
+}
 
 /**
  * Consumer smoke test: the component installed from the registry, used the
@@ -115,6 +148,98 @@ export default function App() {
         <AdaptiveRailSeparator />
         <AdaptiveRailItem label="Share">⇪</AdaptiveRailItem>
       </AdaptiveRail>
+
+      <section className="flex w-full flex-col gap-8">
+        <ElasticRange variant="interval" labels={{ label: "Budget" }} min={0} max={1000} step={10} minGap={50} defaultValue={[200, 650]} name="budget" />
+        <div className="flex items-start gap-8">
+          <DetentDial label="Gain" unit="dB" min={-60} max={12} detents={[-12, -6, 0, 6]} defaultValue={-6} resetValue={0} />
+          <ActivityCapsule
+            tasks={[{ id: "up", attemptId: "a1", attempt: 1, revision: 3, label: "Uploading 12 photos", status: "running", progress: { completed: 3, total: 12, unit: "files" } }]}
+            onCancelRequest={(id, attempt) => alert(`cancel ${id} ${attempt}`)}
+          />
+        </div>
+        <CompareWorkbench
+          items={[
+            { id: "a", name: "Alpha", attributes: { weight: 500, wifi: false, price: 99 } },
+            { id: "b", name: "Beta", attributes: { weight: { value: 500, unit: "oz" }, wifi: { availability: "unknown" }, price: 99 } },
+            { id: "c", name: "Gamma", attributes: { weight: 600, wifi: true, price: 149 } },
+          ]}
+          attributes={[
+            { key: "weight", label: "Weight", group: "Specs", unit: "g", kind: "number" },
+            { key: "wifi", label: "Wi-Fi", group: "Specs", kind: "boolean" },
+            { key: "price", label: "Price", group: "Price", unit: "USD", kind: "number" },
+          ]}
+          defaultSelectedIds={["a", "b"]}
+        />
+      </section>
+
+      <section className="flex w-full flex-col gap-8">
+        <PaletteComposer count={4} allowUrl={false} defaultPalette={[{ id: "slot-1", color: "#ff4d1c", locked: true, origin: "edited" }]} />
+        <DecisionDeck
+          items={[{ id: "a", title: "First" }, { id: "b", title: "Second" }]}
+          outcomes={[{ id: "reject", label: "Reject" }, { id: "accept", label: "Accept" }]}
+          onDecisionRequest={(i) => alert(`${i.outcomeId} ${i.itemId}`)}
+          renderCard={(item) => <div className="p-6">{item.title}</div>}
+          undo={false}
+        />
+        <TransferBoard
+          containers={[{ id: "todo", label: "To do" }, { id: "done", label: "Done" }]}
+          items={[{ id: "x", title: "Ship it" }, { id: "y", title: "Test it" }]}
+          itemsByContainer={{ todo: ["x", "y"], done: [] }}
+          revision={1}
+          onMoveRequest={(i) => alert(`move ${i.itemId} → ${i.toContainerId}`)}
+        />
+      </section>
+
+      <section className="flex w-full flex-col gap-8">
+        <CablePatchbay
+          ports={[
+            { id: "o", nodeId: "src", label: "Out", direction: "output", dataType: "audio" },
+            { id: "i", nodeId: "dst", label: "In", direction: "input", dataType: "audio" },
+          ]}
+          connections={[]}
+          onConnectRequest={(i) => alert(`connect ${i.sourcePortId} → ${i.targetPortId}`)}
+        />
+        <TimeLens events={[{ id: "a", startMs: 0, label: "Start" }, { id: "b", startMs: 3_600_000, endMs: 5_400_000, label: "Window" }]} domain={[0, 7_200_000]} />
+        <ContinuityChart snapshots={[{ id: "s", label: "Now", unit: "%", rows: [{ id: "x", label: "X", value: 40 }, { id: "y", label: "Y", value: -5 }, { id: "z", label: "Z", value: null }] }]} summary="A tiny install check chart" />
+        <FocusGraph nodes={[{ id: "a", label: "A" }, { id: "b", label: "B" }, { id: "c", label: "C" }]} edges={[{ source: "a", target: "b" }, { source: "b", target: "c" }]} directed />
+      </section>
+
+      <section className="flex w-full flex-col gap-8">
+        <ScrollFilm variant="inline" src="/film.webm" poster="/poster.png" description="Install check film" transcript="No narration." chapters={[{ id: "a", label: "Start", startTime: 0 }]} />
+        <ExplodedProduct model={{ kind: "scene", build: tinyModel }} poster="/poster.png" alt="Two boxes" parts={[{ id: "top", nodePath: "Top", label: "Top", offset: [0, 1, 0] }, { id: "base", nodePath: "Base", label: "Base", offset: [0, -1, 0] }]} />
+        <CutawayViewer model={{ kind: "scene", build: tinyModel }} poster="/poster.png" description="Two boxes" defaultEnabled />
+        <FinishConfigurator
+          model={{ kind: "scene", build: tinyModel }}
+          poster="/poster.png"
+          description="Two boxes"
+          groups={[{ id: "wood", label: "Wood", options: [{ id: "oak", name: "Oak", targets: ["Top", "Base"], material: { color: "#b78d5a" } }, { id: "walnut", name: "Walnut", targets: ["Top", "Base"], material: { color: "#5a3d2b" } }] }]}
+          defaultSelection={{ wood: "oak" }}
+        />
+      </section>
+
+      <section className="flex w-full flex-col gap-8">
+        <SplitFlapBoard value="ON TIME" cells={8} label="Install check board" />
+        <ParticleMorph
+          targets={[
+            { id: "disc", label: "Disc", type: "image", src: "/poster.png", fallback: "/poster.png" },
+            { id: "cloud", label: "Cloud", type: "points", points: Float32Array.from({ length: 300 }, (_, i) => Math.sin(i * 1.7)), fallback: "/poster.png" },
+          ]}
+          pointCount={2000}
+          className="h-48"
+        />
+        <AsciiMedia source={{ kind: "image", src: "/poster.png", alt: "Install check poster" }} columns={48} />
+        <GlassKeybed variant="opaque-accessible" onNoteOn={(n) => console.log("note", n.noteId)} />
+        <DockWorkspace
+          panels={[
+            { id: "a", title: "A", render: () => <p>Panel A</p> },
+            { id: "b", title: "B", render: () => <p>Panel B</p> },
+            { id: "c", title: "C", render: () => <p>Panel C</p>, closable: false },
+          ]}
+          compactBreakpoint={320}
+          className="h-64"
+        />
+      </section>
 
       <section className="brand-blue rounded-2xl bg-neutral-900 p-12">
         <MaterialButton>Themed with CSS variables</MaterialButton>

@@ -45,7 +45,7 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
   return (
     <div className="mx-auto grid max-w-[1400px] gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[220px_minmax(0,1fr)] xl:grid-cols-[220px_minmax(0,1fr)_200px]">
       <aside className="hidden lg:block">
-        <div className="sticky top-20">
+        <div className="scroll-thin sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain pb-6 pr-2">
           <DocsSidebar />
         </div>
       </aside>
@@ -214,7 +214,7 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
       </main>
 
       <aside className="hidden xl:block">
-        <nav aria-label="On this page" className="sticky top-20 text-sm">
+        <nav aria-label="On this page" className="scroll-thin sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain text-sm">
           <div className="mb-2 font-mono text-[11px] uppercase tracking-wider text-muted">On this page</div>
           <ul className="flex flex-col gap-1 border-l border-line">
             {toc.map((t) => (

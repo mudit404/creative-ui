@@ -13,7 +13,7 @@ export default function RoadmapPage() {
   return (
     <div className="mx-auto grid max-w-[1400px] gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[220px_minmax(0,1fr)]">
       <aside className="hidden lg:block">
-        <div className="sticky top-20">
+        <div className="scroll-thin sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain pb-6 pr-2">
           <DocsSidebar />
         </div>
       </aside>
