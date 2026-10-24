@@ -49,7 +49,7 @@ describe("ParticleMorph", () => {
     expect(document.querySelector("[data-label]")).toHaveTextContent("Disc");
     expect(root()).toHaveAttribute("data-state", "preparing");
     await waitFor(() => expect(ready).toHaveBeenCalledWith("disc"));
-    expect(complete).toHaveBeenCalledWith("disc", 1);
+    await waitFor(() => expect(complete).toHaveBeenCalledWith("disc", 1)); // completion follows readiness after a render, never in the same tick
     const pos = ref.current!.getPositions()!;
     const expected = sampleMask(MASKS["disc.png"]!, 400, 1)!.positions;
     expect(meanDistance(pos, expected)).toBeCloseTo(0, 6);
