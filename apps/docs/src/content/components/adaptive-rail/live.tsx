@@ -27,10 +27,10 @@ const I = {
 
 function LongContent({ lines = 24, label = "Scroll inside this panel" }: { lines?: number; label?: string }) {
   return (
-    <div className="space-y-3 p-6 pb-28 text-[14px] leading-relaxed text-[rgba(20,19,17,0.7)]">
-      <p className="font-mono text-[11px] uppercase tracking-wider text-[rgba(20,19,17,0.5)]">{label}</p>
+    <div className="space-y-3 p-6 pb-28 text-[14px] leading-relaxed text-[light-dark(rgba(20,19,17,0.7),rgba(236,235,230,0.7))]">
+      <p className="font-mono text-[11px] uppercase tracking-wider text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]">{label}</p>
       {Array.from({ length: lines }, (_, i) => (
-        <p key={i} className="rounded-lg bg-[rgba(20,19,17,0.05)] px-3 py-2">
+        <p key={i} className="rounded-lg bg-[light-dark(rgba(20,19,17,0.05),rgba(236,235,230,0.05))] px-3 py-2">
           Paragraph {i + 1}. The rail watches this panel&apos;s scroll position and reacts to direction, not to position.
         </p>
       ))}
@@ -41,7 +41,7 @@ function LongContent({ lines = 24, label = "Scroll inside this panel" }: { lines
 function Panel({ children, height = 360, className = "" }: { children: (panel: React.RefObject<HTMLDivElement | null>) => ReactNode; height?: number; className?: string }) {
   const panel = useRef<HTMLDivElement>(null);
   return (
-    <div className={`relative w-full max-w-xl overflow-hidden rounded-2xl border border-[rgba(20,19,17,0.12)] bg-[#f6f4ef] ${className}`} style={{ height }}>
+    <div className={`relative w-full max-w-xl overflow-hidden rounded-2xl border border-[light-dark(rgba(20,19,17,0.12),rgba(236,235,230,0.12))] bg-[light-dark(#f6f4ef,#1f1f1c)] ${className}`} style={{ height }}>
       <div ref={panel} className="h-full overflow-y-auto" data-testid="rail-panel">
         <LongContent />
       </div>
@@ -54,7 +54,7 @@ function PlaygroundRail({ values }: { values: PlaygroundValues }) {
   const panel = useRef<HTMLDivElement>(null);
   const props = values as unknown as Omit<AdaptiveRailProps, "label">;
   return (
-    <div className="relative h-[360px] w-full max-w-xl overflow-hidden rounded-2xl border border-[rgba(20,19,17,0.12)] bg-[#f6f4ef]">
+    <div className="relative h-[360px] w-full max-w-xl overflow-hidden rounded-2xl border border-[light-dark(rgba(20,19,17,0.12),rgba(236,235,230,0.12))] bg-[light-dark(#f6f4ef,#1f1f1c)]">
       <div ref={panel} className="h-full overflow-y-auto" data-testid="rail-panel">
         <LongContent />
       </div>
@@ -75,13 +75,13 @@ function ContextDemo() {
   const [selected, setSelected] = useState<number[]>([]);
   const toggle = (i: number) => setSelected((s) => (s.includes(i) ? s.filter((x) => x !== i) : [...s, i]));
   return (
-    <div className="relative w-full max-w-xl rounded-2xl border border-[rgba(20,19,17,0.12)] bg-[#f6f4ef] p-5 pb-24">
-      <p className="mb-3 font-mono text-[11px] uppercase tracking-wider text-[rgba(20,19,17,0.5)]">Select files</p>
+    <div className="relative w-full max-w-xl rounded-2xl border border-[light-dark(rgba(20,19,17,0.12),rgba(236,235,230,0.12))] bg-[light-dark(#f6f4ef,#1f1f1c)] p-5 pb-24">
+      <p className="mb-3 font-mono text-[11px] uppercase tracking-wider text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]">Select files</p>
       <ul className="space-y-2">
         {["Brief.pdf", "Moodboard.fig", "Contract.docx", "Logo.svg"].map((name, i) => (
           <li key={name}>
-            <label className="flex cursor-pointer items-center gap-3 rounded-lg bg-[rgba(20,19,17,0.05)] px-3 py-2 text-[14px] text-[#141311]">
-              <input type="checkbox" checked={selected.includes(i)} onChange={() => toggle(i)} className="size-4 accent-[#141311]" />
+            <label className="flex cursor-pointer items-center gap-3 rounded-lg bg-[light-dark(rgba(20,19,17,0.05),rgba(236,235,230,0.05))] px-3 py-2 text-[14px] text-[light-dark(#141311,#ecebe6)]">
+              <input type="checkbox" checked={selected.includes(i)} onChange={() => toggle(i)} className="size-4 accent-[light-dark(#141311,#ecebe6)]" />
               {name}
             </label>
           </li>
@@ -103,14 +103,14 @@ const darkVars = {
   "--ar-border": "rgba(255,255,255,0.12)",
   "--ar-item-hover": "rgba(255,255,255,0.1)",
   "--ar-item-active": "#ff4d1c",
-  "--ar-item-active-foreground": "#fff",
+  "--ar-item-active-foreground": "#141311", // ink on #ff4d1c is 5.7:1; white would be 3.3:1
   "--ar-ring": "#ff4d1c",
 } as CSSProperties;
 
 export const adaptiveRailLive: LiveModule = {
   renderPlayground: (values) => <PlaygroundRail values={values} />,
   cardPreview: () => (
-    <div className="relative h-32 w-72 overflow-hidden rounded-xl bg-[#f6f4ef]">
+    <div className="relative h-32 w-72 overflow-hidden rounded-xl bg-[light-dark(#f6f4ef,#1f1f1c)]">
       <AdaptiveRail label="Preview" position="absolute" behavior="static" offset={16}>
         <AdaptiveRailItem label="Home" active>{I.home}</AdaptiveRailItem>
         <AdaptiveRailItem label="Search">{I.search}</AdaptiveRailItem>
@@ -136,7 +136,7 @@ export const adaptiveRailLive: LiveModule = {
     ),
     context: () => <ContextDemo />,
     labels: () => (
-      <div className="relative h-40 w-full max-w-xl rounded-2xl bg-[#f6f4ef]">
+      <div className="relative h-40 w-full max-w-xl rounded-2xl bg-[light-dark(#f6f4ef,#1f1f1c)]">
         <AdaptiveRail label="Editor" showLabels behavior="static" position="absolute">
           <AdaptiveRailItem label="Write" priority active>{I.pen}</AdaptiveRailItem>
           <AdaptiveRailItem label="Preview">{I.eye}</AdaptiveRailItem>
@@ -156,7 +156,7 @@ export const adaptiveRailLive: LiveModule = {
       </Panel>
     ),
     themed: () => (
-      <div className="relative h-40 w-full max-w-xl rounded-2xl bg-[#e9e5dc]">
+      <div className="relative h-40 w-full max-w-xl rounded-2xl bg-[light-dark(#e9e5dc,#2a2a27)]">
         <AdaptiveRail label="Player" behavior="static" position="absolute" style={darkVars} showLabels>
           <AdaptiveRailItem label="Previous">{I.prev}</AdaptiveRailItem>
           <AdaptiveRailItem label="Play" active>{I.play}</AdaptiveRailItem>

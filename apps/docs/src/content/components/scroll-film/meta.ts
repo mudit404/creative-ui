@@ -31,10 +31,13 @@ export const scrollFilmMeta: ComponentMeta = {
     { name: "ref", type: "ScrollFilmHandle", default: "—", description: "{ root, video } — the native element, not the scheduler." },
   ],
   cssVars: [
-    { name: "--cui-film-caption-bg", description: "Chapter caption background on the stage", default: "rgba(0,0,0,0.65)" },
+    { name: "--cui-film-text", description: "Text colour below the stage (status, chapters, transcript)", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-film-caption-bg", description: "Chapter caption background on the stage (the stage overlays are designed dark on both themes)", default: "rgba(0,0,0,0.65)" },
     { name: "--cui-film-progress", description: "Requested-time progress line", default: "#c8f55a" },
-    { name: "--cui-film-chapter-active", description: "Active chapter button", default: "#141311" },
-    { name: "--cui-film-border", description: "Buttons and transcript border", default: "rgba(20,19,17,0.25)" },
+    { name: "--cui-film-chapter-active", description: "Active chapter button fill and border", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-film-border", description: "Buttons and transcript border (decorative; the buttons carry labels)", default: "light-dark(rgba(20,19,17,0.25), rgba(236,235,230,0.25))" },
+    { name: "--cui-film-focus", description: "Focus ring", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-film-error", description: "Chapter diagnostics text", default: "light-dark(#b8310c, #ff8a65)" },
   ],
   examples: [
     {
@@ -80,6 +83,7 @@ export const scrollFilmMeta: ComponentMeta = {
       body: `- The transcript and chapter links work without any scrolling; chapters are buttons that scroll the page in story mode or seek the player in native mode (C50-T08).
 - The video is named by \`description\`; caption tracks are forwarded as \`<track>\` elements.
 - A polite status reports requested vs presented time or the current mode, never per frame.
+- Default colours below the stage follow \`color-scheme\` via \`light-dark()\` (Chrome 123+, Safari 17.5+, Firefox 120+; older browsers get the light values); the caption, badge and error overlays on the video are light text on dark fills on both themes.
 - Audio never starts on its own: story mode is muted and paused; native mode waits for the user to press play (C50-T10).`,
     },
     {

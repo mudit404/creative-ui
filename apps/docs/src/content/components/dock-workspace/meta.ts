@@ -28,11 +28,13 @@ export const dockWorkspaceMeta: ComponentMeta = {
     { name: "ref", type: "DockWorkspaceHandle", default: "—", description: "{ root, focusPanel(id), resetLayout() }." },
   ],
   cssVars: [
-    { name: "--cui-dock-tab", description: "Tab strip background", default: "#efede8" },
-    { name: "--cui-dock-active", description: "Active tab and panel background", default: "#faf9f6" },
-    { name: "--cui-dock-divider", description: "Dividers and handles", default: "rgba(20,19,17,0.15)" },
-    { name: "--cui-dock-preview", description: "Valid docking preview", default: "#1f7a4f" },
-    { name: "--cui-dock-focus", description: "Focus ring and hovered handle", default: "#141311" },
+    { name: "--cui-dock-text", description: "Text", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-dock-tab", description: "Tab strip background and menu item hover", default: "light-dark(#e9e5dc, #2a2a27)" },
+    { name: "--cui-dock-active", description: "Active tab, panel, menu and workspace background", default: "light-dark(#faf9f6, #1f1f1c)" },
+    { name: "--cui-dock-divider", description: "Dividers and resize handles", default: "light-dark(rgba(20,19,17,0.15), rgba(236,235,230,0.15))" },
+    { name: "--cui-dock-preview", description: "Valid docking preview (border and 15% fill)", default: "light-dark(#1a6b45, #5fcf8f)" },
+    { name: "--cui-dock-error", description: "Invalid docking preview (border and 10% fill)", default: "light-dark(#b8310c, #ff8a65)" },
+    { name: "--cui-dock-focus", description: "Focus ring and hovered handle", default: "light-dark(#141311, #ecebe6)" },
   ],
   examples: [
     { id: "studio", title: "Five-panel editor", description: "Drag tabs to edges or groups, or use each panel's ▾ menu. Resize with the handle (pointer or arrow keys). Every accepted layout is logged with its reason.", code: `<DockWorkspace panels={PANELS} onLayoutChange={log} />` },

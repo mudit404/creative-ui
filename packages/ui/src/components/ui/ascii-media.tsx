@@ -46,6 +46,29 @@ export interface AsciiMediaProps extends Omit<React.HTMLAttributes<HTMLDivElemen
 
 const DEFAULT_RAMP = " .:-=+*#%@";
 
+/* The canvas is designed dark on both colour schemes; these are the token fallbacks. */
+const CANVAS_BACKGROUND = "#141311";
+const CANVAS_FOREGROUND = "#faf9f6";
+
+/**
+ * Canvas cannot parse `var()` or `light-dark()`. Resolve a CSS colour through
+ * the browser instead: a probe inside the root inherits the tokens and the
+ * element's `color-scheme`, and its computed `color` is an `rgb()` string.
+ * Falls back when the environment cannot compute it (jsdom).
+ */
+function resolveCanvasColor(root: HTMLElement, value: string, fallback: string): string {
+  const probe = document.createElement("span");
+  probe.style.display = "none";
+  probe.style.color = value;
+  root.appendChild(probe);
+  try {
+    const out = getComputedStyle(probe).color.trim();
+    return out && !/var\(|light-dark\(/i.test(out) ? out : fallback;
+  } finally {
+    probe.remove();
+  }
+}
+
 const canvasSampler: FrameSampler = (media, cols, rows) => {
   const c = document.createElement("canvas");
   c.width = cols;
@@ -183,8 +206,9 @@ export const AsciiMedia = React.forwardRef<AsciiMediaHandle, AsciiMediaProps>(fu
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const bg = getComputedStyle(root).getPropertyValue("--cui-ascii-background").trim() || "#141311";
-      const fg = getComputedStyle(root).getPropertyValue("--cui-ascii-foreground").trim() || "#faf9f6";
+      // re-resolved at each draw: a consumer may retheme the tokens between frames
+      const bg = resolveCanvasColor(root, `var(--cui-ascii-background, ${CANVAS_BACKGROUND})`, CANVAS_BACKGROUND);
+      const fg = resolveCanvasColor(root, `var(--cui-ascii-foreground, ${CANVAS_FOREGROUND})`, CANVAS_FOREGROUND);
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, g.cols * cell, g.rows * cellH);
       const atlas = atlasFor(cell * dpr, cellH * dpr, fg);
@@ -333,7 +357,7 @@ export const AsciiMedia = React.forwardRef<AsciiMediaHandle, AsciiMediaProps>(fu
       data-rows={grid?.rows}
       role="group"
       aria-label={label}
-      className={cn("flex w-full flex-col gap-2 text-[var(--cui-ascii-control,#141311)]", className)}
+      className={cn("flex w-full flex-col gap-2 text-[var(--cui-ascii-control,light-dark(#141311,#ecebe6))]", className)}
       {...rest}
     >
       <div className="relative w-full overflow-hidden rounded-2xl bg-[var(--cui-ascii-background,#141311)]" style={{ aspectRatio: aspect }} data-stage onPointerEnter={hoverReveal ? () => setShow(true) : undefined} onPointerLeave={hoverReveal ? () => setShow(false) : undefined}>
@@ -360,10 +384,10 @@ export const AsciiMedia = React.forwardRef<AsciiMediaHandle, AsciiMediaProps>(fu
         {state === "preparing" && <div className="absolute inset-x-0 bottom-2 text-center text-[11px] text-white/80">Preparing glyphs…</div>}
       </div>
       <div className="flex flex-wrap items-center gap-2 text-[12px]">
-        <button type="button" aria-pressed={showOriginal} onClick={() => setShow(!showOriginal)} disabled={state === "error" || videoBlocked} className="inline-flex h-7 items-center rounded-full border border-[var(--cui-ascii-control,rgba(20,19,17,0.25))] px-2.5 outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-ascii-control,#141311)] disabled:opacity-40">
+        <button type="button" aria-pressed={showOriginal} onClick={() => setShow(!showOriginal)} disabled={state === "error" || videoBlocked} className="inline-flex h-7 items-center rounded-full border border-[var(--cui-ascii-border,light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25)))] px-2.5 outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--cui-ascii-control,light-dark(#141311,#ecebe6))] disabled:opacity-40">
           {showOriginal ? "Show ASCII" : "Show original"}
         </button>
-        <span id={`${uid}-status`} role="status" className={cn(error ? "text-[var(--cui-ascii-error,#c8360d)]" : "opacity-70")}>
+        <span id={`${uid}-status`} role="status" className={cn(error ? "text-[var(--cui-ascii-error,light-dark(#b8310c,#ff8a65))]" : "opacity-70")}>
           {error ?? (videoBlocked ? "Reduced motion: showing the native player." : grid && state === "ascii" ? `${grid.cols}×${grid.rows} cells` : state === "preparing" ? "Preparing…" : "")}
           {rampError ? ` ${rampError}; using the default ramp.` : ""}
         </span>

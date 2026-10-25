@@ -119,9 +119,9 @@ export const transferBoardLive: LiveModule = {
   cardPreview: () => (
     <div className="grid w-56 grid-cols-3 gap-1.5" aria-hidden>
       {[3, 2, 1].map((n, c) => (
-        <div key={c} className="flex flex-col gap-1 rounded-lg bg-[rgba(20,19,17,0.06)] p-1.5">
+        <div key={c} className="flex flex-col gap-1 rounded-lg bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.08))] p-1.5">
           {Array.from({ length: n }, (_, i) => (
-            <div key={i} className="h-4 rounded bg-[#faf9f6] shadow-sm" />
+            <div key={i} className="h-4 rounded bg-[light-dark(#faf9f6,#1f1f1c)] shadow-sm" />
           ))}
         </div>
       ))}
@@ -153,7 +153,7 @@ function CustomRows() {
       renderItem={(item, ctx) => (
         <div className={`flex min-w-0 flex-1 items-center gap-2 ${ctx.pending ? "opacity-60" : ""}`}>
           {ctx.handle}
-          <span className="grid size-8 shrink-0 place-items-center rounded-md text-[10px] font-bold uppercase" style={{ background: `hsl(${(item.tag.length * 47) % 360} 50% 85%)` }}>
+          <span className="grid size-8 shrink-0 place-items-center rounded-md text-[10px] font-bold uppercase text-[#141311]" style={{ background: `hsl(${(item.tag.length * 47) % 360} 50% 85%)` }}>
             {item.tag.slice(0, 2)}
           </span>
           <span className="min-w-0 flex-1 truncate text-[13px]">{item.title}</span>

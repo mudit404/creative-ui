@@ -71,8 +71,12 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
           </section>
         )}
 
-        <section id="examples" className="prose-docs scroll-mt-24">
-          <h2>Examples</h2>
+        {/* The gallery sits outside `prose-docs`: its typography rules (`.prose-docs th/a/h3 { color: var(--ink) }`)
+            would otherwise paint the site's ink onto component text inside the theme-independent stages (DECISIONS 018). */}
+        <section id="examples" className="scroll-mt-24">
+          <div className="prose-docs">
+            <h2>Examples</h2>
+          </div>
           <ExampleGallery slug={meta.slug} examples={meta.examples} />
         </section>
 

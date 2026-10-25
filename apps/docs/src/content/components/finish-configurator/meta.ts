@@ -31,10 +31,11 @@ export const finishConfiguratorMeta: ComponentMeta = {
     { name: "ref", type: "FinishConfiguratorHandle", default: "—", description: "{ root, focusOption(groupId, optionId), resetView() }." },
   ],
   cssVars: [
-    { name: "--cui-finish-swatch-border", description: "Swatch border", default: "rgba(20,19,17,0.2)" },
-    { name: "--cui-finish-selected", description: "Selected ring and focus", default: "#141311" },
-    { name: "--cui-finish-unavailable", description: "Unavailable/incompatible text and flags", default: "#c8360d" },
-    { name: "--cui-finish-stage", description: "Stage background", default: "#e9e5dc" },
+    { name: "--cui-finish-text", description: "Text colour", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-finish-swatch-border", description: "Option and button border (decorative; the selected option uses --cui-finish-selected)", default: "light-dark(rgba(20,19,17,0.2), rgba(236,235,230,0.2))" },
+    { name: "--cui-finish-selected", description: "Selected option border and ring, focus rings", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-finish-unavailable", description: "Unavailable/incompatible text and flags", default: "light-dark(#b8310c, #ff8a65)" },
+    { name: "--cui-finish-stage", description: "Stage background", default: "light-dark(#e9e5dc, #2a2a27)" },
   ],
   examples: [
     {

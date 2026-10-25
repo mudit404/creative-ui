@@ -207,7 +207,7 @@ body {
 .tok-num { color: #f7c86b; }
 .tok-tag { color: #82aaff; }
 .tok-attr { color: #c792ea; }
-.tok-cm { color: #7a776f; font-style: italic; }
+.tok-cm { color: #8e8a81; font-style: italic; }
 .tok-pn { color: #a6a39b; }
 .tok-fn { color: #89ddff; }
 
@@ -216,6 +216,7 @@ body {
    theme so a component looks the same in light and dark docs. */
 .stage {
   --mb-ring-offset: #f6f4ef;
+  color-scheme: light;
   color: #141311;
   background:
     radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, 0.7), transparent 60%),
@@ -223,6 +224,7 @@ body {
 }
 .stage-dark {
   --mb-ring-offset: #121210;
+  color-scheme: dark;
   color: #ecebe6;
   background:
     radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, 0.06), transparent 60%),
@@ -235,10 +237,10 @@ body {
   background-size: 24px 24px;
 }
 .stage .stage-label {
-  color: rgba(20, 19, 17, 0.5);
+  color: rgba(20, 19, 17, 0.65);
 }
 .stage-dark .stage-label {
-  color: rgba(236, 235, 230, 0.5);
+  color: rgba(236, 235, 230, 0.65);
 }
 
 /* thin scrollbars for panels */

@@ -366,22 +366,22 @@ export const ExplodedProduct = React.forwardRef<ExplodedProductHandle, ExplodedP
       data-progress={progress.toFixed(2)}
       role="group"
       aria-label={label}
-      className={cn("grid w-full gap-4 text-[var(--cui-explode-text,#141311)] md:grid-cols-[1fr_260px]", className)}
+      className={cn("grid w-full gap-4 text-[var(--cui-explode-text,light-dark(#141311,#ecebe6))] md:grid-cols-[1fr_260px]", className)}
       {...rest}
     >
       <div className="flex min-w-0 flex-col gap-3">
-        <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl bg-[var(--cui-explode-background,#e9e5dc)]" data-stage>
+        <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl bg-[var(--cui-explode-background,light-dark(#e9e5dc,#2a2a27))]" data-stage>
           <img src={poster} alt={alt} className={cn("absolute inset-0 size-full object-contain", canvasVisible && "opacity-0")} />
           <canvas ref={canvasRef} aria-hidden className={cn("absolute inset-0 size-full touch-none", !canvasVisible && "hidden")} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp} />
           {state === "ready" && selected && (
             <div ref={labelRef} className="pointer-events-none absolute left-0 top-0" aria-hidden>
-              <div className="-translate-x-1/2 -translate-y-[140%] rounded-md bg-[var(--cui-explode-label,#141311)] px-2 py-0.5 text-[11px] text-white shadow">{selected.label}</div>
-              <div className="mx-auto h-5 w-px -translate-y-[140%] bg-[var(--cui-explode-label,#141311)]" />
+              <div className="-translate-x-1/2 -translate-y-[140%] rounded-md bg-[var(--cui-explode-label,light-dark(#141311,#ecebe6))] px-2 py-0.5 text-[11px] text-[light-dark(#faf9f6,#141311)] shadow">{selected.label}</div>
+              <div className="mx-auto h-5 w-px -translate-y-[140%] bg-[var(--cui-explode-label,light-dark(#141311,#ecebe6))]" />
             </div>
           )}
           {state === "loading" && <div className="absolute inset-x-0 bottom-3 text-center text-[12px] opacity-70">Loading model…</div>}
           {(state === "fallback" || state === "error") && message && (
-            <div role="status" className="absolute inset-x-3 bottom-3 rounded-lg bg-white/85 p-2 text-center text-[12px]">
+            <div role="status" className="absolute inset-x-3 bottom-3 rounded-lg bg-[light-dark(rgba(255,255,255,0.85),rgba(31,31,28,0.88))] p-2 text-center text-[12px]">
               {message}
             </div>
           )}
@@ -392,7 +392,7 @@ export const ExplodedProduct = React.forwardRef<ExplodedProductHandle, ExplodedP
           </button>
           <label className="flex min-w-[160px] flex-1 items-center gap-2">
             <span className="sr-only">Assembly</span>
-            <input type="range" aria-label="Assembly" min={0} max={1} step={0.01} value={progress} disabled={state === "poster" || state === "loading"} onChange={(e) => setProgress(Number(e.target.value), "slider")} className="w-full accent-[var(--cui-explode-selection,#1f7a4f)]" />
+            <input type="range" aria-label="Assembly" min={0} max={1} step={0.01} value={progress} disabled={state === "poster" || state === "loading"} onChange={(e) => setProgress(Number(e.target.value), "slider")} className="w-full accent-[var(--cui-explode-selection,light-dark(#1a6b45,#5fcf8f))]" />
             <span className="w-10 text-right font-mono tabular-nums">{Math.round(progress * 100)}%</span>
           </label>
           <button type="button" onClick={() => setProgress(1, "button")} className={BTN} disabled={state === "poster" || state === "loading"}>
@@ -420,9 +420,9 @@ export const ExplodedProduct = React.forwardRef<ExplodedProductHandle, ExplodedP
             const d = diag(p.id);
             return (
               <li key={p.id}>
-                <button type="button" aria-pressed={p.id === selectedId} aria-describedby={d ? `${uid}-d-${p.id}` : undefined} onClick={() => select(p.id === selectedId ? null : p.id, p.id === selectedId ? "clear" : "list")} className={cn("flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left outline-none hover:bg-[rgba(20,19,17,0.05)] focus-visible:ring-2 focus-visible:ring-[var(--cui-explode-selection,#1f7a4f)]", p.id === selectedId && "bg-[rgba(31,122,79,0.12)] font-medium", d && "opacity-60")}>
+                <button type="button" aria-pressed={p.id === selectedId} aria-describedby={d ? `${uid}-d-${p.id}` : undefined} onClick={() => select(p.id === selectedId ? null : p.id, p.id === selectedId ? "clear" : "list")} className={cn("flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left outline-none hover:bg-[light-dark(rgba(20,19,17,0.05),rgba(236,235,230,0.05))] focus-visible:ring-2 focus-visible:ring-[var(--cui-explode-selection,light-dark(#1a6b45,#5fcf8f))]", p.id === selectedId && "bg-[light-dark(rgba(26,107,69,0.15),rgba(95,207,143,0.2))] font-medium", d && "text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]")}>
                   <span className="min-w-0 flex-1 truncate">{p.label}</span>
-                  {d && <span className="text-[10px] uppercase tracking-wide text-[var(--cui-explode-error,#c8360d)]">unmapped</span>}
+                  {d && <span className="text-[10px] uppercase tracking-wide text-[var(--cui-explode-error,light-dark(#b8310c,#ff8a65))]">unmapped</span>}
                 </button>
                 {d && (
                   <span id={`${uid}-d-${p.id}`} className="sr-only">
@@ -433,7 +433,7 @@ export const ExplodedProduct = React.forwardRef<ExplodedProductHandle, ExplodedP
             );
           })}
         </ul>
-        <div data-details aria-live="polite" className="mt-2 rounded-xl border border-[var(--cui-explode-border,rgba(20,19,17,0.15))] p-3 text-[13px]">
+        <div data-details aria-live="polite" className="mt-2 rounded-xl border border-[var(--cui-explode-border,light-dark(rgba(20,19,17,0.2),rgba(236,235,230,0.2)))] p-3 text-[13px]">
           {selected ? (
             <>
               <div className="flex items-center justify-between gap-2">
@@ -445,14 +445,14 @@ export const ExplodedProduct = React.forwardRef<ExplodedProductHandle, ExplodedP
                 )}
               </div>
               {selected.description && <p className="m-0 mt-1 opacity-80">{selected.description}</p>}
-              {diag(selected.id) && <p className="m-0 mt-1 text-[12px] text-[var(--cui-explode-error,#c8360d)]">{diag(selected.id)!.message}</p>}
+              {diag(selected.id) && <p className="m-0 mt-1 text-[12px] text-[var(--cui-explode-error,light-dark(#b8310c,#ff8a65))]">{diag(selected.id)!.message}</p>}
             </>
           ) : (
-            <span className="opacity-60">Select a part to read about it.</span>
+            <span className="text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]">Select a part to read about it.</span>
           )}
         </div>
         {diagnostics.length > 0 && (
-          <div role="note" className="mt-2 rounded-lg border border-[var(--cui-explode-error,#c8360d)] p-2 text-[11px] text-[var(--cui-explode-error,#c8360d)]">
+          <div role="note" className="mt-2 rounded-lg border border-[var(--cui-explode-error,light-dark(#b8310c,#ff8a65))] p-2 text-[11px] text-[var(--cui-explode-error,light-dark(#b8310c,#ff8a65))]">
             {diagnostics.map((d) => (
               <div key={d.partId}>{d.message}</div>
             ))}
@@ -466,7 +466,7 @@ ExplodedProduct.displayName = "ExplodedProduct";
 
 const clamp01 = (v: number) => (Number.isFinite(v) ? Math.max(0, Math.min(1, v)) : 0);
 const BTN =
-  "inline-flex h-7 items-center rounded-full border border-[var(--cui-explode-border,rgba(20,19,17,0.25))] px-2.5 text-[12px] outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-explode-selection,#1f7a4f)] disabled:cursor-not-allowed disabled:opacity-40";
+  "inline-flex h-7 items-center rounded-full border border-[var(--cui-explode-border,light-dark(rgba(20,19,17,0.2),rgba(236,235,230,0.2)))] px-2.5 text-[12px] outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--cui-explode-selection,light-dark(#1a6b45,#5fcf8f))] disabled:cursor-not-allowed disabled:opacity-40";
 
 /** Procedural helper for fixtures and demos: a named box part. */
 export function makePart(name: string, size: [number, number, number], position: [number, number, number], color = "#b8b8b8", closed = true): Mesh {

@@ -55,7 +55,7 @@ function Fixtures() {
     <div className="flex w-full max-w-2xl flex-col gap-3">
       <div className="flex flex-wrap gap-2">
         {(["six", "mono", "transparent", "huge"] as const).map((k) => (
-          <button key={k} type="button" aria-pressed={key === k} onClick={() => { setKey(k); setRev((r) => r + 1); }} className="rounded-full border border-current px-3 py-1 text-[12px] aria-pressed:bg-[#141311] aria-pressed:text-[#faf9f6]">
+          <button key={k} type="button" aria-pressed={key === k} onClick={() => { setKey(k); setRev((r) => r + 1); }} className="rounded-full border border-current px-3 py-1 text-[12px] aria-pressed:bg-[light-dark(#141311,#ecebe6)] aria-pressed:text-[light-dark(#faf9f6,#141311)]">
             {FIXTURES[k]!.alt}
           </button>
         ))}
@@ -90,7 +90,7 @@ function Race() {
   };
   return (
     <div className="flex w-full max-w-2xl flex-col gap-3">
-      <button type="button" onClick={start} className="self-start rounded-full bg-[#141311] px-4 py-1.5 text-sm text-[#faf9f6]">
+      <button type="button" onClick={start} className="self-start rounded-full bg-[light-dark(#141311,#ecebe6)] px-4 py-1.5 text-sm text-[light-dark(#faf9f6,#141311)]">
         Load A, then B 150 ms later
       </button>
       <PaletteComposer decoder={slowDecoder} source={current} onSourceChange={setCurrent} allowUrl={false} onPaletteChange={(p, meta) => setLog((l) => [`onPaletteChange(${meta.reason}, request ${meta.requestId}) ${p[0]?.color ?? ""}`, ...l].slice(0, 5))} onExtractionStateChange={(s) => setLog((l) => [`state → ${s}`, ...l].slice(0, 5))} />

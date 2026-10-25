@@ -54,7 +54,7 @@ export const ghostTraceTextMeta: ComponentMeta = {
       id: "ghost",
       title: "Coloured ghost, kept outline",
       description: "A different stroke colour and keepStroke for an outlined finish.",
-      code: `<GhostTraceText className="display text-5xl" ghost="#ff4d1c" fill="#141311" strokeWidth={1.5} keepStroke>
+      code: `<GhostTraceText className="display text-5xl" ghost="#ff4d1c" strokeWidth={1.5} keepStroke>
   Outline and ink
 </GhostTraceText>`,
     },

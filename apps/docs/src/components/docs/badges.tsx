@@ -15,7 +15,7 @@ export function TierBadge({ tier }: { tier: ComponentTier }) {
 export function StatusBadge({ status }: { status: ComponentStatus }) {
   const styles: Record<ComponentStatus, string> = {
     stable: "border-emerald-600/40 text-emerald-700 dark:text-emerald-400",
-    experimental: "border-amber-600/40 text-amber-700 dark:text-amber-400",
+    experimental: "border-amber-600/40 text-amber-800 dark:text-amber-400",
     planned: "border-line text-muted",
   };
   return (

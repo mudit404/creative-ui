@@ -6,7 +6,7 @@ import type { LiveModule } from "~/content/live-types";
 import type { PlaygroundValues } from "~/components/playground/playground";
 import { EventLog } from "~/content/components/elastic-range/live";
 
-const BTN = "rounded-full border border-[rgba(20,19,17,0.25)] px-3 py-1 text-[12px] hover:bg-[rgba(20,19,17,0.06)]";
+const BTN = "rounded-full border border-[light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25))] px-3 py-1 text-[12px] hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.08))]";
 
 function PlaygroundBoard({ values }: { values: PlaygroundValues }) {
   const { value, ...rest } = values as Partial<SplitFlapBoardProps> & { value?: string | number };

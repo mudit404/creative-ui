@@ -123,14 +123,14 @@ export const LiquidSwitch = React.forwardRef<HTMLButtonElement, LiquidSwitchProp
         disabled={disabled}
         className={cn(
           "relative inline-flex shrink-0 cursor-pointer select-none items-center rounded-full align-middle outline-none",
-          "focus-visible:ring-2 focus-visible:ring-[var(--ls-ring,var(--ls-track-on,#141311))] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ls-ring-offset,white)]",
+          "focus-visible:ring-2 focus-visible:ring-[var(--ls-ring,var(--ls-track-on,light-dark(#141311,#ecebe6)))] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ls-ring-offset,light-dark(white,#0f0f0d))]",
           "disabled:cursor-not-allowed disabled:opacity-50",
           className,
         )}
         style={{
           width: w,
           height: h,
-          background: "var(--ls-track-off, #c9c6bf)",
+          background: "var(--ls-track-off, light-dark(#86837d, #6b6b67))",
           boxShadow: "inset 0 1px 2px rgba(0,0,0,0.25)",
           WebkitTapHighlightColor: "transparent",
           ...(vars as React.CSSProperties),
@@ -143,7 +143,7 @@ export const LiquidSwitch = React.forwardRef<HTMLButtonElement, LiquidSwitchProp
         <m.span
           aria-hidden
           className="pointer-events-none absolute inset-0 rounded-full"
-          style={{ opacity: fillOpacity, background: "var(--ls-track-on, #141311)" }}
+          style={{ opacity: fillOpacity, background: "var(--ls-track-on, light-dark(#141311, #ecebe6))" }}
         />
         <svg
           aria-hidden
@@ -161,7 +161,7 @@ export const LiquidSwitch = React.forwardRef<HTMLButtonElement, LiquidSwitchProp
               </filter>
             </defs>
           )}
-          <g filter={mode === "full" ? `url(#${gooId})` : undefined} style={{ fill: "var(--ls-thumb, #ffffff)" }}>
+          <g filter={mode === "full" ? `url(#${gooId})` : undefined} style={{ fill: "var(--ls-thumb, light-dark(#ffffff, #141311))" }}>
             {mode === "full" && <m.circle cy={h / 2} cx={tailX} r={tailR} />}
             <m.ellipse cy={h / 2} cx={thumbX} rx={thumbRx} ry={thumbRy} />
           </g>

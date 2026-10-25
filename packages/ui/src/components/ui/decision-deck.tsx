@@ -303,17 +303,17 @@ function DecisionDeckInner<T extends DeckItem>(
       onLostPointerCapture={onPointerCancel}
       onKeyDown={onKeyDown}
       className={cn(
-        "relative z-[3] w-full touch-pan-y select-none rounded-2xl bg-[var(--cui-deck-surface,#faf9f6)] shadow-[var(--cui-deck-shadow,0_12px_32px_rgba(0,0,0,0.18))] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-deck-focus,#141311)]",
+        "relative z-[3] w-full touch-pan-y select-none rounded-2xl bg-[var(--cui-deck-surface,light-dark(#faf9f6,#1f1f1c))] shadow-[var(--cui-deck-shadow,0_12px_32px_rgba(0,0,0,0.18))] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-deck-focus,light-dark(#141311,#ecebe6))]",
         pending ? "cursor-default" : "cursor-grab",
         dragging && "cursor-grabbing",
       )}
     >
       {renderCard(active, { active: true, depth: 0, pending: isPendingDecision })}
       {/* outcome stamps near the leading edge (text, not colour alone) */}
-      <m.span aria-hidden style={{ opacity: stampLeft }} className="pointer-events-none absolute left-3 top-3 rounded-md border-2 border-[var(--cui-deck-reject,#c8360d)] px-2 py-0.5 text-[12px] font-bold uppercase tracking-wide text-[var(--cui-deck-reject,#c8360d)]">
+      <m.span aria-hidden style={{ opacity: stampLeft }} className="pointer-events-none absolute left-3 top-3 rounded-md border-2 border-[var(--cui-deck-reject,light-dark(#b8310c,#ff8a65))] px-2 py-0.5 text-[12px] font-bold uppercase tracking-wide text-[var(--cui-deck-reject,light-dark(#b8310c,#ff8a65))]">
         {outcomes[0].stamp ?? outcomes[0].label}
       </m.span>
-      <m.span aria-hidden style={{ opacity: stampRight }} className="pointer-events-none absolute right-3 top-3 rounded-md border-2 border-[var(--cui-deck-accept,#1f7a4f)] px-2 py-0.5 text-[12px] font-bold uppercase tracking-wide text-[var(--cui-deck-accept,#1f7a4f)]">
+      <m.span aria-hidden style={{ opacity: stampRight }} className="pointer-events-none absolute right-3 top-3 rounded-md border-2 border-[var(--cui-deck-accept,light-dark(#1a6b45,#5fcf8f))] px-2 py-0.5 text-[12px] font-bold uppercase tracking-wide text-[var(--cui-deck-accept,light-dark(#1a6b45,#5fcf8f))]">
         {outcomes[1].stamp ?? outcomes[1].label}
       </m.span>
     </m.div>
@@ -328,7 +328,7 @@ function DecisionDeckInner<T extends DeckItem>(
       data-state={pending ? "pending" : active ? (dragging ? "dragging" : "ready") : "empty"}
       role="group"
       aria-label={label}
-      className={cn("flex w-full max-w-[360px] flex-col gap-[var(--cui-deck-gap,12px)] text-[var(--cui-deck-text,#141311)]", className)}
+      className={cn("flex w-full max-w-[360px] flex-col gap-[var(--cui-deck-gap,12px)] text-[var(--cui-deck-text,light-dark(#141311,#ecebe6))]", className)}
       {...rest}
     >
       {/* stack */}
@@ -338,7 +338,7 @@ function DecisionDeckInner<T extends DeckItem>(
             key={item.id}
             aria-hidden
             data-card={`backing-${i + 1}`}
-            className="pointer-events-none absolute inset-x-0 top-0 rounded-2xl bg-[var(--cui-deck-surface,#faf9f6)] shadow-[var(--cui-deck-shadow,0_12px_32px_rgba(0,0,0,0.18))]"
+            className="pointer-events-none absolute inset-x-0 top-0 rounded-2xl bg-[var(--cui-deck-surface,light-dark(#faf9f6,#1f1f1c))] shadow-[var(--cui-deck-shadow,0_12px_32px_rgba(0,0,0,0.18))]"
             style={{ transform: `translateY(${(i + 1) * 8}px) scale(${1 - (i + 1) * 0.04})`, zIndex: 2 - i, transformOrigin: "top center" }}
           >
             {renderCard(item, { active: false, depth: i + 1, pending: false })}
@@ -352,7 +352,7 @@ function DecisionDeckInner<T extends DeckItem>(
           foreground
         )}
         {!active && (
-          <div data-card="empty" className="rounded-2xl border border-dashed border-[var(--cui-deck-border,rgba(20,19,17,0.25))] p-6 text-center text-[14px]">
+          <div data-card="empty" className="rounded-2xl border border-dashed border-[var(--cui-deck-border,light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25)))] p-6 text-center text-[14px]">
             {renderEmpty ? renderEmpty(decisions) : (
               <>
                 <p className="m-0 font-medium">All done.</p>
@@ -368,7 +368,7 @@ function DecisionDeckInner<T extends DeckItem>(
         <button
           ref={(el) => {
             if (el) buttonRefs.current.set(outcomes[0].id, el);
-          }} type="button" onClick={() => request(outcomes[0].id, "button")} disabled={!active || !!pending} className={cn(BTN, "border-[var(--cui-deck-reject,#c8360d)] text-[var(--cui-deck-reject,#c8360d)]")}>
+          }} type="button" onClick={() => request(outcomes[0].id, "button")} disabled={!active || !!pending} className={cn(BTN, "border-[var(--cui-deck-reject,light-dark(#b8310c,#ff8a65))] text-[var(--cui-deck-reject,light-dark(#b8310c,#ff8a65))]")}>
           {outcomes[0].label}
         </button>
         {showUndo && (
@@ -379,7 +379,7 @@ function DecisionDeckInner<T extends DeckItem>(
         <button
           ref={(el) => {
             if (el) buttonRefs.current.set(outcomes[1].id, el);
-          }} type="button" onClick={() => request(outcomes[1].id, "button")} disabled={!active || !!pending} className={cn(BTN, "border-[var(--cui-deck-accept,#1f7a4f)] text-[var(--cui-deck-accept,#1f7a4f)]")}>
+          }} type="button" onClick={() => request(outcomes[1].id, "button")} disabled={!active || !!pending} className={cn(BTN, "border-[var(--cui-deck-accept,light-dark(#1a6b45,#5fcf8f))] text-[var(--cui-deck-accept,light-dark(#1a6b45,#5fcf8f))]")}>
           {outcomes[1].label}
         </button>
       </div>
@@ -390,7 +390,7 @@ function DecisionDeckInner<T extends DeckItem>(
         <span>{decisions.length} decided</span>
       </div>
       {/* stable status strip */}
-      <div role="status" aria-live="polite" className={cn("min-h-[1.5rem] text-[12px]", error ? "text-[var(--cui-deck-reject,#c8360d)]" : "opacity-80")}>
+      <div role="status" aria-live="polite" className={cn("min-h-[1.5rem] text-[12px]", error ? "text-[var(--cui-deck-reject,light-dark(#b8310c,#ff8a65))]" : "opacity-80")}>
         {pending ? (pending.kind === "undo" ? "Undo requested…" : `${outcomes.find((o) => o.id === pending.outcomeId)?.label ?? "Decision"} requested…`) : (error ?? notice)}
       </div>
     </div>
@@ -398,7 +398,7 @@ function DecisionDeckInner<T extends DeckItem>(
 }
 
 const BTN =
-  "inline-flex h-9 min-w-[88px] items-center justify-center rounded-full border border-[var(--cui-deck-border,rgba(20,19,17,0.25))] px-4 text-[13px] font-medium outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-deck-focus,#141311)] disabled:cursor-not-allowed disabled:opacity-40";
+  "inline-flex h-9 min-w-[88px] items-center justify-center rounded-full border border-[var(--cui-deck-border,light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25)))] px-4 text-[13px] font-medium outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--cui-deck-focus,light-dark(#141311,#ecebe6))] disabled:cursor-not-allowed disabled:opacity-40";
 
 /**
  * DecisionDeck — an undoable, transactional card stack.

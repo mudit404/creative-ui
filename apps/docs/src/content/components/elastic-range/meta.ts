@@ -32,12 +32,16 @@ export const elasticRangeMeta: ComponentMeta = {
     { name: "motion", type: '"auto" | "reduced" | "off"', default: '"auto"', description: "auto follows prefers-reduced-motion. reduced and off remove the bow and squash; editing is unaffected." },
   ],
   cssVars: [
-    { name: "--cui-range-track", description: "Track colour", default: "rgba(20,19,17,0.15)" },
-    { name: "--cui-range-fill", description: "Active segment, thumb ring and button focus", default: "#141311" },
-    { name: "--cui-range-thumb", description: "Thumb fill", default: "#faf9f6" },
-    { name: "--cui-range-focus", description: "Thumb focus ring", default: "rgba(20,19,17,0.25)" },
-    { name: "--cui-range-tick", description: "Precision tick colour", default: "rgba(20,19,17,0.25)" },
-    { name: "--cui-range-error", description: "Invalid input border", default: "#c8360d" },
+    { name: "--cui-range-text", description: "Text colour of the control", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-range-track", description: "Track colour", default: "light-dark(rgba(20,19,17,0.15), rgba(236,235,230,0.15))" },
+    { name: "--cui-range-fill", description: "Active segment, thumb ring, and button and field focus rings", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-range-thumb", description: "Thumb fill", default: "light-dark(#faf9f6, #1f1f1c)" },
+    { name: "--cui-range-focus", description: "Thumb focus ring (solid)", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-range-tick", description: "Precision tick colour", default: "light-dark(rgba(20,19,17,0.25), rgba(236,235,230,0.25))" },
+    { name: "--cui-range-muted", description: "Min/max labels", default: "light-dark(rgba(20,19,17,0.65), rgba(236,235,230,0.65))" },
+    { name: "--cui-range-border", description: "Numeric field and step-button border (the field's only outline)", default: "light-dark(rgba(20,19,17,0.5), rgba(236,235,230,0.45))" },
+    { name: "--cui-range-input", description: "Numeric field background", default: "light-dark(#faf9f6, #1f1f1c)" },
+    { name: "--cui-range-error", description: "Invalid input border", default: "light-dark(#b8310c, #ff8a65)" },
   ],
   examples: [
     {

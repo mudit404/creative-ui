@@ -34,12 +34,12 @@ export const mosaicMenuMeta: ComponentMeta = {
     { name: "Trigger", type: "component", default: "—", description: "The menu button with aria-haspopup=dialog; default renders a grid icon and “Menu”, or asChild for your own element." },
   ],
   cssVars: [
-    { name: "--mm-backdrop", description: "Overlay background", default: "rgba(20,19,17,0.92)" },
-    { name: "--mm-foreground", description: "Overlay text and focus ring colour", default: "#f3f1ec" },
+    { name: "--mm-backdrop", description: "Overlay background (designed dark on both themes)", default: "rgba(20,19,17,0.92)" },
+    { name: "--mm-foreground", description: "Overlay text and tile focus ring colour (designed dark on both themes)", default: "#f3f1ec" },
     { name: "--mm-tile", description: "Tile background when no accent is set", default: "rgba(255,255,255,0.08)" },
     { name: "--mm-radius", description: "Tile corner radius", default: "16px" },
-    { name: "--mm-trigger / --mm-trigger-foreground / --mm-trigger-border", description: "Default trigger colours", default: "transparent / #141311 / rgba(20,19,17,0.25)" },
-    { name: "--mm-ring", description: "Trigger focus ring colour", default: "#141311" },
+    { name: "--mm-trigger / --mm-trigger-foreground / --mm-trigger-border", description: "Default trigger colours: background, text and decorative border (the trigger carries a label)", default: "transparent / light-dark(#141311, #ecebe6) / light-dark(rgba(20,19,17,0.25), rgba(236,235,230,0.25))" },
+    { name: "--mm-ring", description: "Trigger focus ring colour", default: "light-dark(#141311, #ecebe6)" },
   ],
   examples: [
     {
@@ -88,7 +88,7 @@ export const mosaicMenuMeta: ComponentMeta = {
     {
       id: "customization",
       title: "Styling and customization",
-      body: `Theme with the \`--mm-*\` variables (overlay, text, tile, radius, trigger). Give tiles their own \`accent\`/\`foreground\`, a \`media\` node (an image or icon behind the text) and \`span: 2\` for emphasis. \`className\`/\`style\` apply to the overlay; the \`Trigger\` takes classes or \`asChild\`.
+      body: `Theme with the \`--mm-*\` variables (overlay, text, tile, radius, trigger). The overlay is designed dark on both themes; the trigger's defaults follow \`color-scheme\` via \`light-dark()\` (Chrome 123+, Safari 17.5+, Firefox 120+; older browsers get the light values). Give tiles their own \`accent\`/\`foreground\`, a \`media\` node (an image or icon behind the text) and \`span: 2\` for emphasis. \`className\`/\`style\` apply to the overlay; the \`Trigger\` takes classes or \`asChild\`.
 
 Tune the choreography with \`stagger\` (0 for a single burst, 0.08 for a slow ripple). Pass \`linkComponent\` for client-side routing.`,
     },

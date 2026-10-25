@@ -296,7 +296,7 @@ export const DetentDial = React.forwardRef<DetentDialHandle, DetentDialProps>(fu
       data-motion={mode}
       data-previewing={preview !== null ? "true" : undefined}
       data-diagnostic={diagnostic ?? undefined}
-      className={cn("inline-flex flex-col items-center gap-2 text-[var(--cui-dial-text,#141311)]", disabled && "opacity-50", className)}
+      className={cn("inline-flex flex-col items-center gap-2 text-[var(--cui-dial-text,light-dark(#141311,#ecebe6))]", disabled && "opacity-50", className)}
       {...rest}
     >
       <div
@@ -318,7 +318,7 @@ export const DetentDial = React.forwardRef<DetentDialHandle, DetentDialProps>(fu
         onPointerCancel={(e) => finish(e, true)}
         onLostPointerCapture={(e) => finish(e, true)}
         className={cn(
-          "relative select-none touch-none rounded-full outline-none focus-visible:ring-4 focus-visible:ring-[var(--cui-dial-focus,rgba(20,19,17,0.25))]",
+          "relative select-none touch-none rounded-full outline-none focus-visible:ring-4 focus-visible:ring-[var(--cui-dial-focus,light-dark(#141311,#ecebe6))]",
           inert ? "cursor-default" : "cursor-ns-resize",
         )}
         style={{ width: px, height: px }}
@@ -326,27 +326,27 @@ export const DetentDial = React.forwardRef<DetentDialHandle, DetentDialProps>(fu
         <svg aria-hidden viewBox="0 0 100 100" className="block h-full w-full overflow-visible">
           {/* ticks */}
           {ticks.map((a, i) => (
-            <line key={i} x1={50 + 46 * Math.cos(rad(a))} y1={50 + 46 * Math.sin(rad(a))} x2={50 + 49 * Math.cos(rad(a))} y2={50 + 49 * Math.sin(rad(a))} stroke="var(--cui-dial-tick, rgba(20,19,17,0.35))" strokeWidth={1.5} strokeLinecap="round" />
+            <line key={i} x1={50 + 46 * Math.cos(rad(a))} y1={50 + 46 * Math.sin(rad(a))} x2={50 + 49 * Math.cos(rad(a))} y2={50 + 49 * Math.sin(rad(a))} style={{ stroke: "var(--cui-dial-tick, light-dark(rgba(20,19,17,0.35), rgba(236,235,230,0.35)))" }} strokeWidth={1.5} strokeLinecap="round" />
           ))}
           {sortedDetents.map((d) => {
             const a = angleOf(d);
-            return <line key={d} x1={50 + 44 * Math.cos(rad(a))} y1={50 + 44 * Math.sin(rad(a))} x2={50 + 50 * Math.cos(rad(a))} y2={50 + 50 * Math.sin(rad(a))} stroke="var(--cui-dial-detent, #141311)" strokeWidth={2.2} strokeLinecap="round" />;
+            return <line key={d} x1={50 + 44 * Math.cos(rad(a))} y1={50 + 44 * Math.sin(rad(a))} x2={50 + 50 * Math.cos(rad(a))} y2={50 + 50 * Math.sin(rad(a))} style={{ stroke: "var(--cui-dial-detent, light-dark(#141311, #ecebe6))" }} strokeWidth={2.2} strokeLinecap="round" />;
           })}
           {/* arc track + active arc */}
-          <path d={arcPath(angleStart, angleEnd)} fill="none" stroke="var(--cui-dial-arc-track, rgba(20,19,17,0.12))" strokeWidth={5} strokeLinecap="round" />
-          {mapping.toFraction(shown) > 0.001 && <path d={arcPath(angleStart, angle)} fill="none" stroke="var(--cui-dial-arc, #141311)" strokeWidth={5} strokeLinecap="round" />}
+          <path d={arcPath(angleStart, angleEnd)} fill="none" style={{ stroke: "var(--cui-dial-arc-track, light-dark(rgba(20,19,17,0.12), rgba(236,235,230,0.12)))" }} strokeWidth={5} strokeLinecap="round" />
+          {mapping.toFraction(shown) > 0.001 && <path d={arcPath(angleStart, angle)} fill="none" style={{ stroke: "var(--cui-dial-arc, light-dark(#141311, #ecebe6))" }} strokeWidth={5} strokeLinecap="round" />}
           {/* face */}
           <defs>
             <radialGradient id={`${uid}-face`} cx="35%" cy="30%" r="80%">
-              <stop offset="0" stopColor="var(--cui-dial-face-hi, #ffffff)" />
-              <stop offset="1" stopColor="var(--cui-dial-face, #e9e5dc)" />
+              <stop offset="0" style={{ stopColor: "var(--cui-dial-face-hi, light-dark(#ffffff, #3a3a36))" }} />
+              <stop offset="1" style={{ stopColor: "var(--cui-dial-face, light-dark(#e9e5dc, #2a2a27))" }} />
             </radialGradient>
           </defs>
-          <circle cx="50" cy="50" r="29" fill={`url(#${uid}-face)`} stroke="var(--cui-dial-edge, rgba(20,19,17,0.25))" strokeWidth={1} />
+          <circle cx="50" cy="50" r="29" fill={`url(#${uid}-face)`} style={{ stroke: "var(--cui-dial-edge, light-dark(rgba(20,19,17,0.5), rgba(236,235,230,0.45)))" }} strokeWidth={1} />
           {variant === "studio" && <circle cx="50" cy="50" r="24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth={0.8} />}
           {/* notch (rotates from the value) */}
           <m.g style={{ rotate: needleRotate, transformOrigin: "50px 50px" }}>
-            <rect x="48.4" y="24" width="3.2" height="12" rx="1.6" fill="var(--cui-dial-notch, #141311)" />
+            <rect x="48.4" y="24" width="3.2" height="12" rx="1.6" style={{ fill: "var(--cui-dial-notch, light-dark(#141311, #ecebe6))" }} />
           </m.g>
         </svg>
       </div>
@@ -381,8 +381,8 @@ export const DetentDial = React.forwardRef<DetentDialHandle, DetentDialProps>(fu
                 }
               }}
               className={cn(
-                "h-8 w-20 rounded-md border bg-[var(--cui-dial-input,#faf9f6)] px-2 text-center font-mono text-[13px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-dial-arc,#141311)]",
-                invalid ? "border-[var(--cui-dial-error,#c8360d)]" : "border-[var(--cui-dial-edge,rgba(20,19,17,0.25))]",
+                "h-8 w-20 rounded-md border bg-[var(--cui-dial-input,light-dark(#faf9f6,#1f1f1c))] px-2 text-center font-mono text-[13px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-dial-arc,light-dark(#141311,#ecebe6))]",
+                invalid ? "border-[var(--cui-dial-error,light-dark(#b8310c,#ff8a65))]" : "border-[var(--cui-dial-edge,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))]",
               )}
             />
           )}
@@ -400,7 +400,7 @@ export const DetentDial = React.forwardRef<DetentDialHandle, DetentDialProps>(fu
       )}
       {name && <input type="hidden" name={name} value={committed} disabled={disabled} />}
       {diagnostic && (
-        <p role="note" className="max-w-[200px] text-center text-[11px] text-[var(--cui-dial-error,#c8360d)]">
+        <p role="note" className="max-w-[200px] text-center text-[11px] text-[var(--cui-dial-error,light-dark(#b8310c,#ff8a65))]">
           {diagnostic}
         </p>
       )}
@@ -410,4 +410,4 @@ export const DetentDial = React.forwardRef<DetentDialHandle, DetentDialProps>(fu
 DetentDial.displayName = "DetentDial";
 
 const BTN =
-  "inline-flex size-8 items-center justify-center rounded-md border border-[var(--cui-dial-edge,rgba(20,19,17,0.25))] text-base leading-none outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-dial-arc,#141311)] disabled:cursor-not-allowed disabled:opacity-40";
+  "inline-flex size-8 items-center justify-center rounded-md border border-[var(--cui-dial-edge,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))] text-base leading-none outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--cui-dial-arc,light-dark(#141311,#ecebe6))] disabled:cursor-not-allowed disabled:opacity-40";

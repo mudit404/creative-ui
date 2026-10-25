@@ -30,11 +30,11 @@ export const liquidSwitchMeta: ComponentMeta = {
     { name: "…rest", type: "ButtonHTMLAttributes", default: "—", description: "Native button attributes: id, aria-label, aria-labelledby, aria-describedby, onFocus…" },
   ],
   cssVars: [
-    { name: "--ls-track-off", description: "Track colour when unchecked", default: "#c9c6bf" },
-    { name: "--ls-track-on", description: "Track colour when checked", default: "#141311" },
-    { name: "--ls-thumb", description: "Thumb colour", default: "#ffffff" },
-    { name: "--ls-ring", description: "Focus ring colour", default: "track-on colour" },
-    { name: "--ls-ring-offset", description: "Focus ring offset colour (your page background)", default: "white" },
+    { name: "--ls-track-off", description: "Track colour when unchecked", default: "light-dark(#86837d, #6b6b67)" },
+    { name: "--ls-track-on", description: "Track colour when checked", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--ls-thumb", description: "Thumb colour", default: "light-dark(#ffffff, #141311)" },
+    { name: "--ls-ring", description: "Focus ring colour", default: "the track-on colour" },
+    { name: "--ls-ring-offset", description: "Focus ring offset colour (your page background)", default: "light-dark(white, #0f0f0d)" },
   ],
   examples: [
     {
@@ -110,7 +110,7 @@ export const liquidSwitchMeta: ComponentMeta = {
     {
       id: "customization",
       title: "Styling and customization",
-      body: `Colours come from \`--ls-track-off\`, \`--ls-track-on\` and \`--ls-thumb\`, set per instance with \`colors\` or globally in CSS on \`[data-slot="liquid-switch"]\`. The focus ring uses \`--ls-ring\` (defaults to the on colour) and \`--ls-ring-offset\` (set it to your page background).
+      body: `Colours come from \`--ls-track-off\`, \`--ls-track-on\` and \`--ls-thumb\`, set per instance with \`colors\` or globally in CSS on \`[data-slot="liquid-switch"]\`. Their defaults follow \`color-scheme\` via \`light-dark()\` (Chrome 123+, Safari 17.5+, Firefox 120+; older browsers get the light values). The focus ring uses \`--ls-ring\` (defaults to the on colour) and \`--ls-ring-offset\` (set it to your page background).
 
 \`size\` fixes the geometry; \`className\` composes with it for margins and layout. The sheen and contact shadow are intentionally subtle and not configurable; override the SVG with CSS if you need a flat thumb.`,
     },

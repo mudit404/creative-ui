@@ -34,7 +34,7 @@ function Cover({ work }: { work: Work }) {
     <a
       href="#"
       onClick={(e) => e.preventDefault()}
-      className="group flex h-full w-full flex-col justify-end rounded-[inherit] p-3 text-left outline-none focus-visible:ring-2 focus-visible:ring-[#141311] focus-visible:ring-offset-2"
+      className="group flex h-full w-full flex-col justify-end rounded-[inherit] p-3 text-left outline-none focus-visible:ring-2 focus-visible:ring-[light-dark(#141311,#ecebe6)] focus-visible:ring-offset-2"
       style={{
         background: `linear-gradient(160deg, hsl(${work.hue} 45% 78%), hsl(${work.hue + 30} 40% 60%))`,
       }}
@@ -68,7 +68,7 @@ function FilterDemo() {
     sort === "title" ? a.title.localeCompare(b.title) : b.year - a.year,
   );
   const chip = (active: boolean) =>
-    `rounded-full border px-3 py-1 text-xs ${active ? "border-[#141311] bg-[#141311] text-[#f3f1ec]" : "border-[rgba(20,19,17,0.25)] text-[#141311]"}`;
+    `rounded-full border px-3 py-1 text-xs ${active ? "border-[light-dark(#141311,#ecebe6)] bg-[light-dark(#141311,#ecebe6)] text-[light-dark(#f3f1ec,#141311)]" : "border-[light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25))] text-[light-dark(#141311,#ecebe6)]"}`;
   return (
     <div className="w-full max-w-2xl">
       <div className="mb-3 flex flex-wrap items-center gap-2" role="group" aria-label="Filter and sort">
@@ -77,7 +77,7 @@ function FilterDemo() {
             {k}
           </button>
         ))}
-        <span className="mx-1 h-4 w-px bg-[rgba(20,19,17,0.2)]" aria-hidden />
+        <span className="mx-1 h-4 w-px bg-[light-dark(rgba(20,19,17,0.2),rgba(236,235,230,0.2))]" aria-hidden />
         <button type="button" className={chip(sort === "title")} aria-pressed={sort === "title"} onClick={() => setSort("title")}>
           A–Z
         </button>
@@ -135,9 +135,9 @@ export const elasticGridLive: LiveModule = {
       <div className="w-full max-w-2xl">
         <ElasticGrid aria-label="Articles" columns={3} stretch={0.25} spring="soft" gap={10}>
           {ARTICLES.map((a) => (
-            <ElasticGridItem key={a.id} className="bg-white/70 p-5">
-              <h3 className="text-[15px] font-semibold text-[#141311]">{a.title}</h3>
-              <p className="mt-1 text-[13px] leading-relaxed text-[rgba(20,19,17,0.7)]">{a.summary}</p>
+            <ElasticGridItem key={a.id} className="bg-[light-dark(rgba(255,255,255,0.7),rgba(255,255,255,0.08))] p-5">
+              <h3 className="text-[15px] font-semibold text-[light-dark(#141311,#ecebe6)]">{a.title}</h3>
+              <p className="mt-1 text-[13px] leading-relaxed text-[light-dark(rgba(20,19,17,0.7),rgba(236,235,230,0.7))]">{a.summary}</p>
             </ElasticGridItem>
           ))}
         </ElasticGrid>

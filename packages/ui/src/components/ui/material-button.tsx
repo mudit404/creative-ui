@@ -65,7 +65,7 @@ const TONES: Record<MaterialButtonTone, Record<string, string>> = {
     "--mb-sheen": "rgba(255,255,255,0.16)",
     "--mb-shade": "rgba(0,0,0,0.5)",
     "--mb-shadow": "rgba(12,12,18,0.55)",
-    "--mb-ring": "#0b0b0c",
+    "--mb-ring": "light-dark(#141311, #ecebe6)",
   },
   bone: {
     "--mb-surface": "#efece6",
@@ -74,7 +74,7 @@ const TONES: Record<MaterialButtonTone, Record<string, string>> = {
     "--mb-sheen": "rgba(255,255,255,0.75)",
     "--mb-shade": "rgba(0,0,0,0.12)",
     "--mb-shadow": "rgba(40,36,30,0.35)",
-    "--mb-ring": "#efece6",
+    "--mb-ring": "light-dark(#141311, #ecebe6)",
   },
 };
 
@@ -358,7 +358,7 @@ export const MaterialButton = React.forwardRef<HTMLButtonElement, MaterialButton
               data-loading={loading || undefined}
               className={cn(
                 "relative inline-flex w-full cursor-pointer select-none items-center justify-center overflow-hidden whitespace-nowrap font-semibold tracking-[-0.01em] outline-none transition-opacity",
-                "focus-visible:ring-2 focus-visible:ring-[var(--mb-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--mb-ring-offset,white)]",
+                "focus-visible:ring-2 focus-visible:ring-[var(--mb-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--mb-ring-offset,light-dark(white,#0f0f0d))]",
                 "disabled:cursor-not-allowed data-[loading]:opacity-100 disabled:opacity-60",
                 sizeCfg.className,
                 sizeCfg.font,

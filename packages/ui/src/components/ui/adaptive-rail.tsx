@@ -204,7 +204,7 @@ export const AdaptiveRail = React.forwardRef<HTMLDivElement, AdaptiveRailProps>(
           transition={transition}
           className={cn(
             "z-40 flex items-center gap-1 rounded-full border p-1.5",
-            "border-[var(--ar-border,rgba(20,19,17,0.12))] bg-[var(--ar-surface,rgba(250,249,246,0.82))] text-[var(--ar-foreground,#141311)] shadow-[0_12px_32px_-12px_rgba(20,19,17,0.35)] backdrop-blur-md",
+            "border-[var(--ar-border,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))] bg-[var(--ar-surface,light-dark(rgba(250,249,246,0.82),rgba(31,31,28,0.88)))] text-[var(--ar-foreground,light-dark(#141311,#ecebe6))] shadow-[0_12px_32px_-12px_rgba(20,19,17,0.35)] backdrop-blur-md",
             position === "fixed" ? "fixed" : "absolute",
             className,
           )}
@@ -262,8 +262,8 @@ export const AdaptiveRailItem = React.forwardRef<HTMLButtonElement, AdaptiveRail
       "data-active": active || undefined,
       className: cn(
         "inline-flex h-10 min-w-10 items-center justify-center gap-1.5 rounded-full px-2.5 text-[13px] font-medium outline-none transition-colors",
-        "hover:bg-[var(--ar-item-hover,rgba(20,19,17,0.08))] focus-visible:ring-2 focus-visible:ring-[var(--ar-ring,#141311)] focus-visible:ring-offset-1",
-        "data-[active]:bg-[var(--ar-item-active,#141311)] data-[active]:text-[var(--ar-item-active-foreground,#f3f1ec)]",
+        "hover:bg-[var(--ar-item-hover,light-dark(rgba(20,19,17,0.08),rgba(236,235,230,0.08)))] focus-visible:ring-2 focus-visible:ring-[var(--ar-ring,light-dark(#141311,#ecebe6))] focus-visible:ring-offset-1",
+        "data-[active]:bg-[var(--ar-item-active,light-dark(#141311,#ecebe6))] data-[active]:text-[var(--ar-item-active-foreground,light-dark(#f3f1ec,#141311))]",
         "disabled:opacity-40",
         className,
       ),
@@ -330,7 +330,7 @@ export function AdaptiveRailSeparator({ className }: { className?: string }) {
     <span
       role="separator"
       aria-orientation={rail.vertical ? "horizontal" : "vertical"}
-      className={cn(rail.vertical ? "my-0.5 h-px w-5" : "mx-0.5 h-5 w-px", "shrink-0 bg-[var(--ar-border,rgba(20,19,17,0.15))]", className)}
+      className={cn(rail.vertical ? "my-0.5 h-px w-5" : "mx-0.5 h-5 w-px", "shrink-0 bg-[var(--ar-border,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))]", className)}
     />
   );
 }

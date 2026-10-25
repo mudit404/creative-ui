@@ -33,7 +33,7 @@ export interface ParticleMorphProps extends Omit<React.HTMLAttributes<HTMLDivEle
   spread?: number;
   seed?: number;
   colorMode?: "source" | "theme";
-  /** Theme accent used by colorMode="theme" (also --cui-particle-color). */
+  /** Theme accent used by colorMode="theme" (also sets --cui-particle-color). Defaults to the resolved `--cui-particle-color`, i.e. the theme ink via light-dark(). */
   themeColor?: string;
   onTargetRequest?: (id: string) => void;
   onTargetReady?: (id: string) => void;
@@ -52,6 +52,27 @@ export interface ParticleMorphProps extends Omit<React.HTMLAttributes<HTMLDivEle
 }
 
 const BUDGET = { high: 24_000, balanced: 12_000, low: 4_000 } as const;
+
+const THEME_COLOR_CSS = "var(--cui-particle-color, light-dark(#141311, #ecebe6))";
+const THEME_COLOR_FALLBACK = "#141311";
+
+/**
+ * Three's `Color` cannot read `var()` or `light-dark()`, so the CSS value is
+ * resolved through a probe element inside the root (its computed `color`
+ * follows the root's custom properties and `color-scheme`). Falls back to the
+ * light ink where there is no layout engine (jsdom).
+ */
+function resolveThemeColor(root: HTMLElement | null, explicit: string | undefined): string {
+  if (explicit) return explicit;
+  if (!root || typeof getComputedStyle !== "function") return THEME_COLOR_FALLBACK;
+  const probe = document.createElement("span");
+  probe.style.color = THEME_COLOR_CSS;
+  root.appendChild(probe);
+  const resolved = getComputedStyle(probe).color;
+  root.removeChild(probe);
+  // Three parses rgb()/hsl() strings only; anything else (empty in jsdom, or a wide-gamut function) falls back to the light ink.
+  return /^(rgb|hsl)a?\(/.test(resolved) ? resolved : THEME_COLOR_FALLBACK;
+}
 
 export const browserMaskDecoder: MaskDecoder = (src, signal) =>
   new Promise((resolve, reject) => {
@@ -101,7 +122,7 @@ export const ParticleMorph = React.forwardRef<ParticleMorphHandle, ParticleMorph
     spread = 0.12,
     seed = 1,
     colorMode = "theme",
-    themeColor = "#141311",
+    themeColor,
     onTargetRequest,
     onTargetReady,
     onTargetError,
@@ -263,7 +284,7 @@ export const ParticleMorph = React.forwardRef<ParticleMorphHandle, ParticleMorph
     const p = prepared.current.get(cacheKey(target.id));
     if (!p || p === "error") return;
     const b = ensureBuffers();
-    const theme = new Color(themeColor);
+    const theme = new Color(resolveThemeColor(rootRef.current, themeColor));
     for (let i = 0; i < count; i++) {
       b.colors[i * 3] = colorMode === "source" ? p.colors[i * 3]! : theme.r;
       b.colors[i * 3 + 1] = colorMode === "source" ? p.colors[i * 3 + 1]! : theme.g;
@@ -347,11 +368,11 @@ export const ParticleMorph = React.forwardRef<ParticleMorphHandle, ParticleMorph
       data-shown={shownId ?? undefined}
       role="group"
       aria-label={label}
-      className={cn("flex w-full max-w-[480px] flex-col gap-3 text-[var(--cui-particle-label,#141311)]", className)}
-      style={{ ["--cui-particle-color" as string]: themeColor }}
+      className={cn("flex w-full max-w-[480px] flex-col gap-3 text-[var(--cui-particle-label,light-dark(#141311,#ecebe6))]", className)}
+      style={themeColor !== undefined ? { ["--cui-particle-color" as string]: themeColor } : undefined}
       {...rest}
     >
-      <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-[var(--cui-particle-background,#faf9f6)]" data-stage>
+      <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-[var(--cui-particle-background,light-dark(#faf9f6,#1f1f1c))]" data-stage>
         {/* the static asset is the identity until points are genuinely ready, and whenever rendering is unavailable */}
         {target && <img src={target.fallback} alt={target.label} className={cn("absolute inset-0 size-full object-contain p-8 transition-opacity", pointsVisible && "opacity-0")} data-fallback />}
         <canvas ref={canvasRef} aria-hidden className={cn("absolute inset-0 size-full", renderer !== "auto" && "hidden")} />
@@ -361,7 +382,7 @@ export const ParticleMorph = React.forwardRef<ParticleMorphHandle, ParticleMorph
           </div>
         )}
         {error && (
-          <div role="status" className="absolute inset-x-3 bottom-3 rounded-lg bg-white/85 p-2 text-center text-[12px] text-[var(--cui-particle-error,#c8360d)]">
+          <div role="status" className="absolute inset-x-3 bottom-3 rounded-lg bg-[light-dark(rgba(255,255,255,0.85),rgba(31,31,28,0.88))] p-2 text-center text-[12px] text-[var(--cui-particle-error,light-dark(#b8310c,#ff8a65))]">
             {error}
           </div>
         )}
@@ -372,7 +393,7 @@ export const ParticleMorph = React.forwardRef<ParticleMorphHandle, ParticleMorph
       {showControls && targets.length > 1 && (
         <div ref={controlsRef} role="group" aria-label="Targets" className="flex flex-wrap justify-center gap-1.5">
           {targets.map((t) => (
-            <button key={t.id} type="button" aria-pressed={t.id === requested} onClick={() => request(t.id)} className={cn("rounded-full border border-[var(--cui-particle-border,rgba(20,19,17,0.25))] px-3 py-1 text-[12px] outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-particle-color,#141311)]", t.id === requested && "bg-[var(--cui-particle-color,#141311)] text-[var(--cui-particle-background,#faf9f6)]")}>
+            <button key={t.id} type="button" aria-pressed={t.id === requested} onClick={() => request(t.id)} className={cn("rounded-full border border-[var(--cui-particle-border,light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25)))] px-3 py-1 text-[12px] outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--cui-particle-color,light-dark(#141311,#ecebe6))]", t.id === requested && "bg-[var(--cui-particle-color,light-dark(#141311,#ecebe6))] text-[var(--cui-particle-background,light-dark(#faf9f6,#1f1f1c))]")}>
               {t.label}
             </button>
           ))}

@@ -377,10 +377,10 @@ export const CablePatchbay = React.forwardRef<CablePatchbayHandle, CablePatchbay
           onLostPointerCapture={isOutput ? onOutputPointerCancel : undefined}
           onClick={(e) => (isOutput ? onOutputClick(port) : onInputClick(port, e.detail === 0))}
           className={cn(
-            "flex min-h-[44px] w-full touch-none items-center gap-2 rounded-lg px-2 py-1.5 text-left text-[13px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-patch-focus,#141311)]",
+            "flex min-h-[44px] w-full touch-none items-center gap-2 rounded-lg px-2 py-1.5 text-left text-[13px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-patch-focus,light-dark(#141311,#ecebe6))]",
             !isOutput && "flex-row-reverse text-right",
-            isSource && "bg-[rgba(20,19,17,0.08)]",
-            eligible && "bg-[rgba(31,122,79,0.1)]",
+            isSource && "bg-[light-dark(rgba(20,19,17,0.08),rgba(236,235,230,0.08))]",
+            eligible && "bg-[light-dark(rgba(26,107,69,0.15),rgba(95,207,143,0.2))]",
             invalid && "opacity-60",
           )}
         >
@@ -393,15 +393,15 @@ export const CablePatchbay = React.forwardRef<CablePatchbayHandle, CablePatchbay
             data-socket
             className={cn(
               "grid size-[22px] shrink-0 place-items-center rounded-full",
-              eligible ? "ring-2 ring-[var(--cui-cable-active,#1f7a4f)]" : invalid ? "ring-2 ring-[var(--cui-port-invalid,#c8360d)]" : "",
+              eligible ? "ring-2 ring-[var(--cui-cable-active,light-dark(#1a6b45,#5fcf8f))]" : invalid ? "ring-2 ring-[var(--cui-port-invalid,light-dark(#b8310c,#ff8a65))]" : "",
             )}
           >
-            <span className={cn("block size-[10px] rounded-full border-2", connected || isSource ? "border-[var(--cui-port-fill,#141311)] bg-[var(--cui-port-fill,#141311)]" : "border-[var(--cui-port-fill,#141311)] bg-[var(--cui-patch-background,#faf9f6)]")} />
+            <span className={cn("block size-[10px] rounded-full border-2", connected || isSource ? "border-[var(--cui-port-fill,light-dark(#141311,#ecebe6))] bg-[var(--cui-port-fill,light-dark(#141311,#ecebe6))]" : "border-[var(--cui-port-fill,light-dark(#141311,#ecebe6))] bg-[var(--cui-patch-background,light-dark(#faf9f6,#1f1f1c))]")} />
           </span>
           {renderPort ? renderPort(port, { connected, eligible, invalidReason: verdict && !verdict.allowed ? verdict.reason : undefined }) : (
             <span className="min-w-0 flex-1">
               <span className="block truncate font-medium">{port.label}</span>
-              <span className="block font-mono text-[10px] uppercase tracking-wide opacity-60">{port.dataType}</span>
+              <span className="block font-mono text-[10px] uppercase tracking-wide text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]">{port.dataType}</span>
             </span>
           )}
         </button>
@@ -418,7 +418,7 @@ export const CablePatchbay = React.forwardRef<CablePatchbayHandle, CablePatchbay
     const list = (side === "left" ? outputs : inputs).filter((p) => p.nodeId === mod.id);
     if (!list.length) return null;
     return (
-      <section key={`${side}-${mod.id}`} aria-label={mod.label} data-module={mod.id} className="rounded-xl border border-[var(--cui-patch-border,rgba(20,19,17,0.15))] bg-[var(--cui-patch-module,rgba(20,19,17,0.03))] p-2">
+      <section key={`${side}-${mod.id}`} aria-label={mod.label} data-module={mod.id} className="rounded-xl border border-[var(--cui-patch-border,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))] bg-[var(--cui-patch-module,light-dark(rgba(20,19,17,0.03),rgba(236,235,230,0.03)))] p-2">
         <h3 className="m-0 mb-1 px-2 text-[11px] font-semibold uppercase tracking-wide opacity-70">{mod.label}</h3>
         <ul className="m-0 flex flex-col gap-0.5 p-0">{list.map(renderPortButton)}</ul>
       </section>
@@ -438,12 +438,12 @@ export const CablePatchbay = React.forwardRef<CablePatchbayHandle, CablePatchbay
       role="group"
       aria-label={label}
       onKeyDown={onKeyDown}
-      className={cn("relative flex w-full flex-col gap-4 text-[var(--cui-patch-text,#141311)]", className)}
+      className={cn("relative flex w-full flex-col gap-4 text-[var(--cui-patch-text,light-dark(#141311,#ecebe6))]", className)}
       {...rest}
     >
       {/* board */}
       {/* the board grows with its modules (a fixed 720×420 aspect would let modules overflow the cable overlay) */}
-      <div className="relative grid min-h-[200px] grid-cols-1 gap-3 rounded-2xl bg-[var(--cui-patch-background,#faf9f6)] p-3 sm:grid-cols-[1fr_minmax(48px,0.6fr)_1fr] sm:gap-0">
+      <div className="relative grid min-h-[200px] grid-cols-1 gap-3 rounded-2xl bg-[var(--cui-patch-background,light-dark(#faf9f6,#1f1f1c))] p-3 sm:grid-cols-[1fr_minmax(48px,0.6fr)_1fr] sm:gap-0">
         <div className="flex flex-col gap-3" data-side="outputs">
           {mods.map((mod) => module(mod, "left"))}
         </div>
@@ -463,17 +463,17 @@ export const CablePatchbay = React.forwardRef<CablePatchbayHandle, CablePatchbay
             return (
               <g key={c.id} data-cable={c.id} data-selected={isSel || undefined} className="pointer-events-auto">
                 <path d={pathFor(a, b)} fill="none" stroke="transparent" strokeWidth={14} className="cursor-pointer" onPointerEnter={() => setHoverId(c.id)} onPointerLeave={() => setHoverId((h) => (h === c.id ? null : h))} onClick={() => setSelectedId((s) => (s === c.id ? null : c.id))} />
-                <path d={pathFor(a, b)} fill="none" stroke={isSel || isHover ? "var(--cui-cable-active, #1f7a4f)" : "var(--cui-cable-stroke, #141311)"} strokeWidth={isSel ? 4 : 3} strokeDasharray={isSel ? "8 4" : replacing ? "2 4" : undefined} strokeLinecap="round" opacity={isHover || isSel ? 1 : 0.75} />
-                <circle cx={a.x} cy={a.y} r={5} fill="var(--cui-cable-stroke, #141311)" />
-                <circle cx={b.x} cy={b.y} r={5} fill="var(--cui-cable-stroke, #141311)" />
+                <path d={pathFor(a, b)} fill="none" stroke={isSel || isHover ? "var(--cui-cable-active, light-dark(#1a6b45, #5fcf8f))" : "var(--cui-cable-stroke, light-dark(#141311, #ecebe6))"} strokeWidth={isSel ? 4 : 3} strokeDasharray={isSel ? "8 4" : replacing ? "2 4" : undefined} strokeLinecap="round" opacity={isHover || isSel ? 1 : 0.75} />
+                <circle cx={a.x} cy={a.y} r={5} fill="var(--cui-cable-stroke, light-dark(#141311, #ecebe6))" />
+                <circle cx={b.x} cy={b.y} r={5} fill="var(--cui-cable-stroke, light-dark(#141311, #ecebe6))" />
               </g>
             );
           })}
-          {pendingPath && <path data-pending-cable d={pendingPath} fill="none" stroke="var(--cui-cable-active, #1f7a4f)" strokeWidth={3} strokeDasharray="6 6" strokeLinecap="round" />}
-          {dragView && <m.path data-temp-cable d={tempD} fill="none" stroke="var(--cui-cable-active, #1f7a4f)" strokeWidth={3} strokeLinecap="round" strokeDasharray={dragView.snapped && dragView.verdict?.allowed ? undefined : "6 6"} />}
+          {pendingPath && <path data-pending-cable d={pendingPath} fill="none" stroke="var(--cui-cable-active, light-dark(#1a6b45, #5fcf8f))" strokeWidth={3} strokeDasharray="6 6" strokeLinecap="round" />}
+          {dragView && <m.path data-temp-cable d={tempD} fill="none" stroke="var(--cui-cable-active, light-dark(#1a6b45, #5fcf8f))" strokeWidth={3} strokeLinecap="round" strokeDasharray={dragView.snapped && dragView.verdict?.allowed ? undefined : "6 6"} />}
         </svg>
         {hoveredMid && hovered && !pending && (
-          <button type="button" aria-label={`Disconnect ${map.get(hovered.sourcePortId)?.label} from ${map.get(hovered.targetPortId)?.label}`} onPointerEnter={() => setHoverId(hovered.id)} onClick={() => disconnect(hovered.id, "cable")} className="absolute z-10 -translate-x-1/2 rounded-full bg-[var(--cui-cable-active,#1f7a4f)] px-2 py-0.5 text-[11px] font-medium text-white shadow" style={{ left: hoveredMid.x, top: hoveredMid.y }}>
+          <button type="button" aria-label={`Disconnect ${map.get(hovered.sourcePortId)?.label} from ${map.get(hovered.targetPortId)?.label}`} onPointerEnter={() => setHoverId(hovered.id)} onClick={() => disconnect(hovered.id, "cable")} className="absolute z-10 -translate-x-1/2 rounded-full bg-[var(--cui-cable-active,light-dark(#1a6b45,#5fcf8f))] px-2 py-0.5 text-[11px] font-medium text-[light-dark(#ffffff,#121210)] shadow" style={{ left: hoveredMid.x, top: hoveredMid.y }}>
             Disconnect
           </button>
         )}
@@ -481,7 +481,7 @@ export const CablePatchbay = React.forwardRef<CablePatchbayHandle, CablePatchbay
 
       {/* status */}
       <div className="flex flex-wrap items-center gap-2 text-[12px]">
-        <div role="status" aria-live="polite" className={cn("min-h-[1.5rem] flex-1", notice.error ? "text-[var(--cui-port-invalid,#c8360d)]" : "opacity-80")}>
+        <div role="status" aria-live="polite" className={cn("min-h-[1.5rem] flex-1", notice.error ? "text-[var(--cui-port-invalid,light-dark(#b8310c,#ff8a65))]" : "opacity-80")}>
           {dragView ? (dragView.snapped ? (dragView.verdict?.allowed ? `Release to connect to ${map.get(dragView.snapped)?.label}.` : `Cannot connect: ${dragView.verdict?.reason}`) : "Drag to an input.") : notice.text}
         </div>
         {(connecting || dragView) && (
@@ -498,15 +498,15 @@ export const CablePatchbay = React.forwardRef<CablePatchbayHandle, CablePatchbay
             Connections ({edges.length})
           </h3>
           <ul aria-label="Connections" className="m-0 flex list-none flex-col gap-1 p-0 text-[13px]">
-            {edges.length === 0 && <li className="opacity-60">None yet.</li>}
+            {edges.length === 0 && <li className="text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]">None yet.</li>}
             {edges.map((c) => {
               const s = map.get(c.sourcePortId)!;
               const t = map.get(c.targetPortId)!;
               const isSel = selectedId === c.id;
               const alternatives = inputs.filter((p) => p.id !== c.targetPortId && check({ sourcePortId: c.sourcePortId, targetPortId: p.id, replaceConnectionId: c.id }).allowed);
               return (
-                <li key={c.id} data-connection={c.id} className={cn("flex flex-wrap items-center gap-2 rounded-lg px-2 py-1", isSel && "bg-[rgba(31,122,79,0.1)]")}>
-                  <button type="button" aria-pressed={isSel} onClick={() => setSelectedId(isSel ? null : c.id)} className="min-w-0 flex-1 text-left outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-patch-focus,#141311)]">
+                <li key={c.id} data-connection={c.id} className={cn("flex flex-wrap items-center gap-2 rounded-lg px-2 py-1", isSel && "bg-[light-dark(rgba(26,107,69,0.15),rgba(95,207,143,0.2))]")}>
+                  <button type="button" aria-pressed={isSel} onClick={() => setSelectedId(isSel ? null : c.id)} className="min-w-0 flex-1 text-left outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-patch-focus,light-dark(#141311,#ecebe6))]">
                     {renderConnectionLabel ? renderConnectionLabel(c, s, t) : <span>{s.label} → {t.label}</span>}
                   </button>
                   {isSel && onReconnectRequest && alternatives.length > 0 && (
@@ -520,7 +520,7 @@ export const CablePatchbay = React.forwardRef<CablePatchbayHandle, CablePatchbay
             })}
           </ul>
           {diagnostics.length > 0 && (
-            <div role="note" className="mt-2 rounded-lg border border-[var(--cui-port-invalid,#c8360d)] p-2 text-[12px] text-[var(--cui-port-invalid,#c8360d)]">
+            <div role="note" className="mt-2 rounded-lg border border-[var(--cui-port-invalid,light-dark(#b8310c,#ff8a65))] p-2 text-[12px] text-[var(--cui-port-invalid,light-dark(#b8310c,#ff8a65))]">
               <strong>{diagnostics.length} invalid connection{diagnostics.length === 1 ? "" : "s"} not drawn:</strong>
               <ul className="m-0 mt-1 list-disc pl-4">
                 {diagnostics.map((d) => (
@@ -540,8 +540,8 @@ export const CablePatchbay = React.forwardRef<CablePatchbayHandle, CablePatchbay
 CablePatchbay.displayName = "CablePatchbay";
 
 const BTN =
-  "inline-flex h-7 items-center rounded-full border border-[var(--cui-patch-border,rgba(20,19,17,0.25))] px-2.5 text-[12px] outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-patch-focus,#141311)] disabled:cursor-not-allowed disabled:opacity-40";
-const SELECT = "h-7 rounded-md border border-[var(--cui-patch-border,rgba(20,19,17,0.25))] bg-transparent px-1 text-[12px]";
+  "inline-flex h-7 items-center rounded-full border border-[var(--cui-patch-control-border,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))] px-2.5 text-[12px] outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--cui-patch-focus,light-dark(#141311,#ecebe6))] disabled:cursor-not-allowed disabled:opacity-40";
+const SELECT = "h-7 rounded-md border border-[var(--cui-patch-control-border,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))] bg-transparent px-1 text-[12px]";
 
 function ReconnectControl({ alternatives, disabled, onReconnect }: { alternatives: Port[]; disabled: boolean; onReconnect: (targetId: string) => void }) {
   const [to, setTo] = React.useState(alternatives[0]!.id);
@@ -571,7 +571,7 @@ function ConnectForm({ outputs, inputs, check, disabled, onConnect, uid }: { out
   return (
     <form
       aria-labelledby={`${uid}-form-h`}
-      className="flex flex-col gap-2 rounded-xl border border-[var(--cui-patch-border,rgba(20,19,17,0.15))] p-2 text-[13px]"
+      className="flex flex-col gap-2 rounded-xl border border-[var(--cui-patch-border,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))] p-2 text-[13px]"
       onSubmit={(e) => {
         e.preventDefault();
         if (verdict.allowed) onConnect(source, target);
@@ -601,10 +601,10 @@ function ConnectForm({ outputs, inputs, check, disabled, onConnect, uid }: { out
         </select>
       </label>
       <div className="flex items-center justify-between gap-2">
-        <span className={cn("text-[12px]", verdict.allowed ? "opacity-60" : "text-[var(--cui-port-invalid,#c8360d)]")} data-form-verdict>
+        <span className={cn("text-[12px]", verdict.allowed ? "text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]" : "text-[var(--cui-port-invalid,light-dark(#b8310c,#ff8a65))]")} data-form-verdict>
           {verdict.allowed ? "Ready" : verdict.reason}
         </span>
-        <button type="submit" disabled={disabled || !verdict.allowed} className={cn(BTN, "bg-[var(--cui-patch-focus,#141311)] text-[var(--cui-patch-background,#faf9f6)]")}>
+        <button type="submit" disabled={disabled || !verdict.allowed} className={cn(BTN, "bg-[var(--cui-patch-focus,light-dark(#141311,#ecebe6))] text-[var(--cui-patch-background,light-dark(#faf9f6,#1f1f1c))]")}>
           Connect
         </button>
       </div>

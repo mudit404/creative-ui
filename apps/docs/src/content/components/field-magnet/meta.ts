@@ -40,7 +40,7 @@ export const fieldMagnetMeta: ComponentMeta = {
       title: "Magnetic button",
       description: "The common case: a call to action that leans into the pointer.",
       code: `<FieldMagnet>
-  <button className="rounded-full bg-black px-6 py-3 text-white">Hire us</button>
+  <button className="rounded-full bg-[light-dark(#141311,#ecebe6)] px-6 py-3 text-[light-dark(#f3f1ec,#141311)]">Hire us</button>
 </FieldMagnet>`,
     },
     {
@@ -48,7 +48,7 @@ export const fieldMagnetMeta: ComponentMeta = {
       title: "Frame and content parallax",
       description: "innerStrength moves the label a little further than the frame, so the button feels like it has depth.",
       code: `<FieldMagnet innerStrength={0.6} scale={1.04} radius={140}>
-  <button className="rounded-full border px-6 py-3">Get started</button>
+  <button className="rounded-full border border-[light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45))] px-6 py-3">Get started</button>
 </FieldMagnet>`,
     },
     {
@@ -57,7 +57,7 @@ export const fieldMagnetMeta: ComponentMeta = {
       description: "Independent fields per element. The shared pointer listener keeps the cost flat however many there are.",
       code: `{icons.map((Icon) => (
   <FieldMagnet key={Icon.name} radius={80} strength={0.5} maxOffset={12} spring="soft">
-    <a href="#" aria-label={Icon.name}><Icon /></a>
+    <a href="#" aria-label={Icon.name} className="rounded-full bg-[light-dark(#141311,#ecebe6)] p-3 text-[light-dark(#f3f1ec,#141311)]"><Icon /></a>
   </FieldMagnet>
 ))}`,
     },
@@ -66,7 +66,7 @@ export const fieldMagnetMeta: ComponentMeta = {
       title: "asChild with a link",
       description: "The anchor itself becomes the moving element.",
       code: `<FieldMagnet asChild radius={100}>
-  <Link href="/pricing" className="underline underline-offset-4">See pricing</Link>
+  <Link href="/pricing" className="text-[light-dark(#141311,#ecebe6)] underline underline-offset-4">See pricing</Link>
 </FieldMagnet>`,
     },
     {
@@ -74,7 +74,7 @@ export const fieldMagnetMeta: ComponentMeta = {
       title: "One axis, stiff spring",
       description: "Useful for horizontal nav items that should slide, not float.",
       code: `<FieldMagnet axis="x" strength={0.5} maxOffset={10} spring="stiff">
-  <span className="px-4 py-2">Products</span>
+  <span className="px-4 py-2 text-[light-dark(#141311,#ecebe6)]">Products</span>
 </FieldMagnet>`,
     },
     {

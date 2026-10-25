@@ -7,8 +7,8 @@ import { MaterialButton } from "@/components/ui/material-button";
 import type { LiveModule } from "~/content/live-types";
 import type { PlaygroundValues } from "~/components/playground/playground";
 
-const demoButton = "rounded-full bg-[#141311] px-6 py-3 text-[15px] font-semibold text-[#f3f1ec] shadow-md";
-const outlineButton = "rounded-full border border-[rgba(20,19,17,0.3)] bg-white/60 px-6 py-3 text-[15px] font-semibold text-[#141311]";
+const demoButton = "rounded-full bg-[light-dark(#141311,#ecebe6)] px-6 py-3 text-[15px] font-semibold text-[light-dark(#f3f1ec,#141311)] shadow-md";
+const outlineButton = "rounded-full border border-[light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45))] bg-[light-dark(rgba(255,255,255,0.6),rgba(255,255,255,0.08))] px-6 py-3 text-[15px] font-semibold text-[light-dark(#141311,#ecebe6)]";
 
 function Icon({ d, label }: { d: string; label: string }) {
   return (
@@ -16,7 +16,7 @@ function Icon({ d, label }: { d: string; label: string }) {
       href="#"
       aria-label={label}
       onClick={(e) => e.preventDefault()}
-      className="flex size-12 items-center justify-center rounded-full bg-[#141311] text-[#f3f1ec]"
+      className="flex size-12 items-center justify-center rounded-full bg-[light-dark(#141311,#ecebe6)] text-[light-dark(#f3f1ec,#141311)]"
     >
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d={d} />
@@ -81,13 +81,13 @@ export const fieldMagnetLive: LiveModule = {
     ),
     aschild: () => (
       <FieldMagnet asChild radius={100}>
-        <Link href="/docs" className="text-[#141311] underline underline-offset-4">
+        <Link href="/docs" className="text-[light-dark(#141311,#ecebe6)] underline underline-offset-4">
           See pricing
         </Link>
       </FieldMagnet>
     ),
     axis: () => (
-      <nav className="flex gap-2 text-[15px] font-medium text-[#141311]">
+      <nav className="flex gap-2 text-[15px] font-medium text-[light-dark(#141311,#ecebe6)]">
         {["Products", "Studio", "Journal", "Contact"].map((t) => (
           <FieldMagnet key={t} axis="x" strength={0.5} maxOffset={10} spring="stiff">
             <span className="block px-4 py-2">{t}</span>

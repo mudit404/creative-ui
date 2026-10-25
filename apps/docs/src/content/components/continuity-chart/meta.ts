@@ -29,10 +29,14 @@ export const continuityChartMeta: ComponentMeta = {
   ],
   cssVars: [
     { name: "--cui-chart-mark", description: "Fallback mark colour (rows without a colour use a palette)", default: "palette" },
-    { name: "--cui-chart-axis", description: "Axis lines, borders, zero line", default: "rgba(20,19,17,0.25)" },
-    { name: "--cui-chart-selected", description: "Selected control and focus ring", default: "#141311" },
-    { name: "--cui-chart-grid", description: "Grid lines", default: "rgba(20,19,17,0.08)" },
-    { name: "--cui-chart-error", description: "Diagnostics and overflow markers", default: "#c8360d" },
+    { name: "--cui-chart-text", description: "Text", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-chart-axis", description: "Axis baseline, control frames and table rule (decorative lines)", default: "light-dark(rgba(20,19,17,0.25), rgba(236,235,230,0.25))" },
+    { name: "--cui-chart-boundary", description: "Zero line and the Snapshot select outline (essential boundaries)", default: "light-dark(rgba(20,19,17,0.5), rgba(236,235,230,0.45))" },
+    { name: "--cui-chart-label", description: "Tick labels, unit and Not-available text", default: "light-dark(rgba(20,19,17,0.65), rgba(236,235,230,0.65))" },
+    { name: "--cui-chart-selected", description: "Selected control fill and focus ring", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-chart-bg", description: "Text on the selected control", default: "light-dark(#faf9f6, #1f1f1c)" },
+    { name: "--cui-chart-grid", description: "Grid lines", default: "light-dark(rgba(20,19,17,0.08), rgba(236,235,230,0.08))" },
+    { name: "--cui-chart-error", description: "Diagnostics and overflow markers", default: "light-dark(#b8310c, #ff8a65)" },
   ],
   examples: [
     {

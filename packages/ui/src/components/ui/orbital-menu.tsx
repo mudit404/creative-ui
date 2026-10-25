@@ -271,7 +271,7 @@ export const OrbitalMenuTrigger = React.forwardRef<HTMLButtonElement, OrbitalMen
       data-state={menu.open ? "open" : "closed"}
       className={cn(
         !asChild &&
-          "relative z-10 inline-flex size-14 items-center justify-center rounded-full bg-[var(--om-trigger,#141311)] text-[var(--om-trigger-foreground,#f3f1ec)] shadow-[0_10px_24px_-10px_rgba(20,19,17,0.6)] outline-none transition-transform focus-visible:ring-2 focus-visible:ring-[var(--om-ring,#141311)] focus-visible:ring-offset-2 active:scale-95",
+          "relative z-10 inline-flex size-14 items-center justify-center rounded-full bg-[var(--om-trigger,light-dark(#141311,#ecebe6))] text-[var(--om-trigger-foreground,light-dark(#f3f1ec,#141311))] shadow-[0_10px_24px_-10px_rgba(20,19,17,0.6)] outline-none transition-transform focus-visible:ring-2 focus-visible:ring-[var(--om-ring,light-dark(#141311,#ecebe6))] focus-visible:ring-offset-2 active:scale-95",
         className,
       )}
       onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
@@ -399,8 +399,8 @@ export const OrbitalMenuItem = React.forwardRef<HTMLButtonElement, OrbitalMenuIt
       disabled: href ? undefined : disabled,
       "data-orbital-item": true,
       className: cn(
-        "inline-flex size-11 items-center justify-center rounded-full bg-[var(--om-item,#faf9f6)] text-[var(--om-item-foreground,#141311)] shadow-[0_8px_20px_-10px_rgba(20,19,17,0.5),0_0_0_1px_rgba(20,19,17,0.08)] outline-none transition-colors",
-        "hover:bg-[var(--om-item-hover,#141311)] hover:text-[var(--om-item-hover-foreground,#f3f1ec)] focus-visible:ring-2 focus-visible:ring-[var(--om-ring,#141311)] focus-visible:ring-offset-2",
+        "inline-flex size-11 items-center justify-center rounded-full bg-[var(--om-item,light-dark(#faf9f6,#1f1f1c))] text-[var(--om-item-foreground,light-dark(#141311,#ecebe6))] shadow-[0_8px_20px_-10px_rgba(20,19,17,0.5),0_0_0_1px_light-dark(rgba(20,19,17,0.08),rgba(236,235,230,0.08))] outline-none transition-colors",
+        "hover:bg-[var(--om-item-hover,light-dark(#141311,#ecebe6))] hover:text-[var(--om-item-hover-foreground,light-dark(#f3f1ec,#141311))] focus-visible:ring-2 focus-visible:ring-[var(--om-ring,light-dark(#141311,#ecebe6))] focus-visible:ring-offset-2",
         "aria-disabled:cursor-not-allowed aria-disabled:opacity-40 [&>svg]:size-5",
         className,
       ),
@@ -430,7 +430,7 @@ export const OrbitalMenuItem = React.forwardRef<HTMLButtonElement, OrbitalMenuIt
         <m.span ref={holder} className="relative flex flex-col items-center gap-1" style={{ x: magnet.x, y: magnet.y }}>
           {control}
           {menu.showLabels && (
-            <span aria-hidden className="pointer-events-none whitespace-nowrap rounded-full bg-[var(--om-label,#141311)] px-2 py-0.5 text-[11px] font-medium text-[var(--om-label-foreground,#f3f1ec)]">
+            <span aria-hidden className="pointer-events-none whitespace-nowrap rounded-full bg-[var(--om-label,light-dark(#141311,#ecebe6))] px-2 py-0.5 text-[11px] font-medium text-[var(--om-label-foreground,light-dark(#f3f1ec,#141311))]">
               {label}
             </span>
           )}

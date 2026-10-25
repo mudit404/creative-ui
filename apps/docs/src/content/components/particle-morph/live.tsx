@@ -78,7 +78,7 @@ function Rapid() {
   return (
     <div className="flex w-full flex-col gap-3">
       <ParticleMorph ref={ref} targets={TARGETS} pointCount={6000} showControls={false} {...handlers} className="h-64" />
-      <button type="button" onClick={burst} className="self-start rounded-full border border-[rgba(20,19,17,0.25)] px-3 py-1 text-[12px] hover:bg-[rgba(20,19,17,0.06)]">
+      <button type="button" onClick={burst} className="self-start rounded-full border border-[light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25))] px-3 py-1 text-[12px] hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.08))]">
         Fire 20 requests (ends on Star)
       </button>
       <EventLog entries={log} />

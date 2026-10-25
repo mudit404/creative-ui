@@ -20,7 +20,7 @@ export const particleMorphMeta: ComponentMeta = {
     { name: "targetId / defaultTargetId", type: "string", default: "first target", description: "Controlled or initial target; requests are proposed through onTargetRequest." },
     { name: "pointCount", type: "number", default: "quality budget", description: "Fixed cloud size (high 24k, balanced 12k, low 4k). Every target is resampled to exactly this count." },
     { name: "duration / spread / seed", type: "ms / fraction / number", default: "900 / 0.12 / 1", description: "Morph time, mid-flight bow and the deterministic sampling seed." },
-    { name: "colorMode / themeColor", type: '"source" | "theme" / string', default: '"source" / #141311', description: "Per-point source colours or one theme colour." },
+    { name: "colorMode / themeColor", type: '"source" | "theme" / string', default: '"theme" / theme ink (light-dark(#141311, #ecebe6)) via --cui-particle-color', description: "Per-point source colours or one theme colour. Without themeColor the resolved --cui-particle-color is used (set it on the root or an ancestor); a given themeColor also sets that variable." },
     { name: "onTargetRequest / onTargetReady / onTargetError", type: "callbacks", default: "—", description: "Request (id), prepared (id), failed (id, message). Readiness is not completion." },
     { name: "onMorphComplete", type: "(id, revision) => void", default: "—", description: "The newest target finished its morph; stale morphs never complete." },
     { name: "quality", type: '"auto" | "high" | "balanced" | "low"', default: '"auto"', description: "Point budget and DPR cap." },
@@ -32,10 +32,11 @@ export const particleMorphMeta: ComponentMeta = {
     { name: "ref", type: "ParticleMorphHandle", default: "—", description: "{ root, requestTarget(id), focusControls(), getPositions() }." },
   ],
   cssVars: [
-    { name: "--cui-particle-background", description: "Stage background", default: "#faf9f6" },
-    { name: "--cui-particle-color", description: "Theme colour and selected control", default: "#141311" },
-    { name: "--cui-particle-border", description: "Control borders", default: "rgba(20,19,17,0.25)" },
-    { name: "--cui-particle-error", description: "Error text", default: "#c8360d" },
+    { name: "--cui-particle-background", description: "Stage background and selected-control text", default: "light-dark(#faf9f6, #1f1f1c)" },
+    { name: "--cui-particle-color", description: "Theme point colour (colorMode=\"theme\"), selected control and focus ring; the resolved value feeds Three. Set from themeColor when given", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-particle-label", description: "Label and control text", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-particle-border", description: "Control borders (decorative; the buttons carry labels)", default: "light-dark(rgba(20,19,17,0.25), rgba(236,235,230,0.25))" },
+    { name: "--cui-particle-error", description: "Error text", default: "light-dark(#b8310c, #ff8a65)" },
   ],
   examples: [
     { id: "emblems", title: "Four emblems", description: "SVG masks and a generated spiral. Readiness and completion are logged with revisions; click quickly to see only the latest target complete.", code: `<ParticleMorph targets={TARGETS} onMorphComplete={log} />` },
@@ -53,7 +54,7 @@ export const particleMorphMeta: ComponentMeta = {
 - **Morph**: start positions are a snapshot of the live buffer, so interrupting mid-flight continues from where the points are; \`evaluateMorph\` writes into the existing buffer with no allocation per frame (C54-T03, C54-T04).
 - **Truth**: a stale morph never reports completion; readiness, completion and errors are separate (C54-T05).`,
     },
-    { id: "accessibility", title: "Accessibility", body: `- The emblem is identified by the fallback image's alt and the visible label, not by the particles.\n- Controls are buttons with \`aria-pressed\`; \`focusControls()\` moves focus to them.\n- Reduced motion shows the target immediately and reports no fake progress (C54-T06, C54-T09).` },
+    { id: "accessibility", title: "Accessibility", body: `- The emblem is identified by the fallback image's alt and the visible label, not by the particles.\n- Controls are buttons with \`aria-pressed\`; \`focusControls()\` moves focus to them.\n- Default colours, including the theme point colour, follow \`color-scheme\` via \`light-dark()\` (Chrome 123+, Safari 17.5+, Firefox 120+; older browsers get the light values); the point colour is resolved through a probe element before it reaches Three.\n- Reduced motion shows the target immediately and reports no fake progress (C54-T06, C54-T09).` },
     { id: "performance", title: "Performance", body: `Fixed point budget; all Float32Array buffers are preallocated once per count. Demand rendering: frames run only during a morph. Masks decode at ≤256 px. Textures/contexts are released on unmount.` },
     { id: "limitations", title: "Known limitations", body: `- No mesh-surface sampling, optimal assignment or depth sorting (deferred).\n- Text rasterisation is left to the host (provide an image mask).\n- One renderer per instance; several instances share nothing.` },
   ],

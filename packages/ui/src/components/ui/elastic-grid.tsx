@@ -271,7 +271,7 @@ export const ElasticGridItem = React.forwardRef<HTMLLIElement, ElasticGridItemPr
       data-slot="elastic-grid-item"
       data-column={col}
       data-hovered={hovered || undefined}
-      className={cn("relative min-w-0 overflow-hidden rounded-[var(--eg-radius,14px)] bg-[var(--eg-cell,rgba(20,19,17,0.06))] outline-none", className)}
+      className={cn("relative min-w-0 overflow-hidden rounded-[var(--eg-radius,14px)] bg-[var(--eg-cell,light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06)))] outline-none", className)}
       style={{ aspectRatio: aspect, ...style }}
       onFocus={(e: React.FocusEvent<HTMLLIElement>) => {
         onFocus?.(e);

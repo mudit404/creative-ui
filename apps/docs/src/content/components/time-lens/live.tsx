@@ -56,7 +56,7 @@ function Incidents() {
     <div className="flex w-full flex-col gap-3">
       <div role="group" aria-label="Display zone" className="flex gap-2 text-[12px]">
         {["UTC", "America/New_York"].map((z) => (
-          <button key={z} type="button" aria-pressed={zone === z} onClick={() => setZone(z)} className="rounded-full border border-current px-3 py-1 aria-pressed:bg-[#141311] aria-pressed:text-[#faf9f6]">
+          <button key={z} type="button" aria-pressed={zone === z} onClick={() => setZone(z)} className="rounded-full border border-current px-3 py-1 aria-pressed:bg-[light-dark(#141311,#ecebe6)] aria-pressed:text-[light-dark(#faf9f6,#141311)]">
             {z}
           </button>
         ))}
@@ -92,12 +92,12 @@ export const timeLensLive: LiveModule = {
   renderPlayground: (values) => <PlaygroundLens values={values} />,
   cardPreview: () => (
     <div className="flex w-56 flex-col gap-1.5" aria-hidden>
-      <div className="relative h-6 rounded bg-[rgba(20,19,17,0.06)]">
-        <div className="absolute inset-y-0 left-[30%] w-[35%] border-x-2 border-[#1f7a4f] bg-[rgba(31,122,79,0.15)]" />
+      <div className="relative h-6 rounded bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.08))]">
+        <div className="absolute inset-y-0 left-[30%] w-[35%] border-x-2 border-[light-dark(#1a6b45,#5fcf8f)] bg-[light-dark(rgba(26,107,69,0.15),rgba(95,207,143,0.2))]" />
       </div>
-      <div className="relative h-12 rounded border border-[rgba(20,19,17,0.12)]">
+      <div className="relative h-12 rounded border border-[light-dark(rgba(20,19,17,0.12),rgba(236,235,230,0.12))]">
         {[10, 35, 55, 80].map((x, i) => (
-          <span key={x} className="absolute h-2.5 rounded-full bg-[#141311]" style={{ left: `${x}%`, top: 8 + (i % 2) * 14, width: i % 2 ? 30 : 10 }} />
+          <span key={x} className="absolute h-2.5 rounded-full bg-[light-dark(#141311,#ecebe6)]" style={{ left: `${x}%`, top: 8 + (i % 2) * 14, width: i % 2 ? 30 : 10 }} />
         ))}
       </div>
     </div>

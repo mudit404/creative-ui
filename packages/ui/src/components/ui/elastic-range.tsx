@@ -267,7 +267,10 @@ export const ElasticRange = React.forwardRef<HTMLDivElement, ElasticRangeProps>(
       data-previewing={preview ? "true" : undefined}
       role={interval ? "group" : undefined}
       aria-label={interval ? labels.label : undefined}
-      className={cn("relative flex w-full flex-col gap-2 text-[var(--cui-range-text,#141311)]", disabled && "opacity-50", className)}
+      // The whole control dims when disabled; marking the root inactive lets assistive tech and contrast
+      // checkers (WCAG 1.4.3 exempts inactive components; axe walks up to an aria-disabled ancestor) agree.
+      aria-disabled={disabled || undefined}
+      className={cn("relative flex w-full flex-col gap-2 text-[var(--cui-range-text,light-dark(#141311,#ecebe6))]", disabled && "opacity-50", className)}
       {...rest}
     >
       <div className={cn("flex items-center gap-3", compact && "flex-col items-stretch gap-2")}>
@@ -283,19 +286,19 @@ export const ElasticRange = React.forwardRef<HTMLDivElement, ElasticRangeProps>(
         >
           {/* bowing track (decorative) */}
           <svg aria-hidden className="absolute inset-x-0 top-1/2 h-4 w-full -translate-y-1/2 overflow-visible" viewBox="0 0 100 8" preserveAspectRatio="none">
-            <m.path d={bowPath} fill="none" stroke="var(--cui-range-track, rgba(20,19,17,0.15))" strokeWidth={variant === "precision" ? 4 : 6} vectorEffect="non-scaling-stroke" strokeLinecap="round" />
+            <m.path d={bowPath} fill="none" stroke="var(--cui-range-track, light-dark(rgba(20,19,17,0.15), rgba(236,235,230,0.15)))" strokeWidth={variant === "precision" ? 4 : 6} vectorEffect="non-scaling-stroke" strokeLinecap="round" />
           </svg>
           {/* active segment */}
           <div
             aria-hidden
-            className="pointer-events-none absolute top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-[var(--cui-range-fill,#141311)]"
+            className="pointer-events-none absolute top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-[var(--cui-range-fill,light-dark(#141311,#ecebe6))]"
             style={{
               left: `${(interval ? frac(shown[0]) : 0) * 100}%`,
               width: `${((interval ? frac(shown[1]) : frac(shown[0])) - (interval ? frac(shown[0]) : 0)) * 100}%`,
             }}
           />
           {variant === "precision" && (
-            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-1/2 h-2 -translate-y-1/2 [background:repeating-linear-gradient(90deg,var(--cui-range-tick,rgba(20,19,17,0.25))_0_1px,transparent_1px_10%)]" />
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-1/2 h-2 -translate-y-1/2 [background:repeating-linear-gradient(90deg,var(--cui-range-tick,light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25)))_0_1px,transparent_1px_10%)]" />
           )}
           {thumbs.map((t) => {
             const v = t === "lower" ? shown[0] : shown[1];
@@ -315,8 +318,8 @@ export const ElasticRange = React.forwardRef<HTMLDivElement, ElasticRangeProps>(
                 data-thumb={t}
                 onKeyDown={onThumbKeyDown(t)}
                 className={cn(
-                  "absolute top-1/2 size-5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--cui-range-thumb,#faf9f6)] shadow-[0_1px_2px_rgba(0,0,0,0.3),0_0_0_1.5px_var(--cui-range-fill,#141311)] outline-none",
-                  "focus-visible:ring-4 focus-visible:ring-[var(--cui-range-focus,rgba(20,19,17,0.25))]",
+                  "absolute top-1/2 size-5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--cui-range-thumb,light-dark(#faf9f6,#1f1f1c))] shadow-[0_1px_2px_rgba(0,0,0,0.3),0_0_0_1.5px_var(--cui-range-fill,light-dark(#141311,#ecebe6))] outline-none",
+                  "focus-visible:ring-4 focus-visible:ring-[var(--cui-range-focus,light-dark(#141311,#ecebe6))]",
                 )}
                 style={{ left: `${frac(v) * 100}%`, scaleX: mode === "full" && variant !== "precision" ? squash : 1 }}
               />
@@ -348,7 +351,7 @@ export const ElasticRange = React.forwardRef<HTMLDivElement, ElasticRangeProps>(
       </div>
 
       {/* min / max labels */}
-      <div aria-hidden className="flex justify-between font-mono text-[11px] text-[var(--cui-range-muted,rgba(20,19,17,0.5))]">
+      <div aria-hidden className="flex justify-between font-mono text-[11px] text-[var(--cui-range-muted,light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65)))]">
         <span>{fmt(domain.min)}</span>
         <span>{fmt(domain.max)}</span>
       </div>
@@ -412,7 +415,7 @@ function NumberEntry({
     onCommit(n);
     setText(format(quantize(n, domain)));
   };
-  const btn = "inline-flex size-8 items-center justify-center rounded-md border border-[var(--cui-range-border,rgba(20,19,17,0.2))] text-base leading-none outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-range-fill,#141311)] disabled:cursor-not-allowed disabled:opacity-40";
+  const btn = "inline-flex size-8 items-center justify-center rounded-md border border-[var(--cui-range-border,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))] text-base leading-none outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--cui-range-fill,light-dark(#141311,#ecebe6))] disabled:cursor-not-allowed disabled:opacity-40";
   return (
     <div className="flex items-center gap-1">
       {showButtons && (
@@ -438,8 +441,8 @@ function NumberEntry({
             }
           }}
           className={cn(
-            "h-8 w-16 rounded-md border bg-[var(--cui-range-input,#faf9f6)] px-2 text-center font-mono text-[13px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-range-fill,#141311)]",
-            invalid ? "border-[var(--cui-range-error,#c8360d)]" : "border-[var(--cui-range-border,rgba(20,19,17,0.2))]",
+            "h-8 w-16 rounded-md border bg-[var(--cui-range-input,light-dark(#faf9f6,#1f1f1c))] px-2 text-center font-mono text-[13px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-range-fill,light-dark(#141311,#ecebe6))]",
+            invalid ? "border-[var(--cui-range-error,light-dark(#b8310c,#ff8a65))]" : "border-[var(--cui-range-border,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))]",
           )}
         />
       )}

@@ -38,11 +38,11 @@ export const orbitalMenuMeta: ComponentMeta = {
     { name: "Item.disabled", type: "boolean", default: "false", description: "Skipped by keyboard navigation and not selectable." },
   ],
   cssVars: [
-    { name: "--om-trigger / --om-trigger-foreground", description: "Trigger background and icon colour", default: "#141311 / #f3f1ec" },
-    { name: "--om-item / --om-item-foreground", description: "Item background and icon colour", default: "#faf9f6 / #141311" },
-    { name: "--om-item-hover / --om-item-hover-foreground", description: "Item hover colours", default: "#141311 / #f3f1ec" },
-    { name: "--om-label / --om-label-foreground", description: "Label pill colours", default: "#141311 / #f3f1ec" },
-    { name: "--om-ring", description: "Focus ring colour", default: "#141311" },
+    { name: "--om-trigger / --om-trigger-foreground", description: "Trigger background and icon colour", default: "light-dark(#141311, #ecebe6) / light-dark(#f3f1ec, #141311)" },
+    { name: "--om-item / --om-item-foreground", description: "Item background and icon colour", default: "light-dark(#faf9f6, #1f1f1c) / light-dark(#141311, #ecebe6)" },
+    { name: "--om-item-hover / --om-item-hover-foreground", description: "Item hover colours", default: "light-dark(#141311, #ecebe6) / light-dark(#f3f1ec, #141311)" },
+    { name: "--om-label / --om-label-foreground", description: "Label pill colours", default: "light-dark(#141311, #ecebe6) / light-dark(#f3f1ec, #141311)" },
+    { name: "--om-ring", description: "Focus ring colour", default: "light-dark(#141311, #ecebe6)" },
   ],
   examples: [
     {
@@ -124,7 +124,7 @@ const [picked, setPicked] = useState<string | null>(null);
     {
       id: "customization",
       title: "Styling and customization",
-      body: `Theme with the \`--om-*\` variables on the root or an ancestor. The default trigger is a 56 px round button with a rotating plus; pass children for a different icon, or \`asChild\` to use your own element (it must forward \`ref\` and spread props). Items are 44 px round buttons; put any icon inside (SVG children are sized to 20 px) and add \`className\` for variants.
+      body: `Theme with the \`--om-*\` variables on the root or an ancestor; their defaults follow \`color-scheme\` via \`light-dark()\` (Chrome 123+, Safari 17.5+, Firefox 120+; older browsers get the light values). The default trigger is a 56 px round button with a rotating plus; pass children for a different icon, or \`asChild\` to use your own element (it must forward \`ref\` and spread props). Items are 44 px round buttons; put any icon inside (SVG children are sized to 20 px) and add \`className\` for variants.
 
 Shape the ring with \`radius\`, \`startAngle\` and \`sweep\`; a quarter or half arc suits corners and edges. \`swing\`, \`stagger\` and \`spring\` tune the launch. The menu renders inline (no portal), so give its ancestors \`overflow: visible\` or enough room.`,
     },

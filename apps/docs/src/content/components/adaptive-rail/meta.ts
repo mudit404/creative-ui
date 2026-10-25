@@ -39,13 +39,13 @@ export const adaptiveRailMeta: ComponentMeta = {
     { name: "Separator", type: "component", default: "—", description: "role=separator; hidden while collapsed." },
   ],
   cssVars: [
-    { name: "--ar-surface", description: "Rail background", default: "rgba(250,249,246,0.82)" },
-    { name: "--ar-border", description: "Rail border and separators", default: "rgba(20,19,17,0.12)" },
-    { name: "--ar-foreground", description: "Icon and label colour", default: "#141311" },
-    { name: "--ar-item-hover", description: "Item hover background", default: "rgba(20,19,17,0.08)" },
-    { name: "--ar-item-active", description: "Active item background", default: "#141311" },
-    { name: "--ar-item-active-foreground", description: "Active item colour", default: "#f3f1ec" },
-    { name: "--ar-ring", description: "Focus ring colour", default: "#141311" },
+    { name: "--ar-surface", description: "Rail background (translucent over the blurred page)", default: "light-dark(rgba(250,249,246,0.82), rgba(31,31,28,0.88))" },
+    { name: "--ar-border", description: "Rail border and separators (decorative; one value for both)", default: "light-dark(rgba(20,19,17,0.15), rgba(236,235,230,0.15))" },
+    { name: "--ar-foreground", description: "Icon and label colour", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--ar-item-hover", description: "Item hover background", default: "light-dark(rgba(20,19,17,0.08), rgba(236,235,230,0.08))" },
+    { name: "--ar-item-active", description: "Active item background (ink)", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--ar-item-active-foreground", description: "Active item icon and label colour (on ink)", default: "light-dark(#f3f1ec, #141311)" },
+    { name: "--ar-ring", description: "Focus ring colour (solid ink)", default: "light-dark(#141311, #ecebe6)" },
   ],
   examples: [
     {
@@ -104,7 +104,7 @@ export const adaptiveRailMeta: ComponentMeta = {
   label="Player"
   behavior="static"
   position="absolute"
-  style={{ "--ar-surface": "#141311", "--ar-foreground": "#f3f1ec", "--ar-border": "rgba(255,255,255,0.12)", "--ar-item-hover": "rgba(255,255,255,0.1)", "--ar-item-active": "#ff4d1c", "--ar-ring": "#ff4d1c" }}
+  style={{ "--ar-surface": "#141311", "--ar-foreground": "#f3f1ec", "--ar-border": "rgba(255,255,255,0.12)", "--ar-item-hover": "rgba(255,255,255,0.1)", "--ar-item-active": "#ff4d1c", "--ar-item-active-foreground": "#141311", "--ar-ring": "#ff4d1c" }}
 >
   …
 </AdaptiveRail>`,
@@ -125,7 +125,7 @@ export const adaptiveRailMeta: ComponentMeta = {
     {
       id: "customization",
       title: "Styling and customization",
-      body: `Theme with the \`--ar-*\` variables on the rail or an ancestor. \`className\` on the rail composes with the pill styles; \`className\` on an item composes with the 40 px round target. Put any icon set inside items; SVG children are sized to 20 px.
+      body: `Theme with the \`--ar-*\` variables on the rail or an ancestor. Every default is a \`light-dark()\` pair, so the rail follows the \`color-scheme\` of its surroundings without any \`.dark\` selector; override a variable to pin either side. \`className\` on the rail composes with the pill styles; \`className\` on an item composes with the 40 px round target. Put any icon set inside items; SVG children are sized to 20 px.
 
 Use \`position="absolute"\` to float the rail inside a panel (give the panel \`position: relative\`) and \`scrollContainer\` to react to that panel's scrolling. Use \`expanded\` to pin it open while a popover or menu anchored to an item is visible.`,
     },
@@ -148,6 +148,7 @@ Use \`position="absolute"\` to float the rail inside a panel (give the panel \`p
       id: "browser",
       title: "Browser and device notes",
       body: `- \`backdrop-filter\` blur is used for the surface; browsers without it show the solid fallback colour.
+- Colour defaults follow \`color-scheme\` via \`light-dark()\` (Chrome 123+, Safari 17.5+, Firefox 120+); older browsers get the light values.
 - Touch: no hover expansion (there is no hover); scrolling still collapses and expands. Tapping an item works as usual.
 - Server rendering is safe: the rail renders expanded and attaches its scroll listener after hydration.`,
     },

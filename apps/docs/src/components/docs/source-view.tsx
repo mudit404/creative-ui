@@ -18,7 +18,7 @@ export function SourceView({ files }: { files: { path: string; content: string }
             aria-selected={i === active}
             onClick={() => setActive(i)}
             className={`shrink-0 border-b-2 px-3 py-2 font-mono text-[11px] ${
-              i === active ? "border-ember text-code-fg" : "border-transparent text-code-fg/50 hover:text-code-fg"
+              i === active ? "border-ember text-code-fg" : "border-transparent text-code-fg/70 hover:text-code-fg"
             }`}
           >
             {f.path}

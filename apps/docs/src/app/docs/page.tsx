@@ -97,9 +97,20 @@ export default function DocsPage() {
         />
         <p>
           Props such as <code>colors</code> map onto the same variables, so a one-off override and
-          an app-wide theme never conflict. Dark mode needs no special handling: pick the{" "}
-          <code>tone</code> that suits the surface, or set the variables under your dark selector.
+          an app-wide theme never conflict.
         </p>
+        <p>
+          Every colour default is a <code>light-dark(light, dark)</code> pair that follows the
+          element&apos;s <code>color-scheme</code>. Add <code>color-scheme: dark</code> to your dark
+          selector and every component switches with it; a host that never sets{" "}
+          <code>color-scheme</code> gets the light values. Any token can still be overridden under
+          any selector. <code>light-dark()</code> needs Chrome 123+, Safari 17.5+ or Firefox 120+;
+          older browsers render the light values.
+        </p>
+        <CodeBlock
+          lang="css"
+          code={`.dark {\n  color-scheme: dark;\n  --cui-range-fill: #c8f55a; /* any token, any selector */\n}`}
+        />
 
         <h2 id="motion">Motion and accessibility</h2>
         <p>

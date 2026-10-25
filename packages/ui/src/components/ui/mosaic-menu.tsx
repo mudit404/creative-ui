@@ -342,7 +342,7 @@ export const MosaicMenuTrigger = React.forwardRef<HTMLButtonElement, MosaicMenuT
       data-state={ctx.open ? "open" : "closed"}
       className={cn(
         !asChild &&
-          "inline-flex h-11 items-center gap-2 rounded-full border border-[var(--mm-trigger-border,rgba(20,19,17,0.25))] bg-[var(--mm-trigger,transparent)] px-4 text-[14px] font-medium text-[var(--mm-trigger-foreground,#141311)] outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--mm-ring,#141311)] focus-visible:ring-offset-2",
+          "inline-flex h-11 items-center gap-2 rounded-full border border-[var(--mm-trigger-border,light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25)))] bg-[var(--mm-trigger,transparent)] px-4 text-[14px] font-medium text-[var(--mm-trigger-foreground,light-dark(#141311,#ecebe6))] outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--mm-ring,light-dark(#141311,#ecebe6))] focus-visible:ring-offset-2",
         className,
       )}
       onClick={(e: React.MouseEvent<HTMLButtonElement>) => {

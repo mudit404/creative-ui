@@ -30,11 +30,16 @@ export const timeLensMeta: ComponentMeta = {
     { name: "ref", type: "TimeLensHandle", default: "—", description: "{ root, focusEvent(id), fitWindow(window?) }." },
   ],
   cssVars: [
-    { name: "--cui-time-axis", description: "Overview background, grid and borders", default: "rgba(20,19,17,0.06)" },
-    { name: "--cui-time-selection", description: "Window borders and handles", default: "#1f7a4f" },
-    { name: "--cui-time-event", description: "Event marks", default: "#141311" },
-    { name: "--cui-time-focus", description: "Focus ring and stationary marker", default: "#141311" },
-    { name: "--cui-time-error", description: "Diagnostics and editor errors", default: "#c8360d" },
+    { name: "--cui-time-text", description: "Text colour", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-time-band", description: "Overview band background", default: "light-dark(rgba(20,19,17,0.06), rgba(236,235,230,0.08))" },
+    { name: "--cui-time-axis", description: "Lane, axis and detail-card borders, tick marks and button outlines (decorative)", default: "light-dark(rgba(20,19,17,0.2), rgba(236,235,230,0.2))" },
+    { name: "--cui-time-input-border", description: "Interval editor input outline (the input's only boundary)", default: "light-dark(rgba(20,19,17,0.5), rgba(236,235,230,0.45))" },
+    { name: "--cui-time-selection", description: "Window borders, handles and the selected event's ring", default: "light-dark(#1a6b45, #5fcf8f)" },
+    { name: "--cui-time-selection-fill", description: "Window fill and the selected list row", default: "light-dark(rgba(26,107,69,0.15), rgba(95,207,143,0.2))" },
+    { name: "--cui-time-event", description: "Event marks", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-time-event-text", description: "Label text on duration marks", default: "light-dark(#faf9f6, #141311)" },
+    { name: "--cui-time-focus", description: "Focus ring and stationary marker", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-time-error", description: "Diagnostics and editor errors", default: "light-dark(#b8310c, #ff8a65)" },
   ],
   examples: [
     {

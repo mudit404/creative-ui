@@ -348,13 +348,13 @@ export const TimeLens = React.forwardRef<TimeLensHandle, TimeLensProps>(function
       data-measured={width > 0 || undefined}
       role="group"
       aria-label={label}
-      className={cn("flex w-full flex-col gap-3 text-[var(--cui-time-text,#141311)]", className)}
+      className={cn("flex w-full flex-col gap-3 text-[var(--cui-time-text,light-dark(#141311,#ecebe6))]", className)}
       {...rest}
     >
       {(domainError || diagnostics.length > 0) && (
         <div
           role="note"
-          className="rounded-lg border border-[var(--cui-time-error,#c8360d)] p-2 text-[12px] text-[var(--cui-time-error,#c8360d)]"
+          className="rounded-lg border border-[var(--cui-time-error,light-dark(#b8310c,#ff8a65))] p-2 text-[12px] text-[var(--cui-time-error,light-dark(#b8310c,#ff8a65))]"
         >
           {domainError && <div>Invalid domain: {domainError}. Showing a placeholder hour.</div>}
           {diagnostics.map((d) => (
@@ -369,14 +369,14 @@ export const TimeLens = React.forwardRef<TimeLensHandle, TimeLensProps>(function
         data-overview
         role="presentation"
         onClick={onBandClick}
-        className="relative select-none overflow-hidden rounded-xl bg-[var(--cui-time-axis,rgba(20,19,17,0.06))]"
+        className="relative select-none overflow-hidden rounded-xl bg-[var(--cui-time-band,light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.08)))]"
         style={{ height: OVERVIEW_H }}
       >
         {sorted.map((e) => (
           <span
             key={e.id}
             aria-hidden
-            className="absolute top-3 h-1.5 rounded-full bg-[var(--cui-time-event,#141311)] opacity-50"
+            className="absolute top-3 h-1.5 rounded-full bg-[var(--cui-time-event,light-dark(#141311,#ecebe6))] opacity-50"
             style={{
               left: overview.toX(e.startMs),
               width: Math.max(2, overview.toX(e.endMs ?? e.startMs) - overview.toX(e.startMs)),
@@ -390,7 +390,7 @@ export const TimeLens = React.forwardRef<TimeLensHandle, TimeLensProps>(function
           onPointerMove={moveGesture}
           onPointerUp={(e) => endGesture(e)}
           onPointerCancel={(e) => endGesture(e, true)}
-          className="absolute inset-y-0 cursor-grab touch-none border-x-2 border-[var(--cui-time-selection,#1f7a4f)] bg-[var(--cui-time-selection-fill,rgba(31,122,79,0.15))]"
+          className="absolute inset-y-0 cursor-grab touch-none border-x-2 border-[var(--cui-time-selection,light-dark(#1a6b45,#5fcf8f))] bg-[var(--cui-time-selection-fill,light-dark(rgba(26,107,69,0.15),rgba(95,207,143,0.2)))]"
           style={{
             left: overview.toX(win[0]),
             width: Math.max(4, overview.toX(win[1]) - overview.toX(win[0])),
@@ -413,13 +413,13 @@ export const TimeLens = React.forwardRef<TimeLensHandle, TimeLensProps>(function
               onPointerCancel={(e) => endGesture(e, true)}
               onKeyDown={stepKeys(which)}
               className={cn(
-                "absolute inset-y-0 w-4 cursor-ew-resize touch-none outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-time-focus,#141311)]",
+                "absolute inset-y-0 w-4 cursor-ew-resize touch-none outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-time-focus,light-dark(#141311,#ecebe6))]",
                 which === "start" ? "-left-2" : "-right-2",
               )}
             >
               <span
                 aria-hidden
-                className="absolute left-1/2 top-1/2 h-6 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--cui-time-selection,#1f7a4f)]"
+                className="absolute left-1/2 top-1/2 h-6 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--cui-time-selection,light-dark(#1a6b45,#5fcf8f))]"
               />
             </div>
           ))}
@@ -461,7 +461,7 @@ export const TimeLens = React.forwardRef<TimeLensHandle, TimeLensProps>(function
             Apply
           </button>
           {editError && (
-            <span role="alert" className="text-[var(--cui-time-error,#c8360d)]">
+            <span role="alert" className="text-[var(--cui-time-error,light-dark(#b8310c,#ff8a65))]">
               {editError}
             </span>
           )}
@@ -476,7 +476,7 @@ export const TimeLens = React.forwardRef<TimeLensHandle, TimeLensProps>(function
         tabIndex={wheelZoom === "off" ? undefined : 0}
         aria-label={`Detail: ${summary}`}
         role="region"
-        className="relative overflow-hidden rounded-xl border border-[var(--cui-time-axis,rgba(20,19,17,0.12))] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-time-focus,#141311)]"
+        className="relative overflow-hidden rounded-xl border border-[var(--cui-time-axis,light-dark(rgba(20,19,17,0.2),rgba(236,235,230,0.2)))] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-time-focus,light-dark(#141311,#ecebe6))]"
         style={{ height: Math.max(240, 40 + laneCount * LANE_H + 16) }}
       >
         {sorted.length === 0 && (
@@ -492,7 +492,7 @@ export const TimeLens = React.forwardRef<TimeLensHandle, TimeLensProps>(function
         {/* axis */}
         <div
           aria-hidden
-          className="absolute inset-x-0 top-0 h-8 border-b border-[var(--cui-time-axis,rgba(20,19,17,0.12))]"
+          className="absolute inset-x-0 top-0 h-8 border-b border-[var(--cui-time-axis,light-dark(rgba(20,19,17,0.2),rgba(236,235,230,0.2)))]"
         >
           {ticks.map((t) => (
             <span
@@ -507,7 +507,7 @@ export const TimeLens = React.forwardRef<TimeLensHandle, TimeLensProps>(function
           {ticks.map((t) => (
             <span
               key={`l${t.ms}`}
-              className="absolute bottom-0 h-2 w-px bg-[var(--cui-time-axis,rgba(20,19,17,0.3))]"
+              className="absolute bottom-0 h-2 w-px bg-[var(--cui-time-axis,light-dark(rgba(20,19,17,0.2),rgba(236,235,230,0.2)))]"
               style={{ left: detail.toX(t.ms), transition }}
             />
           ))}
@@ -515,7 +515,7 @@ export const TimeLens = React.forwardRef<TimeLensHandle, TimeLensProps>(function
         {/* stationary focus marker */}
         <span
           aria-hidden
-          className="absolute inset-y-0 left-1/2 w-px bg-[var(--cui-time-focus,#141311)] opacity-30"
+          className="absolute inset-y-0 left-1/2 w-px bg-[var(--cui-time-focus,light-dark(#141311,#ecebe6))] opacity-30"
         />
         {visible.map((e) => {
           const lane = lanes.get(e.id) ?? 0;
@@ -535,11 +535,11 @@ export const TimeLens = React.forwardRef<TimeLensHandle, TimeLensProps>(function
               aria-label={`${e.label}, ${fmt(e.startMs)}${e.endMs ? ` to ${fmt(e.endMs)}` : ""}`}
               onClick={() => select(isSel ? null : e.id, isSel ? "clear" : "canvas")}
               className={cn(
-                "absolute flex h-6 items-center gap-1 rounded-full px-1.5 text-left text-[11px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-time-focus,#141311)]",
+                "absolute flex h-6 items-center gap-1 rounded-full px-1.5 text-left text-[11px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-time-focus,light-dark(#141311,#ecebe6))]",
                 e.endMs
-                  ? "bg-[var(--cui-time-event,#141311)] text-[var(--cui-time-event-text,#faf9f6)]"
+                  ? "bg-[var(--cui-time-event,light-dark(#141311,#ecebe6))] text-[var(--cui-time-event-text,light-dark(#faf9f6,#141311))]"
                   : "bg-transparent",
-                isSel && "ring-2 ring-[var(--cui-time-selection,#1f7a4f)]",
+                isSel && "ring-2 ring-[var(--cui-time-selection,light-dark(#1a6b45,#5fcf8f))]",
               )}
               style={{
                 left: Math.max(-4, x0),
@@ -551,7 +551,7 @@ export const TimeLens = React.forwardRef<TimeLensHandle, TimeLensProps>(function
               {!e.endMs && (
                 <span
                   aria-hidden
-                  className="size-2.5 shrink-0 rounded-full bg-[var(--cui-time-event,#141311)]"
+                  className="size-2.5 shrink-0 rounded-full bg-[var(--cui-time-event,light-dark(#141311,#ecebe6))]"
                 />
               )}
               {renderEvent ? renderEvent(e, isSel) : <span className="truncate">{e.label}</span>}
@@ -564,7 +564,7 @@ export const TimeLens = React.forwardRef<TimeLensHandle, TimeLensProps>(function
       <div className="grid gap-3 sm:grid-cols-[1fr_minmax(0,1.4fr)]">
         <div
           aria-live="polite"
-          className="rounded-xl border border-[var(--cui-time-axis,rgba(20,19,17,0.12))] p-3 text-[13px]"
+          className="rounded-xl border border-[var(--cui-time-axis,light-dark(rgba(20,19,17,0.2),rgba(236,235,230,0.2)))] p-3 text-[13px]"
           data-details
         >
           {selected ? (
@@ -586,7 +586,7 @@ export const TimeLens = React.forwardRef<TimeLensHandle, TimeLensProps>(function
               </>
             )
           ) : (
-            <span className="opacity-60">Select an event to see details.</span>
+            <span className="text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]">Select an event to see details.</span>
           )}
         </div>
         <div className="min-w-0">
@@ -607,8 +607,8 @@ export const TimeLens = React.forwardRef<TimeLensHandle, TimeLensProps>(function
                   aria-pressed={e.id === selectedId}
                   onClick={() => select(e.id, "list")}
                   className={cn(
-                    "flex w-full items-baseline gap-2 rounded px-1.5 py-1 text-left outline-none hover:bg-[rgba(20,19,17,0.05)] focus-visible:ring-2 focus-visible:ring-[var(--cui-time-focus,#141311)]",
-                    e.id === selectedId && "bg-[rgba(31,122,79,0.1)]",
+                    "flex w-full items-baseline gap-2 rounded px-1.5 py-1 text-left outline-none hover:bg-[light-dark(rgba(20,19,17,0.05),rgba(236,235,230,0.08))] focus-visible:ring-2 focus-visible:ring-[var(--cui-time-focus,light-dark(#141311,#ecebe6))]",
+                    e.id === selectedId && "bg-[var(--cui-time-selection-fill,light-dark(rgba(26,107,69,0.15),rgba(95,207,143,0.2)))]",
                   )}
                 >
                   <span className="shrink-0 font-mono text-[11px] opacity-70">
@@ -630,6 +630,6 @@ export const TimeLens = React.forwardRef<TimeLensHandle, TimeLensProps>(function
 TimeLens.displayName = "TimeLens";
 
 const BTN =
-  "inline-flex h-7 min-w-7 items-center justify-center rounded-full border border-[var(--cui-time-axis,rgba(20,19,17,0.25))] px-2 text-[12px] outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-time-focus,#141311)] disabled:opacity-40";
+  "inline-flex h-7 min-w-7 items-center justify-center rounded-full border border-[var(--cui-time-axis,light-dark(rgba(20,19,17,0.2),rgba(236,235,230,0.2)))] px-2 text-[12px] outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.08))] focus-visible:ring-2 focus-visible:ring-[var(--cui-time-focus,light-dark(#141311,#ecebe6))] disabled:opacity-40";
 const INPUT =
-  "h-7 w-[180px] rounded-md border border-[var(--cui-time-axis,rgba(20,19,17,0.25))] bg-transparent px-1.5 font-mono text-[11px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-time-focus,#141311)] aria-[invalid]:border-[var(--cui-time-error,#c8360d)]";
+  "h-7 w-[180px] rounded-md border border-[var(--cui-time-input-border,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))] bg-transparent px-1.5 font-mono text-[11px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-time-focus,light-dark(#141311,#ecebe6))] aria-[invalid]:border-[var(--cui-time-error,light-dark(#b8310c,#ff8a65))]";

@@ -227,7 +227,7 @@ export const CompareWorkbench = React.forwardRef<CompareWorkbenchHandle, Compare
       data-narrow={narrow || undefined}
       role="group"
       aria-label={label}
-      className={cn("relative flex w-full flex-col gap-5 text-[var(--cui-compare-text,#141311)]", className)}
+      className={cn("relative flex w-full flex-col gap-5 text-[var(--cui-compare-text,light-dark(#141311,#ecebe6))]", className)}
       style={{ ["--cui-compare-label-width" as string]: "var(--cui-compare-label-width, 180px)" }}
       {...rest}
     >
@@ -237,13 +237,13 @@ export const CompareWorkbench = React.forwardRef<CompareWorkbenchHandle, Compare
           const isSel = selected.includes(item.id);
           const cbId = `${uid}-cb-${item.id}`;
           return (
-            <li key={item.id} data-item={item.id} data-selected={isSel || undefined} className={cn("flex flex-col gap-2 rounded-2xl border p-3", isSel ? "border-[var(--cui-compare-tray,#141311)]" : "border-[var(--cui-compare-gridline,rgba(20,19,17,0.15))]")}>
+            <li key={item.id} data-item={item.id} data-selected={isSel || undefined} className={cn("flex flex-col gap-2 rounded-2xl border p-3", isSel ? "border-[var(--cui-compare-tray,light-dark(#141311,#ecebe6))]" : "border-[var(--cui-compare-gridline,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))]")}>
               {renderCard ? (
                 renderCard(item, isSel)
               ) : (
                 <>
                   {item.image && variant !== "plans" && (
-                    <div className="aspect-square overflow-hidden rounded-xl bg-[rgba(20,19,17,0.05)]">
+                    <div className="aspect-square overflow-hidden rounded-xl bg-[light-dark(rgba(20,19,17,0.05),rgba(236,235,230,0.05))]">
                       <img
                         ref={(el) => {
                           if (el) cardImgRefs.current.set(item.id, el);
@@ -261,7 +261,7 @@ export const CompareWorkbench = React.forwardRef<CompareWorkbenchHandle, Compare
                 </>
               )}
               <label htmlFor={cbId} className="mt-auto flex items-center gap-2 text-[13px]">
-                <input id={cbId} type="checkbox" checked={isSel} onChange={(e) => toggle(item.id, e.target.checked)} className="size-4 accent-[var(--cui-compare-tray,#141311)]" />
+                <input id={cbId} type="checkbox" checked={isSel} onChange={(e) => toggle(item.id, e.target.checked)} className="size-4 accent-[var(--cui-compare-tray,light-dark(#141311,#ecebe6))]" />
                 Compare
               </label>
             </li>
@@ -270,7 +270,7 @@ export const CompareWorkbench = React.forwardRef<CompareWorkbenchHandle, Compare
       </ul>
 
       {/* tray */}
-      <div ref={trayRef} data-tray className="flex flex-wrap items-center gap-2 rounded-2xl bg-[var(--cui-compare-tray-bg,rgba(20,19,17,0.06))] p-2 pl-3" role="group" aria-label="Selected for comparison">
+      <div ref={trayRef} data-tray className="flex flex-wrap items-center gap-2 rounded-2xl bg-[var(--cui-compare-tray-bg,light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06)))] p-2 pl-3" role="group" aria-label="Selected for comparison">
         <span className="mr-1 text-[13px] font-medium">
           {selected.length}/{max} selected
         </span>
@@ -284,11 +284,11 @@ export const CompareWorkbench = React.forwardRef<CompareWorkbenchHandle, Compare
                 animate={{ opacity: 1, scale: 1 }}
                 exit={mode === "full" ? { opacity: 0, scale: 0.8 } : undefined}
                 transition={{ duration: 0.2 }}
-                className="flex items-center gap-1.5 rounded-full bg-[var(--cui-compare-surface,#faf9f6)] py-1 pl-1 pr-1.5 text-[12px] shadow-sm"
+                className="flex items-center gap-1.5 rounded-full bg-[var(--cui-compare-surface,light-dark(#faf9f6,#1f1f1c))] py-1 pl-1 pr-1.5 text-[12px] shadow-sm"
               >
-                {item.image ? <img src={item.image} alt="" className="size-6 rounded-full object-cover" /> : <span className="grid size-6 place-items-center rounded-full bg-[rgba(20,19,17,0.1)] text-[10px] font-bold">{item.name[0]}</span>}
+                {item.image ? <img src={item.image} alt="" className="size-6 rounded-full object-cover" /> : <span className="grid size-6 place-items-center rounded-full bg-[light-dark(rgba(20,19,17,0.1),rgba(236,235,230,0.1))] text-[10px] font-bold">{item.name[0]}</span>}
                 <span className="max-w-[9rem] truncate">{item.name}</span>
-                <button type="button" aria-label={`Remove ${item.name} from comparison`} onClick={() => remove(item.id)} className="grid size-5 place-items-center rounded-full outline-none hover:bg-[rgba(20,19,17,0.1)] focus-visible:ring-2 focus-visible:ring-[var(--cui-compare-tray,#141311)]">
+                <button type="button" aria-label={`Remove ${item.name} from comparison`} onClick={() => remove(item.id)} className="grid size-5 place-items-center rounded-full outline-none hover:bg-[light-dark(rgba(20,19,17,0.1),rgba(236,235,230,0.1))] focus-visible:ring-2 focus-visible:ring-[var(--cui-compare-tray,light-dark(#141311,#ecebe6))]">
                   ✕
                 </button>
               </m.li>
@@ -300,14 +300,14 @@ export const CompareWorkbench = React.forwardRef<CompareWorkbenchHandle, Compare
           onClick={compare}
           disabled={!ready}
           aria-describedby={`${uid}-hint`}
-          className="ml-auto rounded-full bg-[var(--cui-compare-tray,#141311)] px-4 py-1.5 text-[13px] font-medium text-[var(--cui-compare-surface,#faf9f6)] outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--cui-compare-tray,#141311)] disabled:opacity-40"
+          className="ml-auto rounded-full bg-[var(--cui-compare-tray,light-dark(#141311,#ecebe6))] px-4 py-1.5 text-[13px] font-medium text-[var(--cui-compare-tray-text,light-dark(#faf9f6,#141311))] outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--cui-compare-tray,light-dark(#141311,#ecebe6))] disabled:opacity-40"
         >
           Compare{selected.length ? ` (${selected.length})` : ""}
         </button>
         <p id={`${uid}-hint`} className="w-full text-[12px] opacity-70">
           {ready ? "" : `Select at least ${min} items to compare.`}
         </p>
-        <div role="status" aria-live="polite" className={cn("w-full text-[12px]", limitMsg ? "text-[var(--cui-compare-error,#c8360d)]" : "sr-only")}>
+        <div role="status" aria-live="polite" className={cn("w-full text-[12px]", limitMsg ? "text-[var(--cui-compare-error,light-dark(#b8310c,#ff8a65))]" : "sr-only")}>
           {limitMsg || notice}
         </div>
       </div>
@@ -333,21 +333,21 @@ export const CompareWorkbench = React.forwardRef<CompareWorkbenchHandle, Compare
       {open && (
         <section aria-labelledby={`${uid}-heading`} data-comparison className="flex flex-col gap-3">
           <div className="flex flex-wrap items-center gap-3">
-            <h2 id={`${uid}-heading`} ref={headingRef} tabIndex={-1} className="text-[18px] font-semibold outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-compare-tray,#141311)]">
+            <h2 id={`${uid}-heading`} ref={headingRef} tabIndex={-1} className="text-[18px] font-semibold outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-compare-tray,light-dark(#141311,#ecebe6))]">
               Comparing {selected.length} {selected.length === 1 ? "item" : "items"}
             </h2>
             <label className="flex items-center gap-2 text-[13px]">
-              <input type="checkbox" checked={differencesOnly} onChange={(e) => setDiff(e.target.checked)} className="size-4 accent-[var(--cui-compare-tray,#141311)]" />
+              <input type="checkbox" checked={differencesOnly} onChange={(e) => setDiff(e.target.checked)} className="size-4 accent-[var(--cui-compare-tray,light-dark(#141311,#ecebe6))]" />
               Differences only
               {differencesOnly && hiddenEqual > 0 && <span className="opacity-70">({hiddenEqual} equal hidden)</span>}
             </label>
-            <button type="button" onClick={() => setOpen(false)} className="ml-auto rounded-full border border-[var(--cui-compare-gridline,rgba(20,19,17,0.2))] px-3 py-1 text-[13px] outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-compare-tray,#141311)]">
+            <button type="button" onClick={() => setOpen(false)} className="ml-auto rounded-full border border-[var(--cui-compare-gridline,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))] px-3 py-1 text-[13px] outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--cui-compare-tray,light-dark(#141311,#ecebe6))]">
               Close comparison
             </button>
           </div>
 
           {selected.length < min ? (
-            <p className="rounded-2xl border border-dashed border-[var(--cui-compare-gridline,rgba(20,19,17,0.2))] p-4 text-[13px]" data-guidance>
+            <p className="rounded-2xl border border-dashed border-[var(--cui-compare-gridline,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))] p-4 text-[13px]" data-guidance>
               {selected.length === 0 ? "Nothing selected. " : `${selected.length} item selected. `}
               Select at least {min} items to compare them side by side.
             </p>
@@ -362,7 +362,7 @@ export const CompareWorkbench = React.forwardRef<CompareWorkbenchHandle, Compare
                         aria-label={slot === 0 ? "First item to compare" : "Second item to compare"}
                         value={pairIds[slot]}
                         onChange={(e) => setPair(slot === 0 ? [e.target.value, pairIds[1] === e.target.value ? (selected.find((x) => x !== e.target.value) ?? "") : pairIds[1]] : [pairIds[0] === e.target.value ? (selected.find((x) => x !== e.target.value) ?? "") : pairIds[0], e.target.value])}
-                        className="rounded-lg border border-[var(--cui-compare-gridline,rgba(20,19,17,0.2))] bg-transparent px-2 py-1.5"
+                        className="rounded-lg border border-[var(--cui-compare-control-border,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))] bg-transparent px-2 py-1.5"
                       >
                         {selectedItems.map((it) => (
                           <option key={it.id} value={it.id}>
@@ -374,12 +374,12 @@ export const CompareWorkbench = React.forwardRef<CompareWorkbenchHandle, Compare
                   ))}
                 </div>
               )}
-              <div role="region" aria-label="Comparison table" tabIndex={0} className="overflow-x-auto rounded-2xl border border-[var(--cui-compare-gridline,rgba(20,19,17,0.15))] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-compare-tray,#141311)]">
+              <div role="region" aria-label="Comparison table" tabIndex={0} className="overflow-x-auto rounded-2xl border border-[var(--cui-compare-gridline,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-compare-tray,light-dark(#141311,#ecebe6))]">
                 <table className="w-full border-collapse text-[13px]" style={{ minWidth: 180 + columns.length * 160 }}>
                   <caption className="sr-only">Comparison of {columns.map((c) => c.name).join(", ")}</caption>
                   <thead>
                     <tr>
-                      <th scope="col" className="sticky left-0 z-10 w-[var(--cui-compare-label-width,180px)] min-w-[var(--cui-compare-label-width,180px)] bg-[var(--cui-compare-surface,#faf9f6)] p-3 text-left font-medium opacity-70">
+                      <th scope="col" className="sticky left-0 z-10 w-[var(--cui-compare-label-width,180px)] min-w-[var(--cui-compare-label-width,180px)] bg-[var(--cui-compare-surface,light-dark(#faf9f6,#1f1f1c))] p-3 text-left font-medium opacity-70">
                         Attribute
                       </th>
                       {columns.map((c) => (
@@ -389,7 +389,7 @@ export const CompareWorkbench = React.forwardRef<CompareWorkbenchHandle, Compare
                               {c.image && variant === "products" && <img src={c.image} alt="" className="mb-2 size-14 rounded-xl object-cover" />}
                               <div className="font-semibold">{c.name}</div>
                             </div>
-                            <button type="button" aria-label={`Remove ${c.name} from comparison`} onClick={() => remove(c.id)} className="grid size-6 shrink-0 place-items-center rounded-full outline-none hover:bg-[rgba(20,19,17,0.1)] focus-visible:ring-2 focus-visible:ring-[var(--cui-compare-tray,#141311)]">
+                            <button type="button" aria-label={`Remove ${c.name} from comparison`} onClick={() => remove(c.id)} className="grid size-6 shrink-0 place-items-center rounded-full outline-none hover:bg-[light-dark(rgba(20,19,17,0.1),rgba(236,235,230,0.1))] focus-visible:ring-2 focus-visible:ring-[var(--cui-compare-tray,light-dark(#141311,#ecebe6))]">
                               ✕
                             </button>
                           </div>
@@ -403,7 +403,7 @@ export const CompareWorkbench = React.forwardRef<CompareWorkbenchHandle, Compare
                       <React.Fragment key={g.group || "_"}>
                         {g.group && (
                           <tr data-group={g.group}>
-                            <th scope="rowgroup" colSpan={columns.length + 1} className="sticky left-0 bg-[rgba(20,19,17,0.06)] px-3 py-1.5 text-left text-[11px] font-semibold uppercase tracking-wide">
+                            <th scope="rowgroup" colSpan={columns.length + 1} className="sticky left-0 bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] px-3 py-1.5 text-left text-[11px] font-semibold uppercase tracking-wide">
                               {g.group}
                             </th>
                           </tr>
@@ -428,8 +428,8 @@ CompareWorkbench.displayName = "CompareWorkbench";
 function Row({ row }: { row: CompareRow }) {
   const diff = row.equality === "different";
   return (
-    <tr data-row={row.key} data-equality={row.equality} className={cn("border-t border-[var(--cui-compare-gridline,rgba(20,19,17,0.12))]", diff && "bg-[var(--cui-compare-difference,rgba(200,245,90,0.25))]")}>
-      <th scope="row" className="sticky left-0 z-10 bg-[var(--cui-compare-surface,#faf9f6)] p-3 text-left font-medium">
+    <tr data-row={row.key} data-equality={row.equality} className={cn("border-t border-[var(--cui-compare-gridline,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))]", diff && "bg-[var(--cui-compare-difference,light-dark(rgba(200,245,90,0.25),rgba(200,245,90,0.18)))]")}>
+      <th scope="row" className="sticky left-0 z-10 bg-[var(--cui-compare-surface,light-dark(#faf9f6,#1f1f1c))] p-3 text-left font-medium">
         {row.label}
         {diff && <span className="ml-1.5 text-[10px] font-semibold uppercase tracking-wide opacity-70">differs</span>}
         {row.equality === "incomparable" && <span className="ml-1.5 text-[10px] font-semibold uppercase tracking-wide opacity-70">not comparable</span>}

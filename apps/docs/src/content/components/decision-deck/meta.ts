@@ -35,10 +35,12 @@ export const decisionDeckMeta: ComponentMeta = {
   cssVars: [
     { name: "--cui-deck-gap", description: "Vertical gap between stack, controls and status", default: "12px" },
     { name: "--cui-deck-shadow", description: "Card shadow", default: "0 12px 32px rgba(0,0,0,0.18)" },
-    { name: "--cui-deck-accept", description: "Right outcome colour (stamp, button)", default: "#1f7a4f" },
-    { name: "--cui-deck-reject", description: "Left outcome colour and error text", default: "#c8360d" },
-    { name: "--cui-deck-surface", description: "Card background", default: "#faf9f6" },
-    { name: "--cui-deck-focus", description: "Focus ring", default: "#141311" },
+    { name: "--cui-deck-text", description: "Text", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-deck-accept", description: "Right outcome colour (stamp, button)", default: "light-dark(#1a6b45, #5fcf8f)" },
+    { name: "--cui-deck-reject", description: "Left outcome colour and error text", default: "light-dark(#b8310c, #ff8a65)" },
+    { name: "--cui-deck-surface", description: "Card background", default: "light-dark(#faf9f6, #1f1f1c)" },
+    { name: "--cui-deck-border", description: "Empty-state and button outlines (decorative)", default: "light-dark(rgba(20,19,17,0.25), rgba(236,235,230,0.25))" },
+    { name: "--cui-deck-focus", description: "Focus ring", default: "light-dark(#141311, #ecebe6)" },
   ],
   examples: [
     {
