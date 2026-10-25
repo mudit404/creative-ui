@@ -27,7 +27,7 @@ What the README did provide, and what was used verbatim:
 | 07 Roadmap | Order taken from the README's initial collection; dependency map written in `ROADMAP.md`. | MVP briefs for FieldMagnet/OrbitalMenu |
 | 08 Catalog | Only the ten named components are listed, as "planned" cards with no invented previews. | The other 30 ideas |
 | 09 Docs & playground | Data-driven component pages; schema-driven playground; codegen; presets; surface and reduced-motion toggles. | Any required page structure |
-| 10 Commercial & licensing | `tier` metadata on every component; provenance note per component; dependency licences listed. No paywall. | Licence text for premium items |
+| 10 Commercial & licensing | `tier` metadata on every component; provenance note per component; dependency licences listed. No paywall. Repository licence: All Rights Reserved, Mudit Gupta (`LICENSE`, 25 Oct 2026). | Licence terms for registry consumers (free and premium items) |
 | 11 Decisions & risks | Written fresh as `DECISIONS.md`. | — |
 | 12 Sources | Reference list kept in the component brief. | — |
 | 13 Agent execution | Written fresh as `AGENT_GUIDE.md` with the scaffold script. | — |

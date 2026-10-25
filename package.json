@@ -1,6 +1,8 @@
 {
   "name": "creative-ui",
   "private": true,
+  "license": "UNLICENSED",
+  "author": "Mudit Gupta",
   "version": "0.1.0",
   "description": "Source-first creative UI component library: shadcn-style distribution, premium interaction quality.",
   "engines": {
