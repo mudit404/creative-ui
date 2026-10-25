@@ -111,12 +111,27 @@ export const GhostTraceText = React.forwardRef<HTMLElement, GhostTraceTextProps>
         try {
           const b = el.getBBox();
           if (b.width <= 0) return null;
-          return { width: b.width, ascent: -b.y, descent: b.height + b.y };
+          // getBBox is in user units and includes the run's own `y`, which is itself derived from the
+          // previous measurement; measure relative to the run's baseline or a multi-line headline feeds
+          // its ascent back into its height and the ResizeObserver never settles.
+          const baseline = Number(el.getAttribute("y")) || 0;
+          const ascent = baseline - b.y;
+          return { width: b.width, ascent, descent: b.height - ascent };
         } catch {
           return null;
         }
       });
-      if (next.every((x) => x)) setMetrics(next as Metrics[]);
+      if (next.every((x) => x)) {
+        // Keep the previous metrics unless a run really changed: at a scaled render size getBBox jitters by a
+        // few hundredths of a unit between frames, and every re-render changes the scale again.
+        const measured = next as Metrics[];
+        const close = (a: number, b: number) => Math.abs(a - b) < 0.5;
+        setMetrics((prev) =>
+          prev && prev.length === measured.length && prev.every((m, i) => close(m.width, measured[i]!.width) && close(m.ascent, measured[i]!.ascent) && close(m.descent, measured[i]!.descent))
+            ? prev
+            : measured,
+        );
+      }
     };
     measure();
     const fonts = typeof document !== "undefined" ? document.fonts : undefined;
