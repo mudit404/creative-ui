@@ -31,11 +31,14 @@ export const cutawayViewerMeta: ComponentMeta = {
     { name: "ref", type: "CutawayViewerHandle", default: "—", description: "{ root, resetView() }." },
   ],
   cssVars: [
-    { name: "--cui-cut-cap", description: "Cap colour accent and slider", default: "#ff4d1c" },
-    { name: "--cui-cut-guide", description: "Guide plane colour (set in the material)", default: "#1f7a4f" },
-    { name: "--cui-cut-background", description: "Stage background", default: "#e9e5dc" },
-    { name: "--cui-cut-focus", description: "Focus ring and active axis", default: "#141311" },
-    { name: "--cui-cut-warn", description: "Warnings", default: "#c8360d" },
+    { name: "--cui-cut-cap", description: "Cap colour (Three.js material) and slider accent; not scheme-aware", default: "#ff4d1c" },
+    { name: "--cui-cut-guide", description: "Guide plane colour (set in the material); not scheme-aware", default: "#1f7a4f" },
+    { name: "--cui-cut-text", description: "Text", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-cut-background", description: "Stage background", default: "light-dark(#e9e5dc, #2a2a27)" },
+    { name: "--cui-cut-border", description: "Axis group frame and button outlines (decorative)", default: "light-dark(rgba(20,19,17,0.25), rgba(236,235,230,0.25))" },
+    { name: "--cui-cut-boundary", description: "Depth value field outline", default: "light-dark(rgba(20,19,17,0.5), rgba(236,235,230,0.45))" },
+    { name: "--cui-cut-focus", description: "Focus ring and active axis fill", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-cut-warn", description: "Warnings", default: "light-dark(#b8310c, #ff8a65)" },
   ],
   examples: [
     {

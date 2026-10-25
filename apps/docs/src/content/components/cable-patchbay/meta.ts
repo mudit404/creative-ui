@@ -31,12 +31,16 @@ export const cablePatchbayMeta: ComponentMeta = {
     { name: "ref", type: "CablePatchbayHandle", default: "—", description: "{ root, focusPort(id) }." },
   ],
   cssVars: [
-    { name: "--cui-cable-stroke", description: "Cable and collar colour", default: "#141311" },
-    { name: "--cui-cable-active", description: "Hovered/selected cable, eligible sockets, temp cable", default: "#1f7a4f" },
-    { name: "--cui-port-fill", description: "Socket fill", default: "#141311" },
-    { name: "--cui-port-invalid", description: "Invalid socket ring and error text", default: "#c8360d" },
-    { name: "--cui-patch-background", description: "Board background", default: "#faf9f6" },
-    { name: "--cui-patch-focus", description: "Focus ring and primary button", default: "#141311" },
+    { name: "--cui-cable-stroke", description: "Cable and collar colour (ink)", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-cable-active", description: "Hovered/selected cable, eligible sockets, temp cable, Disconnect pill (accent)", default: "light-dark(#1a6b45, #5fcf8f)" },
+    { name: "--cui-port-fill", description: "Socket ring and connected fill (ink)", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-port-invalid", description: "Invalid socket ring, error text and the diagnostics note (error)", default: "light-dark(#b8310c, #ff8a65)" },
+    { name: "--cui-patch-background", description: "Board background and unconnected socket fill; also the Connect button text (paper)", default: "light-dark(#faf9f6, #1f1f1c)" },
+    { name: "--cui-patch-focus", description: "Focus ring and primary button fill (ink)", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-patch-text", description: "Text colour (ink)", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-patch-border", description: "Module and form frames (decorative)", default: "light-dark(rgba(20,19,17,0.15), rgba(236,235,230,0.15))" },
+    { name: "--cui-patch-control-border", description: "Button and select outlines (boundary, 3.4:1 / 3.8:1)", default: "light-dark(rgba(20,19,17,0.5), rgba(236,235,230,0.45))" },
+    { name: "--cui-patch-module", description: "Module background tint", default: "light-dark(rgba(20,19,17,0.03), rgba(236,235,230,0.03))" },
   ],
   examples: [
     {
@@ -75,7 +79,8 @@ export const cablePatchbayMeta: ComponentMeta = {
 - **Drag**: 6 px intent lifts a temp cable from the output; the free end snaps to the nearest compatible input within \`snapRadius\`. Invalid sockets under the pointer show the exact reason; release on an invalid socket creates nothing (C45-T02).
 - **Tap/keyboard**: activating an output enters connect mode, names the source, and marks inputs eligible or invalid (with \`aria-describedby\` reasons). Activating an eligible input requests the connection; Escape or Cancel leaves.
 - **Requests**: one at a time; a pending dashed cable stays until the matching resolution arrives (C45-T06). Reconnect keeps the original edge drawn until accepted (C45-T03).
-- **Removal**: if the source port disappears mid-gesture the gesture is cancelled and other edges remain (C45-T04).`,
+- **Removal**: if the source port disappears mid-gesture the gesture is cancelled and other edges remain (C45-T04).
+- **Colour**: every \`--cui-*\` default is a \`light-dark()\` pair that follows \`color-scheme\` (Chrome 123+, Safari 17.5+, Firefox 120+; older browsers get the light values). Cables are SVG strokes and read the same tokens.`,
     },
     {
       id: "accessibility",

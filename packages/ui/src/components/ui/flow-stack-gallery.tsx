@@ -194,7 +194,7 @@ export const FlowStackGallery = React.forwardRef<HTMLDivElement, FlowStackGaller
       data-slot="flow-stack-gallery"
       data-index={index}
       data-motion={mode}
-      className={cn("relative flex w-full flex-col gap-3 text-[var(--fsg-foreground,#141311)]", className)}
+      className={cn("relative flex w-full flex-col gap-3 text-[var(--fsg-foreground,light-dark(#141311,#ecebe6))]", className)}
       {...rest}
     >
       {/* viewer */}
@@ -206,7 +206,7 @@ export const FlowStackGallery = React.forwardRef<HTMLDivElement, FlowStackGaller
         tabIndex={0}
         data-slot="flow-stack-viewer"
         onKeyDown={onViewerKeyDown}
-        className="relative w-full overflow-visible rounded-[var(--fsg-radius,18px)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--fsg-ring,#141311)] focus-visible:ring-offset-2"
+        className="relative w-full overflow-visible rounded-[var(--fsg-radius,18px)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--fsg-ring,light-dark(#141311,#ecebe6))] focus-visible:ring-offset-2"
         style={{ aspectRatio: aspect }}
       >
         <AnimatePresence initial={false} custom={direction}>
@@ -243,7 +243,7 @@ export const FlowStackGallery = React.forwardRef<HTMLDivElement, FlowStackGaller
                   dragElastic={0.25}
                   onDragEnd={top ? onDragEnd : undefined}
                   className={cn(
-                    "absolute inset-0 overflow-hidden rounded-[var(--fsg-radius,18px)] bg-[var(--fsg-card,rgba(20,19,17,0.06))] shadow-[0_18px_40px_-20px_rgba(20,19,17,0.45),0_0_0_1px_rgba(20,19,17,0.06)]",
+                    "absolute inset-0 overflow-hidden rounded-[var(--fsg-radius,18px)] bg-[var(--fsg-card,light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06)))] shadow-[0_18px_40px_-20px_rgba(20,19,17,0.45),0_0_0_1px_rgba(20,19,17,0.06)]",
                     top && drag && mode !== "off" && "cursor-grab active:cursor-grabbing",
                   )}
                   style={{ transformOrigin: "50% 100%" }}
@@ -270,7 +270,7 @@ export const FlowStackGallery = React.forwardRef<HTMLDivElement, FlowStackGaller
               aria-label="Previous image"
               disabled={!canPrev}
               onClick={() => go(index - 1)}
-              className="absolute left-2 top-1/2 z-20 -translate-y-1/2 inline-flex size-9 items-center justify-center rounded-full bg-[var(--fsg-control,rgba(250,249,246,0.85))] text-[var(--fsg-foreground,#141311)] shadow backdrop-blur-sm outline-none hover:bg-white focus-visible:ring-2 focus-visible:ring-[var(--fsg-ring,#141311)] disabled:opacity-30"
+              className="absolute left-2 top-1/2 z-20 -translate-y-1/2 inline-flex size-9 items-center justify-center rounded-full bg-[var(--fsg-control,light-dark(rgba(250,249,246,0.85),rgba(31,31,28,0.88)))] text-[var(--fsg-foreground,light-dark(#141311,#ecebe6))] shadow backdrop-blur-sm outline-none hover:bg-[light-dark(#faf9f6,#1f1f1c)] focus-visible:ring-2 focus-visible:ring-[var(--fsg-ring,light-dark(#141311,#ecebe6))] disabled:opacity-30"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <path d="m15 6-6 6 6 6" />
@@ -281,7 +281,7 @@ export const FlowStackGallery = React.forwardRef<HTMLDivElement, FlowStackGaller
               aria-label="Next image"
               disabled={!canNext}
               onClick={() => go(index + 1)}
-              className="absolute right-2 top-1/2 z-20 -translate-y-1/2 inline-flex size-9 items-center justify-center rounded-full bg-[var(--fsg-control,rgba(250,249,246,0.85))] text-[var(--fsg-foreground,#141311)] shadow backdrop-blur-sm outline-none hover:bg-white focus-visible:ring-2 focus-visible:ring-[var(--fsg-ring,#141311)] disabled:opacity-30"
+              className="absolute right-2 top-1/2 z-20 -translate-y-1/2 inline-flex size-9 items-center justify-center rounded-full bg-[var(--fsg-control,light-dark(rgba(250,249,246,0.85),rgba(31,31,28,0.88)))] text-[var(--fsg-foreground,light-dark(#141311,#ecebe6))] shadow backdrop-blur-sm outline-none hover:bg-[light-dark(#faf9f6,#1f1f1c)] focus-visible:ring-2 focus-visible:ring-[var(--fsg-ring,light-dark(#141311,#ecebe6))] disabled:opacity-30"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <path d="m9 6 6 6-6 6" />
@@ -314,7 +314,7 @@ export const FlowStackGallery = React.forwardRef<HTMLDivElement, FlowStackGaller
       </AnimatePresence>
 
       {showCaptions && active?.caption !== undefined && (
-        <div className="text-[13px] text-[rgba(20,19,17,0.65)]" aria-live="polite">
+        <div className="text-[13px] text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]" aria-live="polite">
           {active.caption}
         </div>
       )}
@@ -346,8 +346,8 @@ export const FlowStackGallery = React.forwardRef<HTMLDivElement, FlowStackGaller
               onClick={() => go(i, { flow: true })}
               data-selected={selected || undefined}
               className={cn(
-                "relative shrink-0 overflow-hidden rounded-[10px] outline-none ring-offset-2 transition-[opacity,box-shadow] focus-visible:ring-2 focus-visible:ring-[var(--fsg-ring,#141311)]",
-                selected ? "ring-2 ring-[var(--fsg-ring,#141311)]" : "opacity-70 hover:opacity-100",
+                "relative shrink-0 overflow-hidden rounded-[10px] outline-none ring-offset-2 transition-[opacity,box-shadow] focus-visible:ring-2 focus-visible:ring-[var(--fsg-ring,light-dark(#141311,#ecebe6))]",
+                selected ? "ring-2 ring-[var(--fsg-ring,light-dark(#141311,#ecebe6))]" : "opacity-70 hover:opacity-100",
                 flight?.item.id === item.id && "opacity-30",
               )}
               style={{ width: thumbSize, height: Math.round(thumbSize * 0.75) }}

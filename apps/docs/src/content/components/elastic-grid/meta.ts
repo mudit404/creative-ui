@@ -29,7 +29,7 @@ export const elasticGridMeta: ComponentMeta = {
     { name: "className / …rest", type: "HTMLAttributes<ul>", default: "—", description: "Native ul attributes; use aria-label to name the list." },
   ],
   cssVars: [
-    { name: "--eg-cell", description: "Cell background", default: "rgba(20,19,17,0.06)" },
+    { name: "--eg-cell", description: "Cell background", default: "light-dark(rgba(20,19,17,0.06), rgba(236,235,230,0.06))" },
     { name: "--eg-radius", description: "Cell corner radius", default: "14px" },
   ],
   examples: [
@@ -98,7 +98,7 @@ export const elasticGridMeta: ComponentMeta = {
     {
       id: "customization",
       title: "Styling and customization",
-      body: `Cells are plain containers (\`--eg-cell\`, \`--eg-radius\`, or \`className\`); put your own card, link or image inside. Use \`object-fit: cover\` on images so they fill a stretching cell without distortion, and \`min-w-0\` / truncation for text that must not wrap.
+      body: `Cells are plain containers (\`--eg-cell\`, \`--eg-radius\`, or \`className\`); put your own card, link or image inside. The \`--eg-cell\` default follows \`color-scheme\` via \`light-dark()\` (Chrome 123+, Safari 17.5+, Firefox 120+; older browsers get the light value). Use \`object-fit: cover\` on images so they fill a stretching cell without distortion, and \`min-w-0\` / truncation for text that must not wrap.
 
 Choose \`columns\` for a fixed layout or \`minCellWidth\` + \`maxColumns\` for a responsive one. \`stretch\` and \`reach\` set the feel: small reach is a dock-like bump, large reach a slow wave. \`spring="soft"\` suits large imagery, \`"stiff"\` dense swatches.`,
     },

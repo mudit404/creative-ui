@@ -42,7 +42,7 @@ export const asciiMediaLive: LiveModule = {
   cardPreview: () => <AsciiMedia source={IMAGE} columns={48} label="Preview" />,
   examples: {
     image: () => <AsciiMedia source={IMAGE} />,
-    color: () => <AsciiMedia source={IMAGE} variant="source-color" invert columns={72} style={{ ["--cui-ascii-background" as string]: "#faf9f6" }} />,
+    color: () => <AsciiMedia source={IMAGE} variant="source-color" invert columns={72} style={{ ["--cui-ascii-background" as string]: "#faf9f6", ["--cui-ascii-foreground" as string]: "#141311" }} />,
     video: () => <AsciiMedia source={VIDEO} maxFps={12} columns={80} />,
     tainted: () => <Tainted />,
     ramp: () => (

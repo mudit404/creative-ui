@@ -492,14 +492,14 @@ export const DockWorkspace = React.forwardRef<DockWorkspaceHandle, DockWorkspace
       role="tablist"
       aria-label={compact ? `${label} panels` : `Group ${g.tabs.map((t) => byId.get(t)?.title ?? t).join(", ")}`}
       data-group={g.id}
-      className="absolute flex items-stretch gap-px overflow-x-auto border-b border-[var(--cui-dock-divider,rgba(20,19,17,0.15))] bg-[var(--cui-dock-tab,#efede8)] text-[12px]"
+      className="absolute flex items-stretch gap-px overflow-x-auto border-b border-[var(--cui-dock-divider,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))] bg-[var(--cui-dock-tab,light-dark(#e9e5dc,#2a2a27))] text-[12px]"
       style={rect ? { left: pct(rect.x), top: pct(rect.y), width: pct(rect.w), height: TAB_H, transition } : { left: 0, top: 0, right: 0, height: TAB_H }}
     >
       {g.tabs.map((id) => {
         const p = byId.get(id);
         const selected = compact ? id === compactActive : id === g.active;
         return (
-          <div key={id} className={cn("flex shrink-0 items-stretch", selected && "bg-[var(--cui-dock-active,#faf9f6)]")} data-tab={id} data-selected={selected || undefined}>
+          <div key={id} className={cn("flex shrink-0 items-stretch", selected && "bg-[var(--cui-dock-active,light-dark(#faf9f6,#1f1f1c))]")} data-tab={id} data-selected={selected || undefined}>
             <button
               ref={(el) => {
                 if (el) tabRefs.current.set(id, el);
@@ -535,11 +535,11 @@ export const DockWorkspace = React.forwardRef<DockWorkspaceHandle, DockWorkspace
                   void close(id);
                 }
               }}
-              className={cn("touch-none select-none px-3 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--cui-dock-focus,#141311)]", drag?.panelId === id && "opacity-50")}
+              className={cn("touch-none select-none px-3 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--cui-dock-focus,light-dark(#141311,#ecebe6))]", drag?.panelId === id && "opacity-50")}
             >
               {p?.title ?? id}
             </button>
-            <button type="button" aria-label={`${p?.title ?? id} panel menu`} aria-haspopup="menu" aria-expanded={menu?.panelId === id} onClick={openMenu(id, g.id)} className="px-1.5 text-[11px] opacity-60 outline-none hover:opacity-100 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--cui-dock-focus,#141311)]">
+            <button type="button" aria-label={`${p?.title ?? id} panel menu`} aria-haspopup="menu" aria-expanded={menu?.panelId === id} onClick={openMenu(id, g.id)} className="px-1.5 text-[11px] text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))] outline-none hover:text-[var(--cui-dock-text,light-dark(#141311,#ecebe6))] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--cui-dock-focus,light-dark(#141311,#ecebe6))]">
               ▾
             </button>
           </div>
@@ -560,7 +560,7 @@ export const DockWorkspace = React.forwardRef<DockWorkspaceHandle, DockWorkspace
       role="group"
       aria-label={label}
       tabIndex={-1}
-      className={cn("relative isolate h-[480px] w-full overflow-hidden rounded-xl border border-[var(--cui-dock-divider,rgba(20,19,17,0.15))] bg-[var(--cui-dock-active,#faf9f6)] text-[13px] text-[var(--cui-dock-text,#141311)] outline-none", className)}
+      className={cn("relative isolate h-[480px] w-full overflow-hidden rounded-xl border border-[var(--cui-dock-divider,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))] bg-[var(--cui-dock-active,light-dark(#faf9f6,#1f1f1c))] text-[13px] text-[var(--cui-dock-text,light-dark(#141311,#ecebe6))] outline-none", className)}
       style={style}
       {...rest}
     >
@@ -578,7 +578,7 @@ export const DockWorkspace = React.forwardRef<DockWorkspaceHandle, DockWorkspace
             ? { left: pct(rect.x), top: `calc(${pct(rect.y)} + ${TAB_H}px)`, width: pct(rect.w), height: `calc(${pct(rect.h)} - ${TAB_H}px)`, transition }
             : { left: 0, top: TAB_H, width: 0, height: 0 };
         return (
-          <div key={p.id} role="tabpanel" id={`${uid}-panel-${p.id}`} aria-labelledby={`${uid}-tab-${p.id}`} data-panel={p.id} data-closing={closePending === p.id || undefined} hidden={!visible} className="absolute overflow-auto border-r border-[var(--cui-dock-divider,rgba(20,19,17,0.15))] p-3" style={pos}>
+          <div key={p.id} role="tabpanel" id={`${uid}-panel-${p.id}`} aria-labelledby={`${uid}-tab-${p.id}`} data-panel={p.id} data-closing={closePending === p.id || undefined} hidden={!visible} className="absolute overflow-auto border-r border-[var(--cui-dock-divider,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))] p-3" style={pos}>
             {p.render()}
           </div>
         );
@@ -613,7 +613,7 @@ export const DockWorkspace = React.forwardRef<DockWorkspaceHandle, DockWorkspace
               onPointerUp={onHandlePointerUp}
               onPointerCancel={onHandlePointerUp}
               onKeyDown={onHandleKeyDown(h)}
-              className="absolute z-10 touch-none outline-none before:absolute before:inset-0 before:m-auto before:bg-[var(--cui-dock-divider,rgba(20,19,17,0.15))] before:content-[''] hover:before:bg-[var(--cui-dock-focus,#141311)] focus-visible:before:bg-[var(--cui-dock-focus,#141311)] data-[orientation=vertical]:before:w-px data-[orientation=horizontal]:before:h-px"
+              className="absolute z-10 touch-none outline-none before:absolute before:inset-0 before:m-auto before:bg-[var(--cui-dock-divider,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))] before:content-[''] hover:before:bg-[var(--cui-dock-focus,light-dark(#141311,#ecebe6))] focus-visible:before:bg-[var(--cui-dock-focus,light-dark(#141311,#ecebe6))] data-[orientation=vertical]:before:w-px data-[orientation=horizontal]:before:h-px"
               data-orientation={h.direction === "row" ? "vertical" : "horizontal"}
               style={style}
             />
@@ -622,14 +622,14 @@ export const DockWorkspace = React.forwardRef<DockWorkspaceHandle, DockWorkspace
 
       {/* docking preview (decorative; never a layout) */}
       {drag && (
-        <div aria-hidden data-preview data-valid={drag.valid} className={cn("pointer-events-none absolute z-20 rounded-md border-2", drag.valid ? "border-[var(--cui-dock-preview,#1f7a4f)] bg-[var(--cui-dock-preview,#1f7a4f)]/15" : "border-dashed border-[var(--cui-dock-error,#c8360d)] bg-[var(--cui-dock-error,#c8360d)]/10")} style={pr ? { left: pct(pr.x), top: pct(pr.y), width: pct(pr.w), height: pct(pr.h) } : { left: pct(drag.x), top: pct(drag.y), width: 80, height: 32, transform: "translate(-50%, -50%)" }}>
-          {!drag.valid && <span className="absolute left-1 top-1 rounded bg-[var(--cui-dock-active,#faf9f6)] px-1 text-[11px]">{drag.target ? "Unavailable" : "Release outside to cancel"}</span>}
+        <div aria-hidden data-preview data-valid={drag.valid} className={cn("pointer-events-none absolute z-20 rounded-md border-2", drag.valid ? "border-[var(--cui-dock-preview,light-dark(#1a6b45,#5fcf8f))] bg-[var(--cui-dock-preview,light-dark(#1a6b45,#5fcf8f))]/15" : "border-dashed border-[var(--cui-dock-error,light-dark(#b8310c,#ff8a65))] bg-[var(--cui-dock-error,light-dark(#b8310c,#ff8a65))]/10")} style={pr ? { left: pct(pr.x), top: pct(pr.y), width: pct(pr.w), height: pct(pr.h) } : { left: pct(drag.x), top: pct(drag.y), width: 80, height: 32, transform: "translate(-50%, -50%)" }}>
+          {!drag.valid && <span className="absolute left-1 top-1 rounded bg-[var(--cui-dock-active,light-dark(#faf9f6,#1f1f1c))] px-1 text-[11px]">{drag.target ? "Unavailable" : "Release outside to cancel"}</span>}
         </div>
       )}
 
       {/* panel menu */}
       {menu && (
-        <div ref={menuRef} role="menu" aria-label={`${byId.get(menu.panelId)?.title ?? menu.panelId} actions`} className="absolute z-30 min-w-40 rounded-lg border border-[var(--cui-dock-divider,rgba(20,19,17,0.15))] bg-[var(--cui-dock-active,#faf9f6)] p-1 shadow-lg" style={{ left: Math.max(0, menu.x), top: menu.y }}>
+        <div ref={menuRef} role="menu" aria-label={`${byId.get(menu.panelId)?.title ?? menu.panelId} actions`} className="absolute z-30 min-w-40 rounded-lg border border-[var(--cui-dock-divider,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))] bg-[var(--cui-dock-active,light-dark(#faf9f6,#1f1f1c))] p-1 shadow-lg" style={{ left: Math.max(0, menu.x), top: menu.y }}>
           {menuItems.map((it) => (
             <button
               key={it.label}
@@ -641,7 +641,7 @@ export const DockWorkspace = React.forwardRef<DockWorkspaceHandle, DockWorkspace
                 setMenu(null);
                 it.run();
               }}
-              className={cn("block w-full rounded px-2 py-1 text-left text-[12px] outline-none hover:bg-[var(--cui-dock-tab,#efede8)] focus-visible:bg-[var(--cui-dock-tab,#efede8)]", it.disabled && "opacity-40")}
+              className={cn("block w-full rounded px-2 py-1 text-left text-[12px] outline-none hover:bg-[var(--cui-dock-tab,light-dark(#e9e5dc,#2a2a27))] focus-visible:bg-[var(--cui-dock-tab,light-dark(#e9e5dc,#2a2a27))]", it.disabled && "opacity-40")}
             >
               {it.label}
             </button>

@@ -34,13 +34,17 @@ export const transferBoardMeta: ComponentMeta = {
   ],
   cssVars: [
     { name: "--cui-transfer-gap", description: "Gap between columns", default: "12px" },
-    { name: "--cui-transfer-placeholder", description: "Placeholder outline", default: "rgba(20,19,17,0.35)" },
-    { name: "--cui-transfer-valid", description: "Valid target outline and label", default: "#1f7a4f" },
-    { name: "--cui-transfer-blocked", description: "Blocked target, errors and diagnostics", default: "#c8360d" },
-    { name: "--cui-transfer-column", description: "Column background", default: "rgba(20,19,17,0.04)" },
-    { name: "--cui-transfer-surface", description: "Row surface", default: "#faf9f6" },
-    { name: "--cui-transfer-focus", description: "Focus ring and primary button", default: "#141311" },
+    { name: "--cui-transfer-column-width", description: "Minimum column width", default: "180px" },
     { name: "--cui-transfer-max-height", description: "Board scroll height", default: "70vh" },
+    { name: "--cui-transfer-text", description: "Text colour", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-transfer-surface", description: "Row, Move menu and drag-preview surface; label on the primary button", default: "light-dark(#faf9f6, #1f1f1c)" },
+    { name: "--cui-transfer-column", description: "Column background", default: "light-dark(rgba(20,19,17,0.04), rgba(236,235,230,0.06))" },
+    { name: "--cui-transfer-border", description: "Row, menu, empty-slot and Undo outlines (decorative)", default: "light-dark(rgba(20,19,17,0.15), rgba(236,235,230,0.15))" },
+    { name: "--cui-transfer-input-border", description: "Outline of the Move menu selects (their only boundary)", default: "light-dark(rgba(20,19,17,0.5), rgba(236,235,230,0.45))" },
+    { name: "--cui-transfer-placeholder", description: "Drop placeholder outline", default: "light-dark(rgba(20,19,17,0.35), rgba(236,235,230,0.35))" },
+    { name: "--cui-transfer-valid", description: "Valid target outline and label", default: "light-dark(#1a6b45, #5fcf8f)" },
+    { name: "--cui-transfer-blocked", description: "Blocked target, errors and diagnostics", default: "light-dark(#b8310c, #ff8a65)" },
+    { name: "--cui-transfer-focus", description: "Focus ring and primary button", default: "light-dark(#141311, #ecebe6)" },
   ],
   examples: [
     {

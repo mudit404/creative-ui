@@ -34,6 +34,7 @@ function Example({ example, render }: { example: ExampleDoc; render?: () => Reac
             onClick={() => setDark((d) => !d)}
             className="rounded-md border border-line px-2 py-1 text-muted hover:text-ink"
             aria-pressed={dark}
+            data-testid="example-surface"
           >
             {dark ? "Light" : "Dark"}
           </button>

@@ -212,7 +212,7 @@ export const SplitFlapBoard = React.forwardRef<SplitFlapBoardHandle, SplitFlapBo
       data-motion={mode}
       data-state={pending ? "flipping" : "settled"}
       data-paused={paused || undefined}
-      className={cn("inline-flex max-w-full flex-col gap-1 text-[var(--cui-flap-glyph,#141311)]", className)}
+      className={cn("inline-flex max-w-full flex-col gap-1 text-[var(--cui-flap-glyph,light-dark(#141311,#ecebe6))]", className)}
       {...rest}
     >
       {/* the one accessible string (C47-T03) */}
@@ -231,7 +231,7 @@ export const SplitFlapBoard = React.forwardRef<SplitFlapBoardHandle, SplitFlapBo
             data-cell
             data-phase={c.phase}
             className={cn(
-              "relative inline-block select-none overflow-hidden rounded-[4px] bg-[var(--cui-flap-face,#faf9f6)] font-mono tabular-nums shadow-[inset_0_0_0_1px_rgba(20,19,17,0.15)]",
+              "relative inline-block select-none overflow-hidden rounded-[4px] bg-[var(--cui-flap-face,light-dark(#faf9f6,#2a2a27))] font-mono tabular-nums shadow-[inset_0_0_0_1px_light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15))]",
               whole ? "px-3" : "",
             )}
             style={{ width: whole ? "auto" : "var(--cui-flap-width, 36px)", height: "var(--cui-flap-height, 52px)", fontSize: "calc(var(--cui-flap-height, 52px) * 0.6)", lineHeight: "var(--cui-flap-height, 52px)", textAlign: "center"} as React.CSSProperties}
@@ -249,7 +249,7 @@ export const SplitFlapBoard = React.forwardRef<SplitFlapBoardHandle, SplitFlapBo
             {c.phase !== 0 && (
               <span
                 data-flap
-                className="absolute inset-x-0 overflow-hidden bg-[var(--cui-flap-face,#faf9f6)]"
+                className="absolute inset-x-0 overflow-hidden bg-[var(--cui-flap-face,light-dark(#faf9f6,#2a2a27))]"
                 style={{
                   top: c.phase === 1 ? 0 : "50%",
                   height: "50%",
@@ -263,7 +263,7 @@ export const SplitFlapBoard = React.forwardRef<SplitFlapBoardHandle, SplitFlapBo
                 </span>
               </span>
             )}
-            <span aria-hidden className="pointer-events-none absolute inset-x-0 top-1/2 h-px bg-[var(--cui-flap-hinge,rgba(20,19,17,0.35))]" />
+            <span aria-hidden className="pointer-events-none absolute inset-x-0 top-1/2 h-px bg-[var(--cui-flap-hinge,light-dark(rgba(20,19,17,0.35),rgba(236,235,230,0.35)))]" />
           </span>
         ))}
       </div>

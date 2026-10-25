@@ -159,7 +159,7 @@ export const ActivityCapsule = React.forwardRef<HTMLButtonElement, ActivityCapsu
       data-status={primary?.status}
       onKeyDown={onKeyDown}
       className={cn(
-        "text-[var(--cui-capsule-text,#faf9f6)]",
+        "text-[var(--cui-capsule-text,light-dark(#faf9f6,#ecebe6))]",
         placement === "inline" && "relative inline-flex",
         placement === "bottom" && "fixed inset-x-0 bottom-[max(16px,env(safe-area-inset-bottom))] z-40 flex justify-center px-4",
         placement === "top" && "fixed inset-x-0 top-[max(16px,env(safe-area-inset-top))] z-40 flex justify-center px-4",
@@ -170,7 +170,7 @@ export const ActivityCapsule = React.forwardRef<HTMLButtonElement, ActivityCapsu
       <m.div
         layout={mode !== "off"}
         transition={morph}
-        className="flex max-w-full flex-col overflow-hidden rounded-[28px] bg-[var(--cui-capsule-surface,#141311)] shadow-[0_8px_30px_rgba(0,0,0,0.25)]"
+        className="flex max-w-full flex-col overflow-hidden rounded-[28px] bg-[var(--cui-capsule-surface,light-dark(#141311,#2a2a27))] shadow-[0_8px_30px_rgba(0,0,0,0.25)]"
         style={{ width: open ? 360 : 220, borderRadius: 28 }}
       >
         {/* summary row: one button + separate action buttons (C60-T07) */}

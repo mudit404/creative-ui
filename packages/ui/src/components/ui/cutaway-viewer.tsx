@@ -424,19 +424,19 @@ export const CutawayViewer = React.forwardRef<CutawayViewerHandle, CutawayViewer
       data-capped={loadedRef.current?.caps && !capRequiredFail ? "true" : undefined}
       role="group"
       aria-label={label}
-      className={cn("grid w-full gap-4 text-[var(--cui-cut-text,#141311)] md:grid-cols-[1fr_260px]", className)}
+      className={cn("grid w-full gap-4 text-[var(--cui-cut-text,light-dark(#141311,#ecebe6))] md:grid-cols-[1fr_260px]", className)}
       {...rest}
     >
-      <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl bg-[var(--cui-cut-background,#e9e5dc)]" data-stage>
+      <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl bg-[var(--cui-cut-background,light-dark(#e9e5dc,#2a2a27))]" data-stage>
         <img src={state === "fallback" && sectionPoster ? sectionPoster : poster} alt={description} className={cn("absolute inset-0 size-full object-contain", canvasVisible && "opacity-0")} />
         <canvas ref={canvasRef} aria-hidden className={cn("absolute inset-0 size-full touch-none", !canvasVisible && "hidden")} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp} />
         {state === "loading" && <div className="absolute inset-x-0 bottom-3 text-center text-[12px] opacity-70">Validating model…</div>}
         {(state === "fallback" || state === "error") && message && (
-          <div role="status" className="absolute inset-x-3 bottom-3 rounded-lg bg-white/85 p-2 text-center text-[12px]">
+          <div role="status" className="absolute inset-x-3 bottom-3 rounded-lg bg-[light-dark(rgba(255,255,255,0.85),rgba(31,31,28,0.88))] p-2 text-center text-[12px]">
             {message}
           </div>
         )}
-        <p className="absolute left-3 top-3 m-0 rounded-md bg-white/80 px-2 py-0.5 text-[10px] opacity-80">Interior detail comes from the supplied model.</p>
+        <p className="absolute left-3 top-3 m-0 rounded-md bg-[light-dark(rgba(255,255,255,0.8),rgba(31,31,28,0.88))] px-2 py-0.5 text-[10px] opacity-80">Interior detail comes from the supplied model.</p>
       </div>
 
       <div className="flex min-w-0 flex-col gap-3 text-[13px]">
@@ -450,9 +450,9 @@ export const CutawayViewer = React.forwardRef<CutawayViewerHandle, CutawayViewer
             Keep other half
           </label>
         </div>
-        <div role="group" aria-label="Axis" className="inline-flex rounded-full border border-[var(--cui-cut-border,rgba(20,19,17,0.25))] p-0.5 text-[12px]">
+        <div role="group" aria-label="Axis" className="inline-flex rounded-full border border-[var(--cui-cut-border,light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25)))] p-0.5 text-[12px]">
           {(["x", "y", "z"] as const).map((a) => (
-            <button key={a} type="button" aria-pressed={axis === a} disabled={controlsDisabled || capRequiredFail} onClick={() => commit({ axis: a }, "axis")} className={cn("rounded-full px-3 py-1 outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-cut-focus,#141311)]", axis === a && "bg-[var(--cui-cut-focus,#141311)] text-white")}>
+            <button key={a} type="button" aria-pressed={axis === a} disabled={controlsDisabled || capRequiredFail} onClick={() => commit({ axis: a }, "axis")} className={cn("rounded-full px-3 py-1 outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-cut-focus,light-dark(#141311,#ecebe6))]", axis === a && "bg-[var(--cui-cut-focus,light-dark(#141311,#ecebe6))] text-[light-dark(#faf9f6,#141311)]")}>
               {a.toUpperCase()}
             </button>
           ))}
@@ -465,7 +465,7 @@ export const CutawayViewer = React.forwardRef<CutawayViewerHandle, CutawayViewer
           <button type="button" aria-label="Increase depth" disabled={controlsDisabled || capRequiredFail} onClick={() => commit({ offset: offset + 0.1, enabled: true }, "button")} className={BTN}>
             +
           </button>
-          <input aria-label="Depth value" value={text} disabled={controlsDisabled || capRequiredFail} onChange={(e) => setText(e.target.value)} onBlur={commitText} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); commitText(); } }} className="h-7 w-16 rounded-md border border-[var(--cui-cut-border,rgba(20,19,17,0.25))] bg-transparent px-1.5 text-center font-mono text-[12px]" />
+          <input aria-label="Depth value" value={text} disabled={controlsDisabled || capRequiredFail} onChange={(e) => setText(e.target.value)} onBlur={commitText} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); commitText(); } }} className="h-7 w-16 rounded-md border border-[var(--cui-cut-boundary,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))] bg-transparent px-1.5 text-center font-mono text-[12px]" />
         </div>
         <p className="m-0 font-mono text-[11px] opacity-70" data-cut-readout>
           {cut !== null ? `${axis.toUpperCase()} cut at ${cut.toFixed(3)} (model units)` : "Bounds pending"}
@@ -490,7 +490,7 @@ export const CutawayViewer = React.forwardRef<CutawayViewerHandle, CutawayViewer
           </button>
         </div>
         {warnings.length > 0 && (
-          <div role="note" id={`${uid}-warn`} className="rounded-lg border border-[var(--cui-cut-warn,#c8360d)] p-2 text-[12px] text-[var(--cui-cut-warn,#c8360d)]">
+          <div role="note" id={`${uid}-warn`} className="rounded-lg border border-[var(--cui-cut-warn,light-dark(#b8310c,#ff8a65))] p-2 text-[12px] text-[var(--cui-cut-warn,light-dark(#b8310c,#ff8a65))]">
             {warnings.map((w, i) => (
               <div key={i}>
                 {w.message}
@@ -514,4 +514,4 @@ export const CutawayViewer = React.forwardRef<CutawayViewerHandle, CutawayViewer
 CutawayViewer.displayName = "CutawayViewer";
 
 const BTN =
-  "inline-flex h-7 items-center rounded-full border border-[var(--cui-cut-border,rgba(20,19,17,0.25))] px-2.5 text-[12px] outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-cut-focus,#141311)] disabled:cursor-not-allowed disabled:opacity-40";
+  "inline-flex h-7 items-center rounded-full border border-[var(--cui-cut-border,light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25)))] px-2.5 text-[12px] outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--cui-cut-focus,light-dark(#141311,#ecebe6))] disabled:cursor-not-allowed disabled:opacity-40";

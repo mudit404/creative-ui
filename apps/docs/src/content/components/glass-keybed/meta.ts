@@ -30,11 +30,11 @@ export const glassKeybedMeta: ComponentMeta = {
     { name: "ref", type: "GlassKeybedHandle", default: "—", description: "{ root, focusKey(id), stopAll() }." },
   ],
   cssVars: [
-    { name: "--cui-key-glass", description: "Key face", default: "rgba(255,255,255,0.35)" },
-    { name: "--cui-key-active", description: "Note pulse and Enable button", default: "#1f7a4f" },
-    { name: "--cui-key-label", description: "Text colour", default: "#141311" },
-    { name: "--cui-key-focus", description: "Focus ring and borders", default: "#141311" },
-    { name: "--cui-key-error", description: "Blocked/diagnostic text", default: "#c8360d" },
+    { name: "--cui-key-glass", description: "Key face; the glass-mallet variant falls back to a translucent slab, opaque-accessible to a solid one", default: "light-dark(rgba(255,255,255,0.35), rgba(255,255,255,0.1)) / light-dark(#faf9f6, #2a2a27)" },
+    { name: "--cui-key-active", description: "Note pulse and Enable button", default: "light-dark(#1a6b45, #5fcf8f)" },
+    { name: "--cui-key-label", description: "Text colour", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-key-focus", description: "Focus ring and control-bar button borders", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-key-error", description: "Blocked/diagnostic text and border", default: "light-dark(#b8310c, #ff8a65)" },
   ],
   examples: [
     { id: "glass", title: "Glass mallet with event log", description: "Silent on mount. Enable sound, play keys by pointer or Enter/Space; every note is one onNoteOn with its origin.", code: `<GlassKeybed onNoteOn={log} onNoteOff={log} />` },

@@ -29,11 +29,11 @@ export const flowStackGalleryMeta: ComponentMeta = {
     { name: "motion", type: '"auto" | "reduced" | "off"', default: '"auto"', description: "auto follows prefers-reduced-motion. reduced crossfades without flights or drag physics; off is instant." },
   ],
   cssVars: [
-    { name: "--fsg-card", description: "Card background while an image loads", default: "rgba(20,19,17,0.06)" },
+    { name: "--fsg-card", description: "Card background while an image loads", default: "light-dark(rgba(20,19,17,0.06), rgba(236,235,230,0.06))" },
     { name: "--fsg-radius", description: "Viewer and card corner radius", default: "18px" },
-    { name: "--fsg-control", description: "Previous/next button background", default: "rgba(250,249,246,0.85)" },
-    { name: "--fsg-foreground", description: "Text and icon colour", default: "#141311" },
-    { name: "--fsg-ring", description: "Selected thumbnail and focus ring colour", default: "#141311" },
+    { name: "--fsg-control", description: "Previous/next button background", default: "light-dark(rgba(250,249,246,0.85), rgba(31,31,28,0.88))" },
+    { name: "--fsg-foreground", description: "Text and icon colour", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--fsg-ring", description: "Selected thumbnail and focus ring colour", default: "light-dark(#141311, #ecebe6)" },
   ],
   examples: [
     {
@@ -81,7 +81,7 @@ export const flowStackGalleryMeta: ComponentMeta = {
     {
       id: "customization",
       title: "Styling and customization",
-      body: `Theme with the \`--fsg-*\` variables. Size the viewer with \`aspect\` and the strip with \`thumbSize\`; the component is \`width: 100%\` of its container. Provide \`thumb\` URLs for the strip to keep it light, and captions as any React node.
+      body: `Theme with the \`--fsg-*\` variables; their defaults follow \`color-scheme\` via \`light-dark()\` (Chrome 123+, Safari 17.5+, Firefox 120+; older browsers get the light values). Size the viewer with \`aspect\` and the strip with \`thumbSize\`; the component is \`width: 100%\` of its container. Provide \`thumb\` URLs for the strip to keep it light, and captions as any React node.
 
 Use \`spring="soft"\` and a larger \`stackDepth\` for editorial imagery, \`"stiff"\` and depth 1–2 for product shots. Turn \`drag\` off when the gallery sits inside a horizontally scrolling or draggable surface.`,
     },

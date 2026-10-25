@@ -33,14 +33,15 @@ export const asciiMediaMeta: ComponentMeta = {
     { name: "ref", type: "AsciiMediaHandle", default: "—", description: "{ root, media }." },
   ],
   cssVars: [
-    { name: "--cui-ascii-background", description: "Canvas background", default: "#141311" },
-    { name: "--cui-ascii-foreground", description: "Mono glyph colour", default: "#faf9f6" },
-    { name: "--cui-ascii-control", description: "Controls and focus ring", default: "#141311" },
-    { name: "--cui-ascii-error", description: "Error text", default: "#c8360d" },
+    { name: "--cui-ascii-background", description: "Canvas background (designed dark on both schemes; may hold var() or light-dark(), resolved before drawing)", default: "#141311" },
+    { name: "--cui-ascii-foreground", description: "Mono glyph colour (designed light on both schemes; resolved like the background)", default: "#faf9f6" },
+    { name: "--cui-ascii-control", description: "Control text and focus ring (ink)", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-ascii-border", description: "Toggle button border (decorative; the button is labelled)", default: "light-dark(rgba(20,19,17,0.25), rgba(236,235,230,0.25))" },
+    { name: "--cui-ascii-error", description: "Error text", default: "light-dark(#b8310c, #ff8a65)" },
   ],
   examples: [
     { id: "image", title: "Static image, mono", description: "A generated scene; the grid reports its cell count. Show original keeps the same <img>.", code: `<AsciiMedia source={{ kind: "image", src, alt }} />` },
-    { id: "color", title: "Source colour and inverted ramp", description: "Per-cell colour and invert for a light theme.", code: `<AsciiMedia variant="source-color" invert … />` },
+    { id: "color", title: "Source colour and inverted ramp", description: "Per-cell colour and invert for a light theme. A light canvas needs a dark foreground too, or mono glyphs would vanish.", code: `<AsciiMedia variant="source-color" invert style={{ "--cui-ascii-background": "#faf9f6", "--cui-ascii-foreground": "#141311" }} … />` },
     { id: "video", title: "Video at 12 fps", description: "Play the native controls: glyphs follow presented frames; pausing stops sampling; Show original never resets the time.", code: `<AsciiMedia source={{ kind: "video", src: "/media/film.webm", description }} maxFps={12} />` },
     { id: "tainted", title: "Cross-origin read failure (simulated)", description: "A sampler that throws SecurityError stands in for a tainted canvas: the original returns with a reason.", code: `<AsciiMedia sampler={taintedSampler} onError={log} />` },
     { id: "ramp", title: "Invalid ramp and reduced motion", description: "An emoji ramp is rejected (default used, notice shown); motion=\"reduced\" on video shows the native player.", code: `<AsciiMedia glyphRamp="🙂" … /> <AsciiMedia motion="reduced" source={video} />` },
@@ -54,7 +55,8 @@ export const asciiMediaMeta: ComponentMeta = {
 - **Grid**: \`gridSize\` keeps the media aspect with a 0.6 cell aspect; \`responsiveColumns\` switches below the breakpoint (C55-T01, C55-T02).
 - **Sampling**: one \`getImageData\` per frame at cols×rows; \`sampleCells\` yields luminance and colour; glyphs come from \`glyphIndex\` over the validated ramp (C55-T08).
 - **Video**: \`requestVideoFrameCallback\` (or rAF) gated by \`maxFps\`, \`paused\`, \`ended\` and \`document.hidden\` (C55-T03); a new source bumps a generation so old callbacks are ignored (C55-T07).
-- **Fallbacks**: SecurityError → origin; missing font → font (monospace fallback); failed load → media (C55-T05).`,
+- **Fallbacks**: SecurityError → origin; missing font → font (monospace fallback); failed load → media (C55-T05).
+- **Canvas colours**: \`--cui-ascii-background\` and \`--cui-ascii-foreground\` are read through a probe element's computed colour at each draw, so they may hold \`var()\` or \`light-dark()\` values Canvas itself cannot parse. The control and error tokens default to \`light-dark()\` pairs and follow \`color-scheme\` (Chrome 123+, Safari 17.5+, Firefox 120+; older browsers get the light values).`,
     },
     { id: "accessibility", title: "Accessibility", body: `- Glyphs never enter the accessibility tree (one canvas, C55-T06); alt text / description and native controls carry meaning.\n- The toggle is a real button; Show original keeps the same element so playback and focus survive (C55-T04).\n- Reduced motion: video shows the native player and the toggle is disabled with a reason (C55-T09).` },
     { id: "performance", title: "Performance", body: `One glyph atlas per font/size/ramp, one small offscreen read per frame, no per-cell DOM. Sampling stops when paused, hidden or unmounted; atlases are released with the instance (C55-T10).` },

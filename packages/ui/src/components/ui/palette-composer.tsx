@@ -418,27 +418,27 @@ export const PaletteComposer = React.forwardRef<PaletteComposerHandle, PaletteCo
       data-state={snap.state}
       role="group"
       aria-label={label}
-      className={cn("relative flex w-full flex-col gap-[var(--cui-palette-gap,16px)] text-[var(--cui-palette-text,#141311)]", variant === "editor" && "md:grid md:grid-cols-[220px_1fr] md:items-start", className)}
+      className={cn("relative flex w-full flex-col gap-[var(--cui-palette-gap,16px)] text-[var(--cui-palette-text,light-dark(#141311,#ecebe6))]", variant === "editor" && "md:grid md:grid-cols-[220px_1fr] md:items-start", className)}
       {...rest}
     >
       {/* source */}
       <div className="flex flex-col gap-3">
-        <div ref={previewRef} className={cn("relative overflow-hidden rounded-2xl bg-[var(--cui-palette-surface,rgba(20,19,17,0.06))]", variant === "editor" ? "aspect-square" : "aspect-[4/3]")} aria-busy={busy || undefined}>
+        <div ref={previewRef} className={cn("relative overflow-hidden rounded-2xl bg-[var(--cui-palette-surface,light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06)))]", variant === "editor" ? "aspect-square" : "aspect-[4/3]")} aria-busy={busy || undefined}>
           {previewUrl ? (
             <img ref={imgRef} src={previewUrl} alt={source?.alt ?? "Source image"} className="size-full object-contain" />
           ) : (
-            <div className="grid size-full place-items-center p-6 text-center text-[13px] opacity-60">No image. Choose a local file{allowUrl ? " or load a URL" : ""}.</div>
+            <div className="grid size-full place-items-center p-6 text-center text-[13px] text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]">No image. Choose a local file{allowUrl ? " or load a URL" : ""}.</div>
           )}
           {busy && (
-            <div aria-hidden className="absolute inset-x-0 bottom-0 h-1 overflow-hidden bg-black/10">
-              <m.div className="h-full w-1/3 bg-[var(--cui-palette-accent,#141311)]" animate={mode === "full" ? { x: ["-100%", "300%"] } : { x: "100%" }} transition={mode === "full" ? { duration: 1.1, repeat: Infinity, ease: "easeInOut" } : { duration: 0 }} />
+            <div aria-hidden className="absolute inset-x-0 bottom-0 h-1 overflow-hidden bg-[light-dark(rgba(20,19,17,0.1),rgba(236,235,230,0.1))]">
+              <m.div className="h-full w-1/3 bg-[var(--cui-palette-accent,light-dark(#141311,#ecebe6))]" animate={mode === "full" ? { x: ["-100%", "300%"] } : { x: "100%" }} transition={mode === "full" ? { duration: 1.1, repeat: Infinity, ease: "easeInOut" } : { duration: 0 }} />
             </div>
           )}
         </div>
         {/* extraction rail: disc origin when no true sample location exists */}
-        <div ref={railRef} aria-hidden className="h-1.5 rounded-full bg-[var(--cui-palette-surface,rgba(20,19,17,0.06))]" />
+        <div ref={railRef} aria-hidden className="h-1.5 rounded-full bg-[var(--cui-palette-surface,light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06)))]" />
         <div className="flex flex-wrap items-center gap-2 text-[13px]">
-          <label className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[var(--cui-palette-border,rgba(20,19,17,0.2))] px-3 py-1.5 focus-within:ring-2 focus-within:ring-[var(--cui-palette-focus,#141311)]">
+          <label className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[var(--cui-palette-border,light-dark(rgba(20,19,17,0.2),rgba(236,235,230,0.2)))] px-3 py-1.5 focus-within:ring-2 focus-within:ring-[var(--cui-palette-focus,light-dark(#141311,#ecebe6))]">
             <span>Choose image</span>
             <input ref={fileInputRef} type="file" accept="image/*" aria-label="Choose image" onChange={onFile} className="sr-only" />
           </label>
@@ -457,7 +457,7 @@ export const PaletteComposer = React.forwardRef<PaletteComposerHandle, PaletteCo
                 placeholder="https://…/image.png"
                 value={urlText}
                 onChange={(e) => setUrlText(e.target.value)}
-                className={cn("h-8 min-w-0 flex-1 rounded-md border bg-[var(--cui-palette-input,#faf9f6)] px-2 font-mono text-[12px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-palette-focus,#141311)]", urlInvalid ? "border-[var(--cui-palette-error,#c8360d)]" : "border-[var(--cui-palette-border,rgba(20,19,17,0.2))]")}
+                className={cn("h-8 min-w-0 flex-1 rounded-md border bg-[var(--cui-palette-input,light-dark(#faf9f6,#1f1f1c))] px-2 font-mono text-[12px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-palette-focus,light-dark(#141311,#ecebe6))]", urlInvalid ? "border-[var(--cui-palette-error,light-dark(#b8310c,#ff8a65))]" : "border-[var(--cui-palette-input-border,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))]")}
               />
               <button type="submit" className={BTN}>
                 Load URL
@@ -470,7 +470,7 @@ export const PaletteComposer = React.forwardRef<PaletteComposerHandle, PaletteCo
             </button>
           )}
         </div>
-        <div role="status" aria-live="polite" className={cn("min-h-[1.5rem] text-[12px]", snap.state === "error" ? "text-[var(--cui-palette-error,#c8360d)]" : "opacity-80")}>
+        <div role="status" aria-live="polite" className={cn("min-h-[1.5rem] text-[12px]", snap.state === "error" ? "text-[var(--cui-palette-error,light-dark(#b8310c,#ff8a65))]" : "opacity-80")}>
           {statusText}
           {snap.state === "error" && snap.error?.reason === "cors" && (
             <>
@@ -516,12 +516,12 @@ export const PaletteComposer = React.forwardRef<PaletteComposerHandle, PaletteCo
             {exportOpen ? "Hide CSS" : "Show CSS"}
           </button>
           {copyStatus && (
-            <span role="status" className={cn(copyStatus.ok ? "opacity-80" : "text-[var(--cui-palette-error,#c8360d)]")}>
+            <span role="status" className={cn(copyStatus.ok ? "opacity-80" : "text-[var(--cui-palette-error,light-dark(#b8310c,#ff8a65))]")}>
               {copyStatus.text}
             </span>
           )}
         </div>
-        <textarea id={`${uid}-export`} readOnly aria-label="CSS export" hidden={!exportOpen} value={css} rows={count + 2} className="w-full rounded-lg border border-[var(--cui-palette-border,rgba(20,19,17,0.2))] bg-[var(--cui-palette-input,#faf9f6)] p-2 font-mono text-[12px]" onFocus={(e) => e.currentTarget.select()} />
+        <textarea id={`${uid}-export`} readOnly aria-label="CSS export" hidden={!exportOpen} value={css} rows={count + 2} className="w-full rounded-lg border border-[var(--cui-palette-input-border,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))] bg-[var(--cui-palette-input,light-dark(#faf9f6,#1f1f1c))] p-2 font-mono text-[12px]" onFocus={(e) => e.currentTarget.select()} />
       </div>
 
       {/* decorative discs */}
@@ -545,7 +545,7 @@ export const PaletteComposer = React.forwardRef<PaletteComposerHandle, PaletteCo
 PaletteComposer.displayName = "PaletteComposer";
 
 const BTN =
-  "inline-flex h-8 items-center rounded-full border border-[var(--cui-palette-border,rgba(20,19,17,0.2))] px-3 text-[13px] outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-palette-focus,#141311)] disabled:cursor-not-allowed disabled:opacity-40";
+  "inline-flex h-8 items-center rounded-full border border-[var(--cui-palette-border,light-dark(rgba(20,19,17,0.2),rgba(236,235,230,0.2)))] px-3 text-[13px] outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--cui-palette-focus,light-dark(#141311,#ecebe6))] disabled:cursor-not-allowed disabled:opacity-40";
 
 const SwatchTile = React.forwardRef<HTMLLIElement, { index: number; swatch: Swatch; variant: PaletteComposerVariant; uid: string; onLock: (locked: boolean) => void; onColor: (hex: string) => void; onClear: () => void }>(function SwatchTile({ index, swatch, variant, uid, onLock, onColor, onClear }, ref) {
   const name = swatch.label ?? `Slot ${index + 1}`;
@@ -577,12 +577,12 @@ const SwatchTile = React.forwardRef<HTMLLIElement, { index: number; swatch: Swat
   const rgb = swatch.color ? parseColor(swatch.color) : null;
   const dark = rgb ? luminance(rgb) < 0.4 : false;
   return (
-    <li ref={ref} data-slot-id={swatch.id} data-locked={swatch.locked || undefined} data-origin={swatch.origin} className={cn("flex flex-col overflow-hidden rounded-2xl border bg-[var(--cui-palette-input,#faf9f6)]", swatch.locked ? "border-[var(--cui-palette-accent,#141311)]" : "border-[var(--cui-palette-border,rgba(20,19,17,0.15))]")}>
-      <div aria-hidden className={cn("relative", variant === "editor" ? "h-12" : "h-20")} style={{ background: swatch.color ?? "repeating-linear-gradient(45deg, rgba(20,19,17,0.06) 0 8px, transparent 8px 16px)" }}>
+    <li ref={ref} data-slot-id={swatch.id} data-locked={swatch.locked || undefined} data-origin={swatch.origin} className={cn("flex flex-col overflow-hidden rounded-2xl border bg-[var(--cui-palette-input,light-dark(#faf9f6,#1f1f1c))]", swatch.locked ? "border-[var(--cui-palette-accent,light-dark(#141311,#ecebe6))]" : "border-[var(--cui-palette-border,light-dark(rgba(20,19,17,0.2),rgba(236,235,230,0.2)))]")}>
+      <div aria-hidden className={cn("relative", variant === "editor" ? "h-12" : "h-20")} style={{ background: swatch.color ?? "repeating-linear-gradient(45deg, light-dark(rgba(20,19,17,0.06), rgba(236,235,230,0.06)) 0 8px, transparent 8px 16px)" }}>
         {swatch.locked && (
           <span className={cn("absolute right-2 top-2 rounded-full px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide", dark ? "bg-white/85 text-[#141311]" : "bg-[#141311]/85 text-white")}>Locked</span>
         )}
-        {!swatch.color && <span className="absolute inset-0 grid place-items-center text-[11px] uppercase tracking-wide opacity-50">Unused</span>}
+        {!swatch.color && <span className="absolute inset-0 grid place-items-center text-[11px] uppercase tracking-wide text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]">Unused</span>}
       </div>
       {/* label surface: never on the swatch colour */}
       <div className="flex items-center gap-1 p-2">
@@ -603,7 +603,7 @@ const SwatchTile = React.forwardRef<HTMLLIElement, { index: number; swatch: Swat
                 commit();
               }
             }}
-            className={cn("h-7 w-full rounded-md border bg-transparent px-1.5 font-mono text-[12px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-palette-focus,#141311)]", invalid ? "border-[var(--cui-palette-error,#c8360d)]" : "border-transparent hover:border-[var(--cui-palette-border,rgba(20,19,17,0.2))]")}
+            className={cn("h-7 w-full rounded-md border bg-transparent px-1.5 font-mono text-[12px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-palette-focus,light-dark(#141311,#ecebe6))]", invalid ? "border-[var(--cui-palette-error,light-dark(#b8310c,#ff8a65))]" : "border-[var(--cui-palette-input-border,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))]")}
           />
         </div>
         <button
@@ -611,7 +611,7 @@ const SwatchTile = React.forwardRef<HTMLLIElement, { index: number; swatch: Swat
           aria-pressed={swatch.locked}
           aria-label={`Lock ${name}`}
           onClick={() => onLock(!swatch.locked)}
-          className={cn("grid size-8 shrink-0 place-items-center rounded-full text-[13px] outline-none hover:bg-[rgba(20,19,17,0.08)] focus-visible:ring-2 focus-visible:ring-[var(--cui-palette-focus,#141311)]", swatch.locked && "bg-[var(--cui-palette-accent,#141311)] text-white")}
+          className={cn("grid size-8 shrink-0 place-items-center rounded-full text-[13px] outline-none hover:bg-[light-dark(rgba(20,19,17,0.08),rgba(236,235,230,0.08))] focus-visible:ring-2 focus-visible:ring-[var(--cui-palette-focus,light-dark(#141311,#ecebe6))]", swatch.locked && "bg-[var(--cui-palette-accent,light-dark(#141311,#ecebe6))] text-[light-dark(#faf9f6,#141311)]")}
         >
           {swatch.locked ? "🔒" : "🔓"}
         </button>

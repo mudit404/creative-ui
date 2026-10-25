@@ -123,7 +123,7 @@ function Rule() {
 function Scroll() {
   const host = usePatchHost({ delay: 300 });
   return (
-    <div className="h-[260px] w-full overflow-auto rounded-xl border border-[rgba(20,19,17,0.15)] p-3" data-scroll-panel>
+    <div className="h-[260px] w-full overflow-auto rounded-xl border border-[light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15))] p-3" data-scroll-panel>
       <p className="m-0 mb-3 text-[13px] opacity-70">Scroll this panel while watching the cables.</p>
       <CablePatchbay ports={PORTS} modules={MODULES} connections={host.connections} resolution={host.resolution} onConnectRequest={host.connect} onDisconnectRequest={host.disconnect} />
     </div>

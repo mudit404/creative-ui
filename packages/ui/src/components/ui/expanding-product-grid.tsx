@@ -181,8 +181,8 @@ export const ExpandingProductCard = React.forwardRef<HTMLLIElement, ExpandingPro
       data-slot="expanding-product-card"
       data-state={expanded ? "expanded" : "collapsed"}
       className={cn(
-        "relative min-w-0 overflow-hidden rounded-[var(--epg-radius,16px)] bg-[var(--epg-card,#faf9f6)] text-[var(--epg-foreground,#141311)] shadow-[0_1px_2px_rgba(20,19,17,0.06),0_12px_32px_-16px_rgba(20,19,17,0.25)]",
-        expanded && "z-10 ring-1 ring-[var(--epg-ring,rgba(20,19,17,0.12))]",
+        "relative min-w-0 overflow-hidden rounded-[var(--epg-radius,16px)] bg-[var(--epg-card,light-dark(#faf9f6,#1f1f1c))] text-[var(--epg-foreground,light-dark(#141311,#ecebe6))] shadow-[0_1px_2px_rgba(20,19,17,0.06),0_12px_32px_-16px_rgba(20,19,17,0.25)]",
+        expanded && "z-10 ring-1 ring-[var(--epg-ring,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))]",
         className,
       )}
       style={expanded ? { gridColumn: "1 / -1" } : undefined}
@@ -201,7 +201,7 @@ export const ExpandingProductCard = React.forwardRef<HTMLLIElement, ExpandingPro
           <m.div
             layout={layoutOn}
             transition={t}
-            className={cn("relative shrink-0 overflow-hidden bg-[var(--epg-media,rgba(20,19,17,0.06))]", expanded && side ? "md:w-[45%]" : "w-full")}
+            className={cn("relative shrink-0 overflow-hidden bg-[var(--epg-media,light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06)))]", expanded && side ? "md:w-[45%]" : "w-full")}
             style={{ aspectRatio: expanded && side ? undefined : mediaAspect, minHeight: expanded && side ? 260 : undefined }}
           >
             <div className="absolute inset-0 [&>img]:h-full [&>img]:w-full [&>img]:object-cover">{media}</div>
@@ -221,7 +221,7 @@ export const ExpandingProductCard = React.forwardRef<HTMLLIElement, ExpandingPro
               {title}
             </button>
           </h3>
-          {!expanded && summary !== undefined && <div className="mt-1 text-[13px] text-[rgba(20,19,17,0.65)]">{summary}</div>}
+          {!expanded && summary !== undefined && <div className="mt-1 text-[13px] text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]">{summary}</div>}
           <AnimatePresence initial={false}>
             {expanded && (
               <m.section
@@ -241,7 +241,7 @@ export const ExpandingProductCard = React.forwardRef<HTMLLIElement, ExpandingPro
                     ref={closeRef}
                     type="button"
                     onClick={() => grid.setExpanded(null)}
-                    className="inline-flex h-9 items-center gap-1.5 rounded-full border border-[var(--epg-ring,rgba(20,19,17,0.2))] px-3 text-[13px] font-medium outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--epg-foreground,#141311)] focus-visible:ring-offset-2"
+                    className="inline-flex h-9 items-center gap-1.5 rounded-full border border-[var(--epg-ring,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))] px-3 text-[13px] font-medium outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--epg-foreground,light-dark(#141311,#ecebe6))] focus-visible:ring-offset-2"
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden>
                       <path d="M6 6l12 12M18 6 6 18" />

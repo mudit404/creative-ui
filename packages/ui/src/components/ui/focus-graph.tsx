@@ -88,7 +88,7 @@ export const FocusGraph = React.forwardRef<FocusGraphHandle, FocusGraphProps>(fu
   const byId = React.useMemo(() => new Map(graph.nodes.map((n) => [n.id, n])), [graph]);
   const nameOf = (n: GraphNode) => (nodeLabel ? nodeLabel(n) : n.label);
   const categories = React.useMemo(() => [...new Set(graph.nodes.map((n) => n.category).filter((c): c is string => !!c))], [graph]);
-  const colorOf = (n: GraphNode) => (n.category ? (categoryColors?.[n.category] ?? PALETTE[categories.indexOf(n.category) % PALETTE.length]!) : "var(--cui-graph-node, #141311)");
+  const colorOf = (n: GraphNode) => (n.category ? (categoryColors?.[n.category] ?? PALETTE[categories.indexOf(n.category) % PALETTE.length]!) : "var(--cui-graph-node, light-dark(#141311, #ecebe6))");
 
   /* layout: synchronous and bounded (C56-T04); authored positions are used verbatim (C56-T08) */
   const [pins, setPins] = React.useState<Record<string, Position>>({});
@@ -214,12 +214,12 @@ export const FocusGraph = React.forwardRef<FocusGraphHandle, FocusGraphProps>(fu
       data-narrow={narrow || undefined}
       role="group"
       aria-label={label}
-      className={cn("grid w-full gap-3 text-[var(--cui-graph-text,#141311)]", showGraph && !narrow && "md:grid-cols-[260px_1fr]", className)}
+      className={cn("grid w-full gap-3 text-[var(--cui-graph-text,light-dark(#141311,#ecebe6))]", showGraph && !narrow && "md:grid-cols-[260px_1fr]", className)}
       {...rest}
     >
       {/* semantic panel: search, list, details */}
       <div className="flex min-w-0 flex-col gap-2">
-        <input type="search" aria-label="Search nodes" placeholder="Search…" value={query} onChange={(e) => setQuery(e.target.value)} className="h-8 rounded-md border border-[var(--cui-graph-edge,rgba(20,19,17,0.25))] bg-transparent px-2 text-[13px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-graph-selected,#141311)]" />
+        <input type="search" aria-label="Search nodes" placeholder="Search…" value={query} onChange={(e) => setQuery(e.target.value)} className="h-8 rounded-md border border-[var(--cui-graph-border,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))] bg-transparent px-2 text-[13px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-graph-selected,light-dark(#141311,#ecebe6))]" />
         <p className="m-0 text-[11px] opacity-70">
           {listed.length} of {graph.nodes.length} nodes{q ? " match" : ""} · {graph.edges.length} edges
           {graph.diagnostics.length ? ` · ${graph.diagnostics.length} invalid` : ""}
@@ -235,7 +235,7 @@ export const FocusGraph = React.forwardRef<FocusGraphHandle, FocusGraphProps>(fu
                 type="button"
                 aria-pressed={n.id === selectedId}
                 onClick={() => select(n.id === selectedId ? null : n.id, n.id === selectedId ? "clear" : "list")}
-                className={cn("flex w-full items-center gap-2 rounded px-1.5 py-1 text-left outline-none hover:bg-[rgba(20,19,17,0.05)] focus-visible:ring-2 focus-visible:ring-[var(--cui-graph-selected,#141311)]", n.id === selectedId && "bg-[rgba(20,19,17,0.08)] font-medium", neighborSet.has(n.id) && "underline decoration-dotted")}
+                className={cn("flex w-full items-center gap-2 rounded px-1.5 py-1 text-left outline-none hover:bg-[light-dark(rgba(20,19,17,0.05),rgba(236,235,230,0.05))] focus-visible:ring-2 focus-visible:ring-[var(--cui-graph-selected,light-dark(#141311,#ecebe6))]", n.id === selectedId && "bg-[light-dark(rgba(20,19,17,0.08),rgba(236,235,230,0.08))] font-medium", neighborSet.has(n.id) && "underline decoration-dotted")}
               >
                 <span aria-hidden className="size-2.5 shrink-0 rounded-full" style={{ background: colorOf(n) }} />
                 <span className="truncate">{nameOf(n)}</span>
@@ -244,14 +244,14 @@ export const FocusGraph = React.forwardRef<FocusGraphHandle, FocusGraphProps>(fu
           ))}
         </ul>
         {graph.diagnostics.length > 0 && (
-          <div role="note" className="rounded-lg border border-[var(--cui-graph-error,#c8360d)] p-2 text-[11px] text-[var(--cui-graph-error,#c8360d)]">
+          <div role="note" className="rounded-lg border border-[var(--cui-graph-error,light-dark(#b8310c,#ff8a65))] p-2 text-[11px] text-[var(--cui-graph-error,light-dark(#b8310c,#ff8a65))]">
             {graph.diagnostics.map((d, i) => (
               <div key={i}>{d.message}</div>
             ))}
           </div>
         )}
-        <div data-details aria-live="polite" className="rounded-xl border border-[var(--cui-graph-edge,rgba(20,19,17,0.15))] p-3 text-[13px]">
-          {notice && <p className="m-0 mb-1 text-[12px] text-[var(--cui-graph-error,#c8360d)]">{notice}</p>}
+        <div data-details aria-live="polite" className="rounded-xl border border-[var(--cui-graph-line,light-dark(rgba(20,19,17,0.12),rgba(236,235,230,0.12)))] p-3 text-[13px]">
+          {notice && <p className="m-0 mb-1 text-[12px] text-[var(--cui-graph-error,light-dark(#b8310c,#ff8a65))]">{notice}</p>}
           {selected && hood ? (
             renderDetails ? (
               renderDetails(selected, { outbound: neighborNodes(hood.outbound), inbound: neighborNodes(hood.inbound), all: neighborNodes(hood.all) })
@@ -277,7 +277,7 @@ export const FocusGraph = React.forwardRef<FocusGraphHandle, FocusGraphProps>(fu
               </>
             )
           ) : (
-            <span className="opacity-60">Select a node to see its neighbours.</span>
+            <span className="text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]">Select a node to see its neighbours.</span>
           )}
         </div>
         {narrow && (
@@ -335,7 +335,7 @@ export const FocusGraph = React.forwardRef<FocusGraphHandle, FocusGraphProps>(fu
             aria-labelledby={`${uid}-title`}
             {...(full ? { initial: false, animate: { viewBox }, transition: { duration: 0.26, ease: "easeOut" as const } } : {})}
             viewBox={viewBox}
-            className="aspect-[3/2] w-full select-none rounded-2xl border border-[var(--cui-graph-edge,rgba(20,19,17,0.12))] bg-[var(--cui-graph-bg,#faf9f6)]"
+            className="aspect-[3/2] w-full select-none rounded-2xl border border-[var(--cui-graph-line,light-dark(rgba(20,19,17,0.12),rgba(236,235,230,0.12)))] bg-[var(--cui-graph-bg,light-dark(#faf9f6,#1f1f1c))]"
           >
             <title id={`${uid}-title`}>
               {label}: {graph.nodes.length} nodes, {graph.edges.length} edges
@@ -343,7 +343,7 @@ export const FocusGraph = React.forwardRef<FocusGraphHandle, FocusGraphProps>(fu
             {directed && (
               <defs>
                 <marker id={`${uid}-arrow`} viewBox="0 0 10 10" refX="22" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-                  <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--cui-graph-edge, rgba(20,19,17,0.45))" />
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--cui-graph-edge, light-dark(rgba(20,19,17,0.35), rgba(236,235,230,0.35)))" />
                 </marker>
               </defs>
             )}
@@ -355,7 +355,7 @@ export const FocusGraph = React.forwardRef<FocusGraphHandle, FocusGraphProps>(fu
                 const sb = seeds[e.target] ?? b;
                 const muted = edgeMuted(e);
                 const style = {
-                  stroke: muted ? "var(--cui-graph-muted, rgba(20,19,17,0.12))" : selected ? "var(--cui-graph-selected, #141311)" : "var(--cui-graph-edge, rgba(20,19,17,0.35))",
+                  stroke: muted ? "var(--cui-graph-muted, light-dark(rgba(20,19,17,0.12), rgba(236,235,230,0.12)))" : selected ? "var(--cui-graph-selected, light-dark(#141311, #ecebe6))" : "var(--cui-graph-edge, light-dark(rgba(20,19,17,0.35), rgba(236,235,230,0.35)))",
                   strokeWidth: !muted && selected ? 2 : 1.2,
                   markerEnd: directed ? `url(#${uid}-arrow)` : undefined,
                 };
@@ -389,9 +389,9 @@ export const FocusGraph = React.forwardRef<FocusGraphHandle, FocusGraphProps>(fu
                 const motionProps = full ? { initial: { x: s.x, y: s.y }, animate: { x: p.x, y: p.y }, transition, style: { cursor: authored ? "pointer" : "grab" } } : { style: { cursor: authored ? "pointer" : "grab", transform: `translateX(${p.x}px) translateY(${p.y}px)` } };
                 return (
                   <Wrap key={n.id} {...shared} {...handlers} {...(motionProps as object)}>
-                    <circle r={isSel ? 11 : 8} fill={colorOf(n)} opacity={muted ? 0.25 : 1} stroke={isSel ? "var(--cui-graph-selected, #141311)" : "none"} strokeWidth={3} />
+                    <circle r={isSel ? 11 : 8} fill={colorOf(n)} opacity={muted ? 0.25 : 1} stroke={isSel ? "var(--cui-graph-selected, light-dark(#141311, #ecebe6))" : "none"} strokeWidth={3} />
                     {(isSel || near || graph.nodes.length <= 24) && (
-                      <text y={-14} textAnchor="middle" fontSize={11} fill="var(--cui-graph-text, #141311)" opacity={muted ? 0.3 : 1} className="pointer-events-none">
+                      <text y={-14} textAnchor="middle" fontSize={11} fill="var(--cui-graph-text, light-dark(#141311, #ecebe6))" opacity={muted ? 0.3 : 1} className="pointer-events-none">
                         {nameOf(n)}
                       </text>
                     )}
@@ -412,7 +412,7 @@ FocusGraph.displayName = "FocusGraph";
 
 const r = (n: number) => Math.round(n * 10) / 10;
 const BTN =
-  "inline-flex h-7 min-w-7 items-center justify-center rounded-full border border-[var(--cui-graph-edge,rgba(20,19,17,0.25))] px-2 text-[12px] outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-graph-selected,#141311)] disabled:opacity-40";
+  "inline-flex h-7 min-w-7 items-center justify-center rounded-full border border-[var(--cui-graph-border,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))] px-2 text-[12px] outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--cui-graph-selected,light-dark(#141311,#ecebe6))] disabled:opacity-40";
 
 function NeighborList({ title, ids, byId, nameOf, onPick }: { title: string; ids: string[]; byId: Map<string, GraphNode>; nameOf: (n: GraphNode) => string; onPick: (id: string) => void }) {
   return (
@@ -421,7 +421,7 @@ function NeighborList({ title, ids, byId, nameOf, onPick }: { title: string; ids
         {title} ({ids.length})
       </div>
       {ids.length === 0 ? (
-        <p className="m-0 text-[12px] opacity-60">None.</p>
+        <p className="m-0 text-[12px] text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]">None.</p>
       ) : (
         <ul aria-label={title} className="m-0 flex list-none flex-wrap gap-1 p-0">
           {ids.map((id) => {
@@ -429,7 +429,7 @@ function NeighborList({ title, ids, byId, nameOf, onPick }: { title: string; ids
             if (!n) return null;
             return (
               <li key={id}>
-                <button type="button" onClick={() => onPick(id)} className="rounded-full border border-[var(--cui-graph-edge,rgba(20,19,17,0.2))] px-2 py-0.5 text-[12px] outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-graph-selected,#141311)]">
+                <button type="button" onClick={() => onPick(id)} className="rounded-full border border-[var(--cui-graph-border,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))] px-2 py-0.5 text-[12px] outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--cui-graph-selected,light-dark(#141311,#ecebe6))]">
                   {nameOf(n)}
                 </button>
               </li>

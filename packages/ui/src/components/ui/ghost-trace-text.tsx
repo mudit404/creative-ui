@@ -111,17 +111,43 @@ export const GhostTraceText = React.forwardRef<HTMLElement, GhostTraceTextProps>
         try {
           const b = el.getBBox();
           if (b.width <= 0) return null;
-          return { width: b.width, ascent: -b.y, descent: b.height + b.y };
+          // getBBox is in user units and includes the run's own `y`, which is itself derived from the
+          // previous measurement; measure relative to the run's baseline or a multi-line headline feeds
+          // its ascent back into its height and the ResizeObserver never settles.
+          const baseline = Number(el.getAttribute("y")) || 0;
+          const ascent = Math.round(baseline - b.y);
+          return { width: Math.round(b.width), ascent, descent: Math.round(b.height) - ascent };
         } catch {
           return null;
         }
       });
-      if (next.every((x) => x)) setMetrics(next as Metrics[]);
+      if (next.every((x) => x)) {
+        // Keep the previous metrics unless a run really changed: at a scaled render size getBBox jitters by a
+        // few hundredths of a unit between frames, and every re-render changes the scale again.
+        const measured = next as Metrics[];
+        const close = (a: number, b: number) => Math.abs(a - b) < 0.5;
+        setMetrics((prev) =>
+          prev && prev.length === measured.length && prev.every((m, i) => close(m.width, measured[i]!.width) && close(m.ascent, measured[i]!.ascent) && close(m.descent, measured[i]!.descent))
+            ? prev
+            : measured,
+        );
+      }
     };
     measure();
     const fonts = typeof document !== "undefined" ? document.fonts : undefined;
     fonts?.ready.then(measure).catch(() => {});
-    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(measure) : null;
+    // The host's height is this component's own output (the SVG scales to its viewBox), so a resize that
+    // only changes the height is our own doing; re-measure only when the available width changes.
+    let lastWidth = host.getBoundingClientRect().width;
+    const ro =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver((entries) => {
+            const w = entries[0]?.contentRect.width ?? host.getBoundingClientRect().width;
+            if (Math.abs(w - lastWidth) < 1) return;
+            lastWidth = w;
+            measure();
+          })
+        : null;
     ro?.observe(host);
     return () => {
       cancelled = true;

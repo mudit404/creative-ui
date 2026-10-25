@@ -124,7 +124,7 @@ function Editable() {
           <a href="#editable" className="text-[15px] font-semibold underline">
             {c.title}
           </a>
-          <textarea aria-label={`Notes for ${c.title}`} rows={2} placeholder="Reviewer notes…" className="rounded-md border border-[rgba(20,19,17,0.2)] p-2 text-[13px]" />
+          <textarea aria-label={`Notes for ${c.title}`} rows={2} placeholder="Reviewer notes…" className="rounded-md border border-[light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45))] p-2 text-[13px]" />
           <button type="button" className="self-start rounded-full border border-current px-3 py-1 text-[12px]" onClick={() => alert("Opened details")}>
             Details
           </button>
@@ -150,9 +150,9 @@ export const decisionDeckLive: LiveModule = {
   renderPlayground: (values) => <PlaygroundDeck key={`${values.hostDelay}-${values.rejectThird}-${values.variant}`} values={values} />,
   cardPreview: () => (
     <div className="relative h-24 w-40" aria-hidden>
-      <div className="absolute inset-x-3 top-4 h-16 rounded-xl bg-[rgba(20,19,17,0.12)]" />
-      <div className="absolute inset-x-1.5 top-2 h-16 rounded-xl bg-[rgba(20,19,17,0.2)]" />
-      <div className="absolute inset-x-0 top-0 h-16 rotate-[-4deg] rounded-xl bg-[#faf9f6] shadow-[0_8px_20px_rgba(0,0,0,0.2)]" />
+      <div className="absolute inset-x-3 top-4 h-16 rounded-xl bg-[light-dark(rgba(20,19,17,0.12),rgba(236,235,230,0.12))]" />
+      <div className="absolute inset-x-1.5 top-2 h-16 rounded-xl bg-[light-dark(rgba(20,19,17,0.2),rgba(236,235,230,0.2))]" />
+      <div className="absolute inset-x-0 top-0 h-16 rotate-[-4deg] rounded-xl bg-[light-dark(#faf9f6,#1f1f1c)] shadow-[0_8px_20px_rgba(0,0,0,0.2)]" />
     </div>
   ),
   examples: {

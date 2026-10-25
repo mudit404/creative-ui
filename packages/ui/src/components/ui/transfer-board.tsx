@@ -408,7 +408,7 @@ function TransferBoardInner<T extends TransferItem>(
       role="group"
       aria-label={label}
       className={cn(
-        "relative flex w-full flex-col gap-3 text-[var(--cui-transfer-text,#141311)]",
+        "relative flex w-full flex-col gap-3 text-[var(--cui-transfer-text,light-dark(#141311,#ecebe6))]",
         className,
       )}
       {...rest}
@@ -416,7 +416,7 @@ function TransferBoardInner<T extends TransferItem>(
       {invalid && (
         <div
           role="note"
-          className="rounded-xl border border-[var(--cui-transfer-blocked,#c8360d)] bg-[rgba(200,54,13,0.06)] p-3 text-[12px] text-[var(--cui-transfer-blocked,#c8360d)]"
+          className="rounded-xl border border-[var(--cui-transfer-blocked,light-dark(#b8310c,#ff8a65))] bg-[light-dark(rgba(184,49,12,0.06),rgba(255,138,101,0.08))] p-3 text-[12px] text-[var(--cui-transfer-blocked,light-dark(#b8310c,#ff8a65))]"
         >
           <strong>Board data is invalid; moves are disabled.</strong>
           <ul className="m-0 mt-1 list-disc pl-4">
@@ -443,7 +443,7 @@ function TransferBoardInner<T extends TransferItem>(
               key="__placeholder"
               data-placeholder={slot.itemId}
               aria-hidden
-              className="h-10 rounded-xl border border-dashed border-[var(--cui-transfer-placeholder,rgba(20,19,17,0.35))] bg-[rgba(20,19,17,0.03)]"
+              className="h-10 rounded-xl border border-dashed border-[var(--cui-transfer-placeholder,light-dark(rgba(20,19,17,0.35),rgba(236,235,230,0.35)))] bg-[light-dark(rgba(20,19,17,0.03),rgba(236,235,230,0.05))]"
             />
           );
           const isTarget = drag?.lifted && drag.target?.to === col.id;
@@ -455,11 +455,11 @@ function TransferBoardInner<T extends TransferItem>(
               data-target={isTarget ? (blocked ? "blocked" : "valid") : undefined}
               aria-labelledby={`${uid}-${col.id}`}
               className={cn(
-                "flex min-w-[var(--cui-transfer-column-width,180px)] flex-1 snap-start flex-col gap-2 rounded-2xl border-2 bg-[var(--cui-transfer-column,rgba(20,19,17,0.04))] p-2",
+                "flex min-w-[var(--cui-transfer-column-width,180px)] flex-1 snap-start flex-col gap-2 rounded-2xl border-2 bg-[var(--cui-transfer-column,light-dark(rgba(20,19,17,0.04),rgba(236,235,230,0.06)))] p-2",
                 isTarget && !blocked
-                  ? "border-[var(--cui-transfer-valid,#1f7a4f)]"
+                  ? "border-[var(--cui-transfer-valid,light-dark(#1a6b45,#5fcf8f))]"
                   : blocked
-                    ? "border-dashed border-[var(--cui-transfer-blocked,#c8360d)]"
+                    ? "border-dashed border-[var(--cui-transfer-blocked,light-dark(#b8310c,#ff8a65))]"
                     : "border-transparent",
               )}
             >
@@ -479,8 +479,8 @@ function TransferBoardInner<T extends TransferItem>(
                   className={cn(
                     "rounded-md px-2 py-1 text-[11px] font-medium",
                     blocked
-                      ? "bg-[rgba(200,54,13,0.1)] text-[var(--cui-transfer-blocked,#c8360d)]"
-                      : "bg-[rgba(31,122,79,0.1)] text-[var(--cui-transfer-valid,#1f7a4f)]",
+                      ? "bg-[light-dark(rgba(184,49,12,0.1),rgba(255,138,101,0.12))] text-[var(--cui-transfer-blocked,light-dark(#b8310c,#ff8a65))]"
+                      : "bg-[light-dark(rgba(26,107,69,0.15),rgba(95,207,143,0.2))] text-[var(--cui-transfer-valid,light-dark(#1a6b45,#5fcf8f))]",
                   )}
                 >
                   {blocked
@@ -497,7 +497,7 @@ function TransferBoardInner<T extends TransferItem>(
                 {ids.length === 0 && !slot && (
                   <li
                     aria-hidden
-                    className="grid h-14 place-items-center rounded-xl border border-dashed border-[var(--cui-transfer-border,rgba(20,19,17,0.2))] text-[12px] opacity-60"
+                    className="grid h-14 place-items-center rounded-xl border border-dashed border-[var(--cui-transfer-border,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))] text-[12px] text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]"
                   >
                     {col.readOnly ? "Read-only" : "Empty"}
                   </li>
@@ -522,7 +522,7 @@ function TransferBoardInner<T extends TransferItem>(
                       onPointerUp={onHandleUp}
                       onPointerCancel={onHandleCancel}
                       onLostPointerCapture={onHandleCancel}
-                      className="grid size-8 shrink-0 cursor-grab touch-none place-items-center rounded-md text-[16px] leading-none opacity-60 outline-none hover:bg-[rgba(20,19,17,0.08)] hover:opacity-100 focus-visible:ring-2 focus-visible:ring-[var(--cui-transfer-focus,#141311)] active:cursor-grabbing disabled:cursor-not-allowed"
+                      className="grid size-8 shrink-0 cursor-grab touch-none place-items-center rounded-md text-[16px] leading-none text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))] outline-none hover:bg-[light-dark(rgba(20,19,17,0.08),rgba(236,235,230,0.1))] hover:text-[var(--cui-transfer-text,light-dark(#141311,#ecebe6))] focus-visible:ring-2 focus-visible:ring-[var(--cui-transfer-focus,light-dark(#141311,#ecebe6))] active:cursor-grabbing disabled:cursor-not-allowed"
                     >
                       ⋮⋮
                     </button>
@@ -560,10 +560,10 @@ function TransferBoardInner<T extends TransferItem>(
                         data-dragging={isDragged || undefined}
                         aria-busy={isPending || undefined}
                         className={cn(
-                          "relative flex items-center gap-1 rounded-xl border bg-[var(--cui-transfer-surface,#faf9f6)] p-2 shadow-sm",
+                          "relative flex items-center gap-1 rounded-xl border bg-[var(--cui-transfer-surface,light-dark(#faf9f6,#1f1f1c))] p-2 shadow-sm",
                           isDragged
                             ? "-mt-2 h-0 overflow-hidden border-0 p-0 opacity-0 shadow-none"
-                            : "border-[var(--cui-transfer-border,rgba(20,19,17,0.12))]",
+                            : "border-[var(--cui-transfer-border,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))]",
                           isPending && "opacity-60",
                         )}
                       >
@@ -610,7 +610,7 @@ function TransferBoardInner<T extends TransferItem>(
         <div
           aria-hidden
           data-drag-preview
-          className="pointer-events-none fixed z-50 rounded-xl border border-[var(--cui-transfer-border,rgba(20,19,17,0.12))] bg-[var(--cui-transfer-surface,#faf9f6)] px-3 py-2 text-[13px] shadow-[0_12px_32px_rgba(0,0,0,0.2)]"
+          className="pointer-events-none fixed z-50 rounded-xl border border-[var(--cui-transfer-border,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))] bg-[var(--cui-transfer-surface,light-dark(#faf9f6,#1f1f1c))] px-3 py-2 text-[13px] shadow-[0_12px_32px_rgba(0,0,0,0.2)]"
           style={{
             left: drag.startX - 12,
             top: drag.startY - 18,
@@ -628,7 +628,7 @@ function TransferBoardInner<T extends TransferItem>(
             type="button"
             onClick={requestUndo}
             disabled={!lastAccepted || !!pending || invalid}
-            className="inline-flex h-8 items-center rounded-full border border-[var(--cui-transfer-border,rgba(20,19,17,0.25))] px-3 text-[13px] outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-transfer-focus,#141311)] disabled:opacity-40"
+            className="inline-flex h-8 items-center rounded-full border border-[var(--cui-transfer-border,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))] px-3 text-[13px] outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.08))] focus-visible:ring-2 focus-visible:ring-[var(--cui-transfer-focus,light-dark(#141311,#ecebe6))] disabled:opacity-40"
           >
             Undo last move
           </button>
@@ -638,7 +638,7 @@ function TransferBoardInner<T extends TransferItem>(
           aria-live="polite"
           className={cn(
             "min-h-[1.5rem] flex-1 text-[12px]",
-            notice.error ? "text-[var(--cui-transfer-blocked,#c8360d)]" : "opacity-80",
+            notice.error ? "text-[var(--cui-transfer-blocked,light-dark(#b8310c,#ff8a65))]" : "opacity-80",
           )}
         >
           {liveMove || notice.text}
@@ -709,7 +709,7 @@ function MoveMenu<T extends TransferItem>({
         aria-label={`Move ${item.title}`}
         disabled={disabled}
         onClick={() => onOpenChange(!open)}
-        className="inline-flex h-8 items-center rounded-md px-2 text-[12px] outline-none hover:bg-[rgba(20,19,17,0.08)] focus-visible:ring-2 focus-visible:ring-[var(--cui-transfer-focus,#141311)] disabled:opacity-40"
+        className="inline-flex h-8 items-center rounded-md px-2 text-[12px] outline-none hover:bg-[light-dark(rgba(20,19,17,0.08),rgba(236,235,230,0.1))] focus-visible:ring-2 focus-visible:ring-[var(--cui-transfer-focus,light-dark(#141311,#ecebe6))] disabled:opacity-40"
       >
         Move
       </button>
@@ -726,7 +726,7 @@ function MoveMenu<T extends TransferItem>({
               btnRef.current?.focus();
             }
           }}
-          className="absolute right-0 top-full z-20 mt-1 flex w-64 flex-col gap-2 rounded-xl border border-[var(--cui-transfer-border,rgba(20,19,17,0.15))] bg-[var(--cui-transfer-surface,#faf9f6)] p-3 text-[12px] shadow-lg"
+          className="absolute right-0 top-full z-20 mt-1 flex w-64 flex-col gap-2 rounded-xl border border-[var(--cui-transfer-border,light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15)))] bg-[var(--cui-transfer-surface,light-dark(#faf9f6,#1f1f1c))] p-3 text-[12px] shadow-lg"
         >
           <label className="flex flex-col gap-1">
             <span className="font-medium">Destination</span>
@@ -736,7 +736,7 @@ function MoveMenu<T extends TransferItem>({
                 setTo(e.target.value);
                 setBefore(POSITION_END);
               }}
-              className="h-8 rounded-md border border-[var(--cui-transfer-border,rgba(20,19,17,0.2))] bg-transparent px-1"
+              className="h-8 rounded-md border border-[var(--cui-transfer-input-border,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))] bg-transparent px-1"
             >
               {containers.map((c) => {
                 const probe = evaluate({
@@ -763,7 +763,7 @@ function MoveMenu<T extends TransferItem>({
             <select
               value={before}
               onChange={(e) => setBefore(e.target.value)}
-              className="h-8 rounded-md border border-[var(--cui-transfer-border,rgba(20,19,17,0.2))] bg-transparent px-1"
+              className="h-8 rounded-md border border-[var(--cui-transfer-input-border,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))] bg-transparent px-1"
             >
               {candidates.map((id) => (
                 <option key={id} value={id}>
@@ -774,7 +774,7 @@ function MoveMenu<T extends TransferItem>({
             </select>
           </label>
           {!ev.allowed && (
-            <p role="alert" className="m-0 text-[var(--cui-transfer-blocked,#c8360d)]">
+            <p role="alert" className="m-0 text-[var(--cui-transfer-blocked,light-dark(#b8310c,#ff8a65))]">
               ⊘ {ev.reason}
             </p>
           )}
@@ -785,7 +785,7 @@ function MoveMenu<T extends TransferItem>({
                 onOpenChange(false);
                 btnRef.current?.focus();
               }}
-              className="h-8 rounded-full px-3 outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-transfer-focus,#141311)]"
+              className="h-8 rounded-full px-3 outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.08))] focus-visible:ring-2 focus-visible:ring-[var(--cui-transfer-focus,light-dark(#141311,#ecebe6))]"
             >
               Cancel
             </button>
@@ -793,7 +793,7 @@ function MoveMenu<T extends TransferItem>({
               type="button"
               disabled={!ev.allowed}
               onClick={() => onMove(move)}
-              className="h-8 rounded-full bg-[var(--cui-transfer-focus,#141311)] px-3 text-[var(--cui-transfer-surface,#faf9f6)] outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-[var(--cui-transfer-focus,#141311)] disabled:opacity-40"
+              className="h-8 rounded-full bg-[var(--cui-transfer-focus,light-dark(#141311,#ecebe6))] px-3 text-[var(--cui-transfer-surface,light-dark(#faf9f6,#1f1f1c))] outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-[var(--cui-transfer-focus,light-dark(#141311,#ecebe6))] disabled:opacity-40"
             >
               Move here
             </button>

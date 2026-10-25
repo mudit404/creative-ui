@@ -49,7 +49,7 @@ function ControlledDemo() {
               type="button"
               aria-current={n === i ? "true" : undefined}
               onClick={() => setI(n)}
-              className={`w-full rounded-md px-2 py-1.5 text-left ${n === i ? "bg-[#141311] text-[#f3f1ec]" : "text-[#141311] hover:bg-[rgba(20,19,17,0.06)]"}`}
+              className={`w-full rounded-md px-2 py-1.5 text-left ${n === i ? "bg-[light-dark(#141311,#ecebe6)] text-[light-dark(#f3f1ec,#141311)]" : "text-[light-dark(#141311,#ecebe6)] hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.08))]"}`}
             >
               {it.alt}
             </button>

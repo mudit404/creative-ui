@@ -203,7 +203,7 @@ export const activityCapsuleLive: LiveModule = {
     queue: () => <Queue />,
     focused: () => <Focused />,
     placement: () => (
-      <div className="flex w-full max-w-xl items-center gap-3 rounded-2xl border border-[rgba(20,19,17,0.12)] p-2">
+      <div className="flex w-full max-w-xl items-center gap-3 rounded-2xl border border-[light-dark(rgba(20,19,17,0.12),rgba(236,235,230,0.12))] p-2">
         <span className="px-2 text-[13px] font-medium">Library</span>
         <span className="flex-1" />
         <ActivityCapsule placement="inline" tasks={[snap("sync", "Syncing 3 folders", { progress: { completed: 1, total: 3 } })]} />

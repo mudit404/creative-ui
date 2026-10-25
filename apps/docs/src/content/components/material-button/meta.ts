@@ -45,8 +45,8 @@ export const materialButtonMeta: ComponentMeta = {
     { name: "--mb-sheen", description: "Highlight colour used by the rim light, glint and pointer sheen", default: "rgba(255,255,255,0.16)" },
     { name: "--mb-shade", description: "Bottom shading of the face", default: "rgba(0,0,0,0.5)" },
     { name: "--mb-shadow", description: "Floor shadow colour", default: "rgba(12,12,18,0.55)" },
-    { name: "--mb-ring", description: "Focus ring colour", default: "same as surface" },
-    { name: "--mb-ring-offset", description: "Focus ring offset colour (set to your page background)", default: "white" },
+    { name: "--mb-ring", description: "Focus ring colour; the surface colour when colors.surface is set", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--mb-ring-offset", description: "Focus ring offset colour (set to your page background)", default: "light-dark(white, #0f0f0d)" },
   ],
   examples: [
     {
@@ -131,7 +131,7 @@ export const materialButtonMeta: ComponentMeta = {
     {
       id: "customization",
       title: "Styling and customization",
-      body: `Use \`tone\` for the two built-in materials, \`colors\` for quick overrides, or the CSS variables for theming across an app. The variables are read from the wrapper element, so you can set them in a stylesheet with a selector like \`[data-slot="material-button"]\` or on any ancestor.
+      body: `Use \`tone\` for the two built-in materials, \`colors\` for quick overrides, or the CSS variables for theming across an app. The variables are read from the wrapper element, so you can set them in a stylesheet with a selector like \`[data-slot="material-button"]\` or on any ancestor. The tones are fixed palettes; only the focus ring and its offset default to \`light-dark()\` values that follow \`color-scheme\` (Chrome 123+, Safari 17.5+, Firefox 120+; older browsers get the light values).
 
 The strands are drawn on a canvas and cannot read CSS at paint time, so the component resolves \`--mb-goo\`, \`--mb-sheen\` and \`--mb-shadow\` with \`getComputedStyle\` whenever the button is measured. Change them with a class or inline style and they apply on the next resize or remount; the \`colors\` prop applies immediately.
 

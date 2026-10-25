@@ -169,9 +169,9 @@ export const compareWorkbenchLive: LiveModule = {
       </div>
       {[0, 1, 2].map((r) => (
         <div key={r} className="grid grid-cols-[1.4fr_1fr_1fr_1fr] gap-1.5">
-          <div className="h-2.5 rounded bg-[rgba(20,19,17,0.25)]" />
+          <div className="h-2.5 rounded bg-[light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25))]" />
           {[0, 1, 2].map((c) => (
-            <div key={c} className="h-2.5 rounded" style={{ background: r === 1 && c === 2 ? "rgba(200,245,90,0.9)" : "rgba(20,19,17,0.12)" }} />
+            <div key={c} className="h-2.5 rounded" style={{ background: r === 1 && c === 2 ? "rgba(200,245,90,0.9)" : "light-dark(rgba(20,19,17,0.12), rgba(236,235,230,0.12))" }} />
           ))}
         </div>
       ))}

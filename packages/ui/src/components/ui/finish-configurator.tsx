@@ -405,11 +405,11 @@ export const FinishConfigurator = React.forwardRef<FinishConfiguratorHandle, Fin
       data-configuration={configurationKey}
       role="group"
       aria-label={label}
-      className={cn("grid w-full gap-4 text-[var(--cui-finish-text,#141311)] md:grid-cols-[1fr_280px]", className)}
+      className={cn("grid w-full gap-4 text-[var(--cui-finish-text,light-dark(#141311,#ecebe6))] md:grid-cols-[1fr_280px]", className)}
       {...rest}
     >
       <div className="flex min-w-0 flex-col gap-2">
-        <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl bg-[var(--cui-finish-stage,#e9e5dc)]" data-stage>
+        <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl bg-[var(--cui-finish-stage,light-dark(#e9e5dc,#2a2a27))]" data-stage>
           <img src={state === "fallback" && fallbackImage ? fallbackImage : poster} alt={description} className={cn("absolute inset-0 size-full object-contain", canvasVisible && "opacity-0")} />
           <canvas ref={canvasRef} aria-hidden className={cn("absolute inset-0 size-full touch-none", !canvasVisible && "hidden")} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp} />
           {preparing && (
@@ -419,7 +419,7 @@ export const FinishConfigurator = React.forwardRef<FinishConfiguratorHandle, Fin
           )}
           {state === "loading" && <div className="absolute inset-x-0 bottom-3 text-center text-[12px] opacity-70">Loading model…</div>}
           {(state === "fallback" || state === "error") && message && (
-            <div role="note" data-message className="absolute inset-x-3 bottom-3 rounded-lg bg-white/85 p-2 text-center text-[12px]">
+            <div role="note" data-message className="absolute inset-x-3 bottom-3 rounded-lg bg-[light-dark(rgba(255,255,255,0.85),rgba(31,31,28,0.88))] p-2 text-center text-[12px]">
               {message}
             </div>
           )}
@@ -433,13 +433,13 @@ export const FinishConfigurator = React.forwardRef<FinishConfiguratorHandle, Fin
           <button type="button" disabled={state !== "ready"} onClick={resetView} className={BTN}>
             Reset view
           </button>
-          <span className="ml-auto text-[11px] opacity-60">Display appearance varies; supplied samples are authoritative.</span>
+          <span className="ml-auto text-[11px] text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]">Display appearance varies; supplied samples are authoritative.</span>
         </div>
       </div>
 
       <div className="flex min-w-0 flex-col gap-3 text-[13px]">
         {diagnostics.length > 0 && (
-          <div role="note" className="rounded-lg border border-[var(--cui-finish-unavailable,#c8360d)] p-2 text-[12px] text-[var(--cui-finish-unavailable,#c8360d)]">
+          <div role="note" className="rounded-lg border border-[var(--cui-finish-unavailable,light-dark(#b8310c,#ff8a65))] p-2 text-[12px] text-[var(--cui-finish-unavailable,light-dark(#b8310c,#ff8a65))]">
             {diagnostics.map((d, i) => (
               <div key={i}>{d}</div>
             ))}
@@ -457,7 +457,7 @@ export const FinishConfigurator = React.forwardRef<FinishConfiguratorHandle, Fin
                 </span>
               </legend>
               {flag && !flag.allowed && (
-                <p className="m-0 mb-1 text-[12px] text-[var(--cui-finish-unavailable,#c8360d)]" data-flag>
+                <p className="m-0 mb-1 text-[12px] text-[var(--cui-finish-unavailable,light-dark(#b8310c,#ff8a65))]" data-flag>
                   {flag.reason} Please choose another option.
                 </p>
               )}
@@ -482,14 +482,14 @@ export const FinishConfigurator = React.forwardRef<FinishConfiguratorHandle, Fin
                       data-blocked={blocked || undefined}
                       onClick={() => propose(g.id, o.id, "select")}
                       className={cn(
-                        "flex items-center gap-2 rounded-full border py-1 pl-1 pr-3 text-left outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-finish-selected,#141311)]",
-                        checked ? "border-[var(--cui-finish-selected,#141311)] ring-1 ring-[var(--cui-finish-selected,#141311)]" : "border-[var(--cui-finish-swatch-border,rgba(20,19,17,0.2))]",
-                        blocked && "opacity-50",
+                        "flex items-center gap-2 rounded-full border py-1 pl-1 pr-3 text-left outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-finish-selected,light-dark(#141311,#ecebe6))]",
+                        checked ? "border-[var(--cui-finish-selected,light-dark(#141311,#ecebe6))] ring-1 ring-[var(--cui-finish-selected,light-dark(#141311,#ecebe6))]" : "border-[var(--cui-finish-swatch-border,light-dark(rgba(20,19,17,0.2),rgba(236,235,230,0.2)))]",
+                        blocked && "text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]",
                       )}
                     >
-                      <span aria-hidden className="size-6 shrink-0 rounded-full border border-black/10 bg-cover" style={{ background: o.thumbnail ? `url(${o.thumbnail}) center/cover` : (sanitizeMaterialParams(o.material).color ?? "#ccc") }} />
+                      <span aria-hidden className={cn("size-6 shrink-0 rounded-full border border-[light-dark(rgba(0,0,0,0.1),rgba(255,255,255,0.2))] bg-cover", blocked && "opacity-50")} style={{ background: o.thumbnail ? `url(${o.thumbnail}) center/cover` : (sanitizeMaterialParams(o.material).color ?? "#ccc") }} />
                       <span>{o.name}</span>
-                      {blocked && <span className="text-[10px] uppercase tracking-wide opacity-70">{o.available === false ? "unavailable" : "incompatible"}</span>}
+                      {blocked && <span className="text-[10px] uppercase tracking-wide">{o.available === false ? "unavailable" : "incompatible"}</span>}
                       {blocked && (
                         <span id={`${uid}-${g.id}-${o.id}`} className="sr-only">
                           {verdict.reason}
@@ -506,7 +506,7 @@ export const FinishConfigurator = React.forwardRef<FinishConfiguratorHandle, Fin
           <button type="button" onClick={reset} className={BTN}>
             Reset
           </button>
-          <span role="status" aria-live="polite" className={cn("text-[12px]", notice.error || textureError ? "text-[var(--cui-finish-unavailable,#c8360d)]" : "opacity-80")}>
+          <span role="status" aria-live="polite" className={cn("text-[12px]", notice.error || textureError ? "text-[var(--cui-finish-unavailable,light-dark(#b8310c,#ff8a65))]" : "opacity-80")}>
             {textureError ?? notice.text}
           </span>
         </div>
@@ -521,4 +521,4 @@ export const FinishConfigurator = React.forwardRef<FinishConfiguratorHandle, Fin
 FinishConfigurator.displayName = "FinishConfigurator";
 
 const BTN =
-  "inline-flex h-7 items-center rounded-full border border-[var(--cui-finish-swatch-border,rgba(20,19,17,0.25))] px-2.5 text-[12px] outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-finish-selected,#141311)] disabled:cursor-not-allowed disabled:opacity-40";
+  "inline-flex h-7 items-center rounded-full border border-[var(--cui-finish-swatch-border,light-dark(rgba(20,19,17,0.2),rgba(236,235,230,0.2)))] px-2.5 text-[12px] outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--cui-finish-selected,light-dark(#141311,#ecebe6))] disabled:cursor-not-allowed disabled:opacity-40";

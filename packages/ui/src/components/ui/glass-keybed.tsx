@@ -365,7 +365,7 @@ export const GlassKeybed = React.forwardRef<GlassKeybedHandle, GlassKeybedProps>
       data-trigger={triggerMode}
       role="group"
       aria-label={label}
-      className={cn("flex w-full flex-col gap-3 text-[var(--cui-key-label,#141311)]", className)}
+      className={cn("flex w-full flex-col gap-3 text-[var(--cui-key-label,light-dark(#141311,#ecebe6))]", className)}
       {...rest}
     >
       {/* control bar */}
@@ -376,7 +376,7 @@ export const GlassKeybed = React.forwardRef<GlassKeybedHandle, GlassKeybedProps>
               Disable sound
             </button>
           ) : (
-            <button type="button" onClick={() => void enableSound()} disabled={audioState === "enabling"} className={cn(BTN, "bg-[var(--cui-key-active,#1f7a4f)] text-white")}>
+            <button type="button" onClick={() => void enableSound()} disabled={audioState === "enabling"} className={cn(BTN, "bg-[var(--cui-key-active,light-dark(#1a6b45,#5fcf8f))] text-[light-dark(#ffffff,#121210)]")}>
               {audioState === "enabling" ? "Enabling…" : "Enable sound"}
             </button>
           ))}
@@ -387,12 +387,12 @@ export const GlassKeybed = React.forwardRef<GlassKeybedHandle, GlassKeybedProps>
         <button type="button" onClick={() => stopAll("stopAll")} className={BTN}>
           Stop all
         </button>
-        <span role="status" aria-live="polite" className={cn(blockedReason ? "text-[var(--cui-key-error,#c8360d)]" : "opacity-70")}>
+        <span role="status" aria-live="polite" className={cn(blockedReason ? "text-[var(--cui-key-error,light-dark(#b8310c,#ff8a65))]" : "opacity-70")}>
           {visualOnly ? "Visual-only instrument." : blockedReason ? `${blockedReason} Visual-only mode is active.` : audioState === "ready" ? (muted ? "Sound on (muted)." : "Sound on.") : "Silent until you enable sound."}
         </span>
       </div>
       {diagnostics.length > 0 && (
-        <div role="note" className="rounded-lg border border-[var(--cui-key-error,#c8360d)] p-2 text-[12px] text-[var(--cui-key-error,#c8360d)]">
+        <div role="note" className="rounded-lg border border-[var(--cui-key-error,light-dark(#b8310c,#ff8a65))] p-2 text-[12px] text-[var(--cui-key-error,light-dark(#b8310c,#ff8a65))]">
           {diagnostics.map((d, i) => (
             <div key={i}>{d}</div>
           ))}
@@ -423,14 +423,14 @@ export const GlassKeybed = React.forwardRef<GlassKeybedHandle, GlassKeybedProps>
               onKeyUp={onKeyKeyUp(n)}
               onBlur={() => noteOff(n.id, "blur")}
               className={cn(
-                "relative flex h-40 w-14 shrink-0 select-none flex-col items-center justify-end rounded-xl border pb-3 text-[12px] font-medium outline-none touch-none focus-visible:ring-2 focus-visible:ring-[var(--cui-key-focus,#141311)]",
-                glass ? "border-white/60 bg-[var(--cui-key-glass,rgba(255,255,255,0.35))] shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_10px_24px_rgba(20,19,17,0.15)] backdrop-blur-md" : "border-[rgba(20,19,17,0.35)] bg-[var(--cui-key-glass,#faf9f6)]",
+                "relative flex h-40 w-14 shrink-0 select-none flex-col items-center justify-end rounded-xl border pb-3 text-[12px] font-medium outline-none touch-none focus-visible:ring-2 focus-visible:ring-[var(--cui-key-focus,light-dark(#141311,#ecebe6))]",
+                glass ? "border-[light-dark(rgba(255,255,255,0.6),rgba(255,255,255,0.25))] bg-[var(--cui-key-glass,light-dark(rgba(255,255,255,0.35),rgba(255,255,255,0.1)))] shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_10px_24px_rgba(20,19,17,0.15)] backdrop-blur-md" : "border-[light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45))] bg-[var(--cui-key-glass,light-dark(#faf9f6,#2a2a27))]",
                 pulse && (mode === "full" && glass ? "animate-[cui-key-swing_420ms_ease-out]" : "translate-y-[2px]"),
               )}
               style={{ transformOrigin: "top center", ["--cui-key-tint" as string]: `hsl(${hue} 70% 60%)` }}
             >
               <span aria-hidden className={cn("pointer-events-none absolute inset-0 rounded-xl", glass ? "bg-[linear-gradient(180deg,transparent,var(--cui-key-tint))] opacity-25" : "")} />
-              {pulse && <span key={pulse} aria-hidden data-pulse className={cn("pointer-events-none absolute inset-2 rounded-lg bg-[var(--cui-key-active,#1f7a4f)]", mode === "full" ? "animate-[cui-key-pulse_600ms_ease-out_forwards]" : "opacity-40")} />}
+              {pulse && <span key={pulse} aria-hidden data-pulse className={cn("pointer-events-none absolute inset-2 rounded-lg bg-[var(--cui-key-active,light-dark(#1a6b45,#5fcf8f))]", mode === "full" ? "animate-[cui-key-pulse_600ms_ease-out_forwards]" : "opacity-40")} />}
               <span className="relative">{n.label}</span>
             </button>
           );
@@ -446,4 +446,4 @@ export const GlassKeybed = React.forwardRef<GlassKeybedHandle, GlassKeybedProps>
 GlassKeybed.displayName = "GlassKeybed";
 
 const BTN =
-  "inline-flex h-7 items-center rounded-full border border-[var(--cui-key-focus,rgba(20,19,17,0.25))] px-2.5 text-[12px] outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-key-focus,#141311)] disabled:opacity-40";
+  "inline-flex h-7 items-center rounded-full border border-[var(--cui-key-focus,light-dark(#141311,#ecebe6))] px-2.5 text-[12px] outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--cui-key-focus,light-dark(#141311,#ecebe6))] disabled:opacity-40";

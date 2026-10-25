@@ -27,7 +27,7 @@ function Media({ hue, name }: { hue: number; name: string }) {
   return (
     <div
       aria-hidden
-      className="flex h-full w-full items-end p-3 font-mono text-[11px] uppercase tracking-wider text-[rgba(20,19,17,0.55)]"
+      className="flex h-full w-full items-end p-3 font-mono text-[11px] uppercase tracking-wider text-[rgba(20,19,17,0.65)]"
       style={{ background: `linear-gradient(150deg, hsl(${hue} 40% 82%), hsl(${hue + 25} 35% 64%))` }}
     >
       {name}
@@ -39,7 +39,7 @@ function Detail({ product }: { product: Product }) {
   const [size, setSize] = useState(product.sizes[0]);
   return (
     <div className="flex flex-col gap-3">
-      <p className="m-0 text-[14px] leading-relaxed text-[rgba(20,19,17,0.75)]">{product.blurb}</p>
+      <p className="m-0 text-[14px] leading-relaxed text-[light-dark(rgba(20,19,17,0.75),rgba(236,235,230,0.75))]">{product.blurb}</p>
       <div className="flex flex-wrap items-center gap-1.5" role="group" aria-label="Size">
         {product.sizes.map((s) => (
           <button
@@ -47,7 +47,7 @@ function Detail({ product }: { product: Product }) {
             type="button"
             aria-pressed={size === s}
             onClick={() => setSize(s)}
-            className={`h-8 min-w-8 rounded-full border px-2.5 text-[12px] ${size === s ? "border-[#141311] bg-[#141311] text-[#f3f1ec]" : "border-[rgba(20,19,17,0.25)] text-[#141311]"}`}
+            className={`h-8 min-w-8 rounded-full border px-2.5 text-[12px] ${size === s ? "border-[light-dark(#141311,#ecebe6)] bg-[light-dark(#141311,#ecebe6)] text-[light-dark(#f3f1ec,#141311)]" : "border-[light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25))] text-[light-dark(#141311,#ecebe6)]"}`}
           >
             {s}
           </button>
@@ -55,7 +55,7 @@ function Detail({ product }: { product: Product }) {
       </div>
       <div className="flex items-center gap-3">
         <span className="text-[16px] font-semibold">{product.price}</span>
-        <button type="button" className="h-9 rounded-full bg-[#141311] px-4 text-[13px] font-medium text-[#f3f1ec]" onClick={(e) => e.preventDefault()}>
+        <button type="button" className="h-9 rounded-full bg-[light-dark(#141311,#ecebe6)] px-4 text-[13px] font-medium text-[light-dark(#f3f1ec,#141311)]" onClick={(e) => e.preventDefault()}>
           Add to bag
         </button>
       </div>
@@ -87,11 +87,11 @@ function ControlledDemo() {
     <div style={{ width: "min(680px, 100%)" }}>
       <div className="mb-3 flex flex-wrap items-center gap-2">
         {PRODUCTS.slice(0, 3).map((p) => (
-          <button key={p.id} type="button" className="rounded-full border border-[rgba(20,19,17,0.25)] px-3 py-1 text-xs text-[#141311]" onClick={() => setOpen(p.id)}>
+          <button key={p.id} type="button" className="rounded-full border border-[light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25))] px-3 py-1 text-xs text-[light-dark(#141311,#ecebe6)]" onClick={() => setOpen(p.id)}>
             Open {p.name}
           </button>
         ))}
-        <span className="font-mono text-[11px] uppercase tracking-wider text-[rgba(20,19,17,0.5)]">?item={open ?? "none"}</span>
+        <span className="font-mono text-[11px] uppercase tracking-wider text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]">?item={open ?? "none"}</span>
       </div>
       <ExpandingProductGrid aria-label="Products" expandedId={open} onExpandedChange={setOpen} minCardWidth={150} gap={10} scrollIntoView={false}>
         {cards(PRODUCTS.slice(0, 3))}

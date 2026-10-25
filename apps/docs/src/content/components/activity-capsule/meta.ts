@@ -30,11 +30,11 @@ export const activityCapsuleMeta: ComponentMeta = {
     { name: "ref", type: "HTMLButtonElement", default: "—", description: "The summary button." },
   ],
   cssVars: [
-    { name: "--cui-capsule-surface", description: "Capsule background", default: "#141311" },
-    { name: "--cui-capsule-text", description: "Text colour", default: "#faf9f6" },
-    { name: "--cui-capsule-progress", description: "Progress fill and success icon", default: "#c8f55a" },
-    { name: "--cui-capsule-error", description: "Failure icon", default: "#ff6b4a" },
-    { name: "--cui-capsule-focus", description: "Focus ring", default: "#c8f55a" },
+    { name: "--cui-capsule-surface", description: "Capsule background (a designed-dark pill; the dark side lifts it off dark pages)", default: "light-dark(#141311, #2a2a27)" },
+    { name: "--cui-capsule-text", description: "Text colour", default: "light-dark(#faf9f6, #ecebe6)" },
+    { name: "--cui-capsule-progress", description: "Progress fill and success icon (same on both schemes)", default: "#c8f55a" },
+    { name: "--cui-capsule-error", description: "Failure icon (same on both schemes)", default: "#ff6b4a" },
+    { name: "--cui-capsule-focus", description: "Focus ring (same on both schemes)", default: "#c8f55a" },
   ],
   examples: [
     {

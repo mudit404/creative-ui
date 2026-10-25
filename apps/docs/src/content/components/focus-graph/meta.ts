@@ -30,12 +30,15 @@ export const focusGraphMeta: ComponentMeta = {
     { name: "ref", type: "FocusGraphHandle", default: "—", description: "{ root, focusNode(id), fitViewport() }." },
   ],
   cssVars: [
-    { name: "--cui-graph-node", description: "Node colour for uncategorised nodes", default: "#141311" },
-    { name: "--cui-graph-edge", description: "Edge colour and borders", default: "rgba(20,19,17,0.35)" },
-    { name: "--cui-graph-selected", description: "Selected node ring, highlighted edges, focus ring", default: "#141311" },
-    { name: "--cui-graph-muted", description: "Edges outside the selected neighbourhood", default: "rgba(20,19,17,0.12)" },
-    { name: "--cui-graph-bg", description: "Canvas background", default: "#faf9f6" },
-    { name: "--cui-graph-error", description: "Diagnostics", default: "#c8360d" },
+    { name: "--cui-graph-node", description: "Node colour for uncategorised nodes", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-graph-edge", description: "Edge stroke and arrowheads", default: "light-dark(rgba(20,19,17,0.35), rgba(236,235,230,0.35))" },
+    { name: "--cui-graph-selected", description: "Selected node ring, highlighted edges, focus ring", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-graph-muted", description: "Edges outside the selected neighbourhood", default: "light-dark(rgba(20,19,17,0.12), rgba(236,235,230,0.12))" },
+    { name: "--cui-graph-border", description: "Outline of the search box, camera buttons and neighbour chips", default: "light-dark(rgba(20,19,17,0.5), rgba(236,235,230,0.45))" },
+    { name: "--cui-graph-line", description: "Decorative border of the details card and the canvas", default: "light-dark(rgba(20,19,17,0.12), rgba(236,235,230,0.12))" },
+    { name: "--cui-graph-bg", description: "Canvas background", default: "light-dark(#faf9f6, #1f1f1c)" },
+    { name: "--cui-graph-text", description: "Text and node labels", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-graph-error", description: "Diagnostics text and border", default: "light-dark(#b8310c, #ff8a65)" },
   ],
   examples: [
     {

@@ -28,7 +28,7 @@ export const continuityChartLive: LiveModule = {
     <div className="flex w-56 flex-col gap-1.5" aria-hidden>
       {[["#ff4d1c", 90], ["#1d2a6b", 70], ["#1f7a4f", 55], ["#c8a000", 30]].map(([c, w]) => (
         <div key={c as string} className="flex items-center gap-2">
-          <span className="h-2 w-10 rounded bg-[rgba(20,19,17,0.15)]" />
+          <span className="h-2 w-10 rounded bg-[light-dark(rgba(20,19,17,0.15),rgba(236,235,230,0.15))]" />
           <span className="h-3 rounded-sm" style={{ width: `${w}%`, background: c as string }} />
         </div>
       ))}

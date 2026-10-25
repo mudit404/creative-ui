@@ -28,7 +28,7 @@ function PlaygroundFilm({ values }: { values: PlaygroundValues }) {
   return (
     <div ref={wrap} className="flex w-full flex-col gap-2">
       <ScrollFilm src={FILM} poster={POSTER} description="Assembling the desk speaker" chapters={CHAPTERS} transcript={<Transcript />} onTimeState={setState} {...props} />
-      <pre className="m-0 rounded-lg bg-[rgba(20,19,17,0.05)] p-2 font-mono text-[11px]" data-time-state>
+      <pre className="m-0 rounded-lg bg-[light-dark(rgba(20,19,17,0.05),rgba(236,235,230,0.05))] p-2 font-mono text-[11px]" data-time-state>
         {state ? `mode=${state.mode} requested=${state.requested?.toFixed(2) ?? "—"} presented=${state.presented?.toFixed(2) ?? "—"} seeking=${state.seeking} buffering=${state.buffering} gen=${state.generation}` : "no time state yet"}
       </pre>
     </div>
@@ -63,7 +63,7 @@ export const scrollFilmLive: LiveModule = {
       </div>
       <div className="flex gap-1">
         {["Unboxing", "Assembly", "Finish"].map((c, i) => (
-          <span key={c} className={`rounded-full px-2 py-0.5 text-[9px] ${i === 0 ? "bg-[#141311] text-white" : "border border-[rgba(20,19,17,0.3)]"}`}>
+          <span key={c} className={`rounded-full px-2 py-0.5 text-[9px] ${i === 0 ? "bg-[light-dark(#141311,#ecebe6)] text-[light-dark(#faf9f6,#141311)]" : "border border-[light-dark(rgba(20,19,17,0.3),rgba(236,235,230,0.3))]"}`}>
             {c}
           </span>
         ))}

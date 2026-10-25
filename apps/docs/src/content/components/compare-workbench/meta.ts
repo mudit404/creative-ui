@@ -32,13 +32,16 @@ export const compareWorkbenchMeta: ComponentMeta = {
     { name: "ref", type: "CompareWorkbenchHandle", default: "—", description: "{ root, focusComparison() }." },
   ],
   cssVars: [
-    { name: "--cui-compare-tray", description: "Accent: selected border, Compare button, focus", default: "#141311" },
-    { name: "--cui-compare-tray-bg", description: "Tray background", default: "rgba(20,19,17,0.06)" },
-    { name: "--cui-compare-difference", description: "Row highlight for differing rows", default: "rgba(200,245,90,0.25)" },
-    { name: "--cui-compare-gridline", description: "Table and card borders", default: "rgba(20,19,17,0.15)" },
+    { name: "--cui-compare-text", description: "Text colour (ink)", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-compare-tray", description: "Ink: selected card border, Compare button fill, checkbox accent, focus rings", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-compare-tray-text", description: "Compare button text (on ink)", default: "light-dark(#faf9f6, #141311)" },
+    { name: "--cui-compare-tray-bg", description: "Tray background", default: "light-dark(rgba(20,19,17,0.06), rgba(236,235,230,0.06))" },
+    { name: "--cui-compare-difference", description: "Row highlight for differing rows (acid wash; the row also says \"differs\")", default: "light-dark(rgba(200,245,90,0.25), rgba(200,245,90,0.18))" },
+    { name: "--cui-compare-gridline", description: "Table, row, card and Close-button borders (decorative; one value)", default: "light-dark(rgba(20,19,17,0.15), rgba(236,235,230,0.15))" },
+    { name: "--cui-compare-control-border", description: "Pair-selector outline on narrow widths (boundary, 3.4:1 / 3.8:1)", default: "light-dark(rgba(20,19,17,0.5), rgba(236,235,230,0.45))" },
     { name: "--cui-compare-label-width", description: "Sticky attribute column width", default: "180px" },
-    { name: "--cui-compare-surface", description: "Sticky cell and chip background", default: "#faf9f6" },
-    { name: "--cui-compare-error", description: "Limit message colour", default: "#c8360d" },
+    { name: "--cui-compare-surface", description: "Sticky cell and chip background (paper)", default: "light-dark(#faf9f6, #1f1f1c)" },
+    { name: "--cui-compare-error", description: "Limit message colour", default: "light-dark(#b8310c, #ff8a65)" },
   ],
   examples: [
     {
@@ -93,7 +96,8 @@ export const compareWorkbenchMeta: ComponentMeta = {
 - **Rows**: \`buildRows\` walks the attribute schema, normalises each cell (\`value\`, \`unit\`, \`availability\`) and classifies the row \`equal\`, \`different\` or \`incomparable\`. Any unknown/not-applicable cell or mixed units makes a row incomparable; \`tolerance\` and \`equals\` are per attribute.
 - **Differences only**: hides \`equal\` rows and says how many it hid.
 - **Refresh**: ids missing from \`items\` are dropped from the rendered selection, announced, and reported to a controlled parent with reason \`unavailable\`.
-- **Below the minimum**: the comparison stays open with guidance instead of a one-column table; the remaining selection is kept.`,
+- **Below the minimum**: the comparison stays open with guidance instead of a one-column table; the remaining selection is kept.
+- **Colour**: every \`--cui-*\` default is a \`light-dark()\` pair that follows \`color-scheme\` (Chrome 123+, Safari 17.5+, Firefox 120+; older browsers get the light values).`,
     },
     {
       id: "accessibility",

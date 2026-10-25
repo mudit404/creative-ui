@@ -379,7 +379,7 @@ export const ScrollFilm = React.forwardRef<ScrollFilmHandle, ScrollFilmProps>(fu
       data-state={failed ? "fallback" : forced ? "fallback" : range === null ? "poster" : seekState.seeking ? "seeking" : "ready"}
       role="group"
       aria-label={label}
-      className={cn("flex w-full flex-col gap-3 text-[var(--cui-film-text,#141311)]", className)}
+      className={cn("flex w-full flex-col gap-3 text-[var(--cui-film-text,light-dark(#141311,#ecebe6))]", className)}
       {...rest}
     >
       {sticky ? (
@@ -408,7 +408,7 @@ export const ScrollFilm = React.forwardRef<ScrollFilmHandle, ScrollFilmProps>(fu
           {forced?.message ?? (failed ? "" : mode === "story" ? (seekState.requested !== null ? `Requested ${seekState.requested.toFixed(2)} s · presented ${seekState.presented !== null ? seekState.presented.toFixed(2) : "—"} s` : "Scroll to scrub the film.") : "Native playback: use the player controls.")}
         </span>
         {diagnostics.length > 0 && (
-          <span role="note" className="text-[var(--cui-film-error,#c8360d)]">
+          <span role="note" className="text-[var(--cui-film-error,light-dark(#b8310c,#ff8a65))]">
             {diagnostics.join(" ")}
           </span>
         )}
@@ -419,9 +419,9 @@ export const ScrollFilm = React.forwardRef<ScrollFilmHandle, ScrollFilmProps>(fu
           <ol className="m-0 flex list-none flex-wrap gap-1.5 p-0 text-[12px]">
             {chapters.map((c) => (
               <li key={c.id}>
-                <button type="button" aria-current={active?.id === c.id ? "true" : undefined} onClick={() => goToChapter(c)} className={cn(BTN, active?.id === c.id && "border-[var(--cui-film-chapter-active,#141311)] bg-[var(--cui-film-chapter-active,#141311)] text-white")}>
+                <button type="button" aria-current={active?.id === c.id ? "true" : undefined} onClick={() => goToChapter(c)} className={cn(BTN, active?.id === c.id && "border-[var(--cui-film-chapter-active,light-dark(#141311,#ecebe6))] bg-[var(--cui-film-chapter-active,light-dark(#141311,#ecebe6))] text-[light-dark(#faf9f6,#141311)]")}>
                   {c.label}
-                  <span className="ml-1 font-mono opacity-60">{formatTime(c.startTime)}</span>
+                  <span className="ml-1 font-mono text-current/65">{formatTime(c.startTime)}</span>
                 </button>
               </li>
             ))}
@@ -429,7 +429,7 @@ export const ScrollFilm = React.forwardRef<ScrollFilmHandle, ScrollFilmProps>(fu
         </nav>
       )}
 
-      <details open={mode === "native" || !!failed} className="rounded-xl border border-[var(--cui-film-border,rgba(20,19,17,0.15))] p-3 text-[13px]">
+      <details open={mode === "native" || !!failed} className="rounded-xl border border-[var(--cui-film-border,light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25)))] p-3 text-[13px]">
         <summary id={`${uid}-transcript`} className="cursor-pointer font-medium">
           Transcript
         </summary>
@@ -441,7 +441,7 @@ export const ScrollFilm = React.forwardRef<ScrollFilmHandle, ScrollFilmProps>(fu
 ScrollFilm.displayName = "ScrollFilm";
 
 const BTN =
-  "inline-flex h-7 items-center rounded-full border border-[var(--cui-film-border,rgba(20,19,17,0.25))] px-2.5 text-[12px] outline-none hover:bg-[rgba(20,19,17,0.06)] focus-visible:ring-2 focus-visible:ring-[var(--cui-film-focus,#141311)]";
+  "inline-flex h-7 items-center rounded-full border border-[var(--cui-film-border,light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25)))] px-2.5 text-[12px] outline-none hover:bg-[light-dark(rgba(20,19,17,0.06),rgba(236,235,230,0.06))] focus-visible:ring-2 focus-visible:ring-[var(--cui-film-focus,light-dark(#141311,#ecebe6))]";
 
 function formatTime(s: number) {
   const m = Math.floor(s / 60);

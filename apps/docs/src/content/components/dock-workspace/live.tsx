@@ -18,7 +18,7 @@ function Draft({ label, onChange }: { label: string; onChange?: (v: string) => v
           setText(e.target.value);
           onChange?.(e.target.value);
         }}
-        className="min-h-20 flex-1 resize-none rounded-md border border-[rgba(20,19,17,0.2)] bg-white/60 p-2 font-mono text-[12px]"
+        className="min-h-20 flex-1 resize-none rounded-md border border-[light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45))] bg-[light-dark(rgba(255,255,255,0.6),rgba(255,255,255,0.08))] p-2 font-mono text-[12px]"
         placeholder="Type here; this state survives moves and tab switches"
       />
     </label>

@@ -7,8 +7,8 @@ import type { PlaygroundValues } from "~/components/playground/playground";
 
 export function EventLog({ entries }: { entries: string[] }) {
   return (
-    <ol aria-label="Event log" className="m-0 max-h-28 w-full list-none overflow-y-auto rounded-lg bg-[rgba(20,19,17,0.05)] p-2 font-mono text-[11px] leading-relaxed">
-      {entries.length === 0 && <li className="opacity-50">no commits yet</li>}
+    <ol aria-label="Event log" className="m-0 max-h-28 w-full list-none overflow-y-auto rounded-lg bg-[light-dark(rgba(20,19,17,0.05),rgba(236,235,230,0.05))] p-2 font-mono text-[11px] leading-relaxed">
+      {entries.length === 0 && <li className="text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]">no commits yet</li>}
       {entries.map((e, i) => (
         <li key={i}>{e}</li>
       ))}
@@ -115,7 +115,7 @@ export const elasticRangeLive: LiveModule = {
       >
         <ElasticRange variant="interval" name="budget" labels={{ label: "Budget" }} defaultValue={[20, 60]} />
         <div className="flex gap-2">
-          <button type="submit" className="rounded-full bg-[#141311] px-4 py-1.5 text-sm text-[#faf9f6]">
+          <button type="submit" className="rounded-full bg-[light-dark(#141311,#ecebe6)] px-4 py-1.5 text-sm text-[light-dark(#f3f1ec,#141311)]">
             Save
           </button>
           <button type="reset" className="rounded-full border border-current px-4 py-1.5 text-sm">

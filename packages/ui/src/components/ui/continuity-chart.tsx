@@ -150,7 +150,7 @@ export const ContinuityChart = React.forwardRef<HTMLDivElement, ContinuityChartP
       data-state={invalid ? "table-only" : transitioning ? "morphing" : "ready"}
       role="group"
       aria-label={label}
-      className={cn("flex w-full flex-col gap-3 text-[var(--cui-chart-text,#141311)]", className)}
+      className={cn("flex w-full flex-col gap-3 text-[var(--cui-chart-text,light-dark(#141311,#ecebe6))]", className)}
       {...rest}
     >
       <p className="m-0 text-[13px]" id={`${uid}-summary`}>
@@ -159,9 +159,9 @@ export const ContinuityChart = React.forwardRef<HTMLDivElement, ContinuityChartP
 
       {/* controls */}
       <div className="flex flex-wrap items-center gap-2 text-[12px]">
-        <div role="group" aria-label="Representation" className="inline-flex rounded-full border border-[var(--cui-chart-axis,rgba(20,19,17,0.25))] p-0.5">
+        <div role="group" aria-label="Representation" className="inline-flex rounded-full border border-[var(--cui-chart-axis,light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25)))] p-0.5">
           {(["bars", "dots"] as const).map((mm) => (
-            <button key={mm} type="button" aria-pressed={markMode === mm} disabled={invalid} onClick={() => selectMode(mm)} className={cn("rounded-full px-3 py-1 capitalize outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-chart-selected,#141311)]", markMode === mm && "bg-[var(--cui-chart-selected,#141311)] text-[var(--cui-chart-bg,#faf9f6)]")}>
+            <button key={mm} type="button" aria-pressed={markMode === mm} disabled={invalid} onClick={() => selectMode(mm)} className={cn("rounded-full px-3 py-1 capitalize outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-chart-selected,light-dark(#141311,#ecebe6))]", markMode === mm && "bg-[var(--cui-chart-selected,light-dark(#141311,#ecebe6))] text-[var(--cui-chart-bg,light-dark(#faf9f6,#1f1f1c))]")}>
               {mm}
             </button>
           ))}
@@ -169,7 +169,7 @@ export const ContinuityChart = React.forwardRef<HTMLDivElement, ContinuityChartP
         {snapshots.length > 1 && (
           <label className="flex items-center gap-1">
             <span>Snapshot</span>
-            <select aria-label="Snapshot" value={snapshot?.id ?? ""} onChange={(e) => selectSnapshot(e.target.value)} disabled={invalid} className="h-7 rounded-md border border-[var(--cui-chart-axis,rgba(20,19,17,0.25))] bg-transparent px-1">
+            <select aria-label="Snapshot" value={snapshot?.id ?? ""} onChange={(e) => selectSnapshot(e.target.value)} disabled={invalid} className="h-7 rounded-md border border-[var(--cui-chart-boundary,light-dark(rgba(20,19,17,0.5),rgba(236,235,230,0.45)))] bg-transparent px-1">
               {snapshots.map((s) => (
                 <option key={s.id} value={s.id}>
                   {s.label}
@@ -178,7 +178,7 @@ export const ContinuityChart = React.forwardRef<HTMLDivElement, ContinuityChartP
             </select>
           </label>
         )}
-        <button type="button" aria-pressed={showTable} aria-controls={`${uid}-table`} onClick={() => setShowTable((v) => !v)} className="rounded-full border border-[var(--cui-chart-axis,rgba(20,19,17,0.25))] px-3 py-1 outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-chart-selected,#141311)]">
+        <button type="button" aria-pressed={showTable} aria-controls={`${uid}-table`} onClick={() => setShowTable((v) => !v)} className="rounded-full border border-[var(--cui-chart-axis,light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25)))] px-3 py-1 outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-chart-selected,light-dark(#141311,#ecebe6))]">
           {showTable ? "Hide table" : "Show table"}
         </button>
         <span role="status" aria-live="polite" className="ml-auto opacity-70">
@@ -187,7 +187,7 @@ export const ContinuityChart = React.forwardRef<HTMLDivElement, ContinuityChartP
       </div>
 
       {invalid && (
-        <div role="note" className="rounded-lg border border-[var(--cui-chart-error,#c8360d)] p-2 text-[12px] text-[var(--cui-chart-error,#c8360d)]">
+        <div role="note" className="rounded-lg border border-[var(--cui-chart-error,light-dark(#b8310c,#ff8a65))] p-2 text-[12px] text-[var(--cui-chart-error,light-dark(#b8310c,#ff8a65))]">
           <ul className="m-0 list-disc pl-4">
             {diagnostics.map((d, i) => (
               <li key={i}>{d.message}</li>
@@ -201,20 +201,20 @@ export const ContinuityChart = React.forwardRef<HTMLDivElement, ContinuityChartP
         <div ref={wrapRef} className="w-full" data-chart aria-describedby={`${uid}-summary`}>
           <div className="relative" style={{ height: height + 28 }}>
             {/* axis */}
-            <div aria-hidden className="absolute bottom-0 h-6 border-t border-[var(--cui-chart-axis,rgba(20,19,17,0.25))]" style={{ left: LABEL_W, width: plotW }}>
+            <div aria-hidden className="absolute bottom-0 h-6 border-t border-[var(--cui-chart-axis,light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25)))]" style={{ left: LABEL_W, width: plotW }}>
               {ticks.map((t) => (
-                <span key={t} className="absolute top-1 -translate-x-1/2 font-mono text-[10px] opacity-70" style={{ left: ((t - domain[0]) / (domain[1] - domain[0] || 1)) * plotW }}>
+                <span key={t} className="absolute top-1 -translate-x-1/2 font-mono text-[10px] text-[var(--cui-chart-label,light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65)))]" style={{ left: ((t - domain[0]) / (domain[1] - domain[0] || 1)) * plotW }}>
                   {t}
                 </span>
               ))}
-              <span className="absolute -top-1 right-0 translate-y-6 font-mono text-[10px] opacity-70">{unit}</span>
+              <span className="absolute -top-1 right-0 translate-y-6 font-mono text-[10px] text-[var(--cui-chart-label,light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65)))]">{unit}</span>
             </div>
             <svg aria-hidden className="absolute left-0 top-0 overflow-visible" width={LABEL_W + plotW + VALUE_W} height={height} style={{ left: 0 }}>
               <g transform={`translate(${LABEL_W},0)`}>
                 {ticks.map((t) => (
-                  <line key={t} x1={((t - domain[0]) / (domain[1] - domain[0] || 1)) * plotW} x2={((t - domain[0]) / (domain[1] - domain[0] || 1)) * plotW} y1={0} y2={height} stroke="var(--cui-chart-grid, rgba(20,19,17,0.08))" />
+                  <line key={t} x1={((t - domain[0]) / (domain[1] - domain[0] || 1)) * plotW} x2={((t - domain[0]) / (domain[1] - domain[0] || 1)) * plotW} y1={0} y2={height} style={{ stroke: "var(--cui-chart-grid, light-dark(rgba(20,19,17,0.08), rgba(236,235,230,0.08)))" }} />
                 ))}
-                <line x1={zeroX} x2={zeroX} y1={0} y2={height} stroke="var(--cui-chart-axis, rgba(20,19,17,0.5))" />
+                <line x1={zeroX} x2={zeroX} y1={0} y2={height} style={{ stroke: "var(--cui-chart-boundary, light-dark(rgba(20,19,17,0.5), rgba(236,235,230,0.45)))" }} />
                 <AnimatePresence initial={false}>
                   {rows.map((r) => {
                     const color = colorOf(r.id, rowFor(r.id));
@@ -233,13 +233,13 @@ export const ContinuityChart = React.forwardRef<HTMLDivElement, ContinuityChartP
                             <rect data-bar {...rect} fill={color} opacity={dim} />
                           )}
                           {r.overflow && (
-                            <text x={r.x1 + 4} y={ROW_H / 2 + 4} fontSize={11} fill="var(--cui-chart-error, #c8360d)">
+                            <text x={r.x1 + 4} y={ROW_H / 2 + 4} fontSize={11} style={{ fill: "var(--cui-chart-error, light-dark(#b8310c, #ff8a65))" }}>
                               ⚠
                             </text>
                           )}
                         </>
                       ) : (
-                        <text x={zeroX + 6} y={ROW_H / 2 + 4} fontSize={11} fill="var(--cui-chart-axis, rgba(20,19,17,0.6))">
+                        <text x={zeroX + 6} y={ROW_H / 2 + 4} fontSize={11} style={{ fill: "var(--cui-chart-label, light-dark(rgba(20,19,17,0.65), rgba(236,235,230,0.65)))" }}>
                           — Not available
                         </text>
                       );
@@ -269,7 +269,7 @@ export const ContinuityChart = React.forwardRef<HTMLDivElement, ContinuityChartP
                         aria-label={`${r.label}: ${fmt(r.value)}`}
                         title={`${r.label}: ${fmt(r.value)}`}
                         onClick={() => setSelectedRow((s) => (s === r.id ? null : r.id))}
-                        className={cn("flex h-full items-center gap-2 truncate rounded px-1 text-left text-[12px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-chart-selected,#141311)]", selectedRow === r.id && "font-semibold")}
+                        className={cn("flex h-full items-center gap-2 truncate rounded px-1 text-left text-[12px] outline-none focus-visible:ring-2 focus-visible:ring-[var(--cui-chart-selected,light-dark(#141311,#ecebe6))]", selectedRow === r.id && "font-semibold")}
                         style={{ width: LABEL_W }}
                       >
                         <span aria-hidden className="size-2.5 shrink-0 rounded-sm" style={{ background: colorOf(r.id, rowFor(r.id)) }} />
@@ -305,10 +305,10 @@ export const ContinuityChart = React.forwardRef<HTMLDivElement, ContinuityChartP
         </caption>
         <thead>
           <tr>
-            <th scope="col" className="border-b border-[var(--cui-chart-axis,rgba(20,19,17,0.25))] py-1 text-left">
+            <th scope="col" className="border-b border-[var(--cui-chart-axis,light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25)))] py-1 text-left">
               Category
             </th>
-            <th scope="col" className="border-b border-[var(--cui-chart-axis,rgba(20,19,17,0.25))] py-1 text-right">
+            <th scope="col" className="border-b border-[var(--cui-chart-axis,light-dark(rgba(20,19,17,0.25),rgba(236,235,230,0.25)))] py-1 text-right">
               Value{unit ? ` (${unit})` : ""}
             </th>
           </tr>

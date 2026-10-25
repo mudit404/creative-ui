@@ -34,12 +34,15 @@ export const paletteComposerMeta: ComponentMeta = {
     { name: "ref", type: "PaletteComposerHandle", default: "—", description: "{ root, focusSourceInput() }." },
   ],
   cssVars: [
-    { name: "--cui-palette-surface", description: "Preview and rail background", default: "rgba(20,19,17,0.06)" },
+    { name: "--cui-palette-text", description: "Text colour of the whole composer", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-palette-surface", description: "Preview and rail background", default: "light-dark(rgba(20,19,17,0.06), rgba(236,235,230,0.06))" },
     { name: "--cui-palette-gap", description: "Gap between tiles and sections", default: "16px" },
-    { name: "--cui-palette-focus", description: "Focus ring", default: "#141311" },
-    { name: "--cui-palette-input", description: "Field and tile surface", default: "#faf9f6" },
-    { name: "--cui-palette-accent", description: "Locked tile accent", default: "#141311" },
-    { name: "--cui-palette-error", description: "Error text and invalid borders", default: "#c8360d" },
+    { name: "--cui-palette-focus", description: "Focus ring", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-palette-input", description: "Field and tile surface", default: "light-dark(#faf9f6, #1f1f1c)" },
+    { name: "--cui-palette-border", description: "Decorative borders: buttons, the file-input pill and swatch tile frames", default: "light-dark(rgba(20,19,17,0.2), rgba(236,235,230,0.2))" },
+    { name: "--cui-palette-input-border", description: "Boundary of the text fields: URL field, slot colour fields and the CSS export textarea", default: "light-dark(rgba(20,19,17,0.5), rgba(236,235,230,0.45))" },
+    { name: "--cui-palette-accent", description: "Locked tile accent (busy bar, locked tile border, pressed lock button)", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-palette-error", description: "Error text and invalid borders", default: "light-dark(#b8310c, #ff8a65)" },
   ],
   examples: [
     {
@@ -91,7 +94,7 @@ export const paletteComposerMeta: ComponentMeta = {
       id: "accessibility",
       title: "Accessibility",
       body: `- The file input is labelled "Choose image"; the URL field "Image URL"; every tile has "Slot n colour" and "Lock Slot n" controls, so the whole workflow is keyboard-only (C48-T09).
-- Hex labels sit on the tile's surface, never on the swatch colour.
+- Hex labels sit on the tile's surface, never on the swatch colour. The "Locked" badge picks white or ink from the swatch's own luminance; every other default colour follows \`color-scheme\` via \`light-dark()\` (Chrome 123+, Safari 17.5+, Firefox 120+; older browsers get the light values).
 - Completion and errors are announced once through one \`role="status"\` region; the busy bar is decorative.
 - A CORS failure explains itself and offers "Choose a local file" (C48-T06); clipboard denial reveals a selectable textarea (C48-T07).
 - Reduced motion drops the disc flights; nothing else changes.`,

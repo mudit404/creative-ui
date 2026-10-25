@@ -32,10 +32,11 @@ export const splitFlapBoardMeta: ComponentMeta = {
     { name: "ref", type: "SplitFlapBoardHandle", default: "—", description: "{ root, text }." },
   ],
   cssVars: [
-    { name: "--cui-flap-background", description: "Flap face background", default: "#141311" },
-    { name: "--cui-flap-foreground", description: "Glyph colour", default: "#faf9f6" },
-    { name: "--cui-flap-seam", description: "Horizontal seam line", default: "rgba(0,0,0,0.6)" },
-    { name: "--cui-flap-radius", description: "Cell corner radius", default: "4px" },
+    { name: "--cui-flap-face", description: "Flap face background", default: "light-dark(#faf9f6, #2a2a27)" },
+    { name: "--cui-flap-glyph", description: "Glyph colour", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-flap-hinge", description: "Horizontal hinge line across each cell", default: "light-dark(rgba(20,19,17,0.35), rgba(236,235,230,0.35))" },
+    { name: "--cui-flap-width", description: "Cell width (characters and numeric variants)", default: "36px" },
+    { name: "--cui-flap-height", description: "Cell height; the glyph size is 60% of it", default: "52px" },
   ],
   examples: [
     { id: "counter", title: "Numeric counter", description: "Only changed digits flip; a second update mid-flip re-routes to the newest number. onSettled is logged separately from the value.", code: `<SplitFlapBoard variant="numeric" value={count} cells={6} onSettled={log} />` },
@@ -59,7 +60,7 @@ export const splitFlapBoardMeta: ComponentMeta = {
       title: "Accessibility",
       body: `- The value is one selectable, copyable string; thousands of flap faces never reach assistive tech (C47-T02).
 - \`announce="polite"\` announces the settled value once per change; the default is silent for boards that update often.
-- Reduced motion (preference or prop) removes all flipping; colour contrast is set by the two face tokens.`,
+- Reduced motion (preference or prop) removes all flipping; colour contrast is set by the face and glyph tokens, whose defaults follow \`color-scheme\` via \`light-dark()\` (Chrome 123+, Safari 17.5+, Firefox 120+; older browsers get the light values).`,
     },
     { id: "performance", title: "Performance", body: `No timers while settled. Each flip is two timers per changed cell; CSS keyframes do the rotation. A 40-cell row updating every second schedules at most 80 short timers and no layout work beyond the cell swaps.` },
     { id: "limitations", title: "Known limitations", body: `- No mechanical audio (deferred; would need explicit consent).\n- Locale digit grouping and odometer separators are not formatted; pass a formatted string.\n- Whole-content mode swaps the entire value at once by design.` },

@@ -30,10 +30,12 @@ export const explodedProductMeta: ComponentMeta = {
     { name: "ref", type: "ExplodedProductHandle", default: "—", description: "{ root, focusPart(id), resetView() }." },
   ],
   cssVars: [
-    { name: "--cui-explode-selection", description: "Selected part accent, slider and focus", default: "#1f7a4f" },
-    { name: "--cui-explode-label", description: "Leader label background", default: "#141311" },
-    { name: "--cui-explode-background", description: "Stage background", default: "#e9e5dc" },
-    { name: "--cui-explode-error", description: "Diagnostics", default: "#c8360d" },
+    { name: "--cui-explode-text", description: "Text colour", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-explode-selection", description: "Selected part accent, slider and focus rings", default: "light-dark(#1a6b45, #5fcf8f)" },
+    { name: "--cui-explode-label", description: "Leader label background (its text is the inverse)", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--cui-explode-background", description: "Stage background", default: "light-dark(#e9e5dc, #2a2a27)" },
+    { name: "--cui-explode-border", description: "Button and details-card border (decorative)", default: "light-dark(rgba(20,19,17,0.2), rgba(236,235,230,0.2))" },
+    { name: "--cui-explode-error", description: "Diagnostics", default: "light-dark(#b8310c, #ff8a65)" },
   ],
   examples: [
     {

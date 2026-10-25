@@ -32,11 +32,11 @@ export const expandingProductGridMeta: ComponentMeta = {
     { name: "Card.disabled", type: "boolean", default: "false", description: "Cannot be expanded." },
   ],
   cssVars: [
-    { name: "--epg-card", description: "Card background", default: "#faf9f6" },
-    { name: "--epg-foreground", description: "Card text colour", default: "#141311" },
-    { name: "--epg-media", description: "Media placeholder background", default: "rgba(20,19,17,0.06)" },
+    { name: "--epg-card", description: "Card background", default: "light-dark(#faf9f6, #1f1f1c)" },
+    { name: "--epg-foreground", description: "Card text colour and focus ring", default: "light-dark(#141311, #ecebe6)" },
+    { name: "--epg-media", description: "Media placeholder background", default: "light-dark(rgba(20,19,17,0.06), rgba(236,235,230,0.06))" },
     { name: "--epg-radius", description: "Card corner radius", default: "16px" },
-    { name: "--epg-ring", description: "Expanded card ring and close-button border", default: "rgba(20,19,17,0.12)" },
+    { name: "--epg-ring", description: "Expanded card outline and close-button border (decorative)", default: "light-dark(rgba(20,19,17,0.15), rgba(236,235,230,0.15))" },
   ],
   examples: [
     {
@@ -90,7 +90,7 @@ export const expandingProductGridMeta: ComponentMeta = {
     {
       id: "customization",
       title: "Styling and customization",
-      body: `Theme with the \`--epg-*\` variables; \`className\` on the grid or a card composes with the defaults. \`media\`, \`summary\` and \`detail\` are free-form slots: put your own price row, option pickers, add-to-cart button or carousel inside. \`mediaAspect\` sets the collapsed image shape; the expanded side layout gives the media 45% of the width from md up.
+      body: `Theme with the \`--epg-*\` variables; \`className\` on the grid or a card composes with the defaults. Their defaults follow \`color-scheme\` via \`light-dark()\` (Chrome 123+, Safari 17.5+, Firefox 120+; older browsers get the light values). \`media\`, \`summary\` and \`detail\` are free-form slots: put your own price row, option pickers, add-to-cart button or carousel inside. \`mediaAspect\` sets the collapsed image shape; the expanded side layout gives the media 45% of the width from md up.
 
 Prefer \`detailLayout="stack"\` for narrow containers or tall imagery, and \`spring="soft"\` for large photography.`,
     },

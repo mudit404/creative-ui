@@ -5,8 +5,8 @@ import { GhostTraceText, type GhostTraceTextProps } from "@/components/ui/ghost-
 import type { LiveModule } from "~/content/live-types";
 import type { PlaygroundValues } from "~/components/playground/playground";
 
-const display = "display text-[clamp(2.5rem,7vw,5rem)] leading-none text-[#141311]";
-const sans = "text-[clamp(2.5rem,7vw,5rem)] font-extrabold leading-none tracking-tight text-[#141311]";
+const display = "display text-[clamp(2.5rem,7vw,5rem)] leading-none text-[light-dark(#141311,#ecebe6)]";
+const sans = "text-[clamp(2.5rem,7vw,5rem)] font-extrabold leading-none tracking-tight text-[light-dark(#141311,#ecebe6)]";
 
 function toProps(values: PlaygroundValues): GhostTraceTextProps & { font?: string } {
   const out: Record<string, unknown> = {};
@@ -26,7 +26,7 @@ function ManualDemo() {
       </GhostTraceText>
       <button
         type="button"
-        className="rounded-full border border-[#141311] px-4 py-1.5 text-sm text-[#141311]"
+        className="rounded-full border border-[light-dark(#141311,#ecebe6)] px-4 py-1.5 text-sm text-[light-dark(#141311,#ecebe6)]"
         onClick={() => {
           setPlay(false);
           requestAnimationFrame(() => setPlay(true));
@@ -48,7 +48,7 @@ export const ghostTraceTextLive: LiveModule = {
     );
   },
   cardPreview: () => (
-    <GhostTraceText trigger="inView" repeat className="display text-[44px] leading-none text-[#141311]" duration={1.4}>
+    <GhostTraceText trigger="inView" repeat className="display text-[44px] leading-none text-[light-dark(#141311,#ecebe6)]" duration={1.4}>
       Ghost trace
     </GhostTraceText>
   ),
@@ -64,7 +64,7 @@ export const ghostTraceTextLive: LiveModule = {
       </GhostTraceText>
     ),
     ghost: () => (
-      <GhostTraceText className={display} ghost="#ff4d1c" fill="#141311" strokeWidth={1.5} keepStroke repeat>
+      <GhostTraceText className={display} ghost="#ff4d1c" strokeWidth={1.5} keepStroke repeat>
         Outline and ink
       </GhostTraceText>
     ),

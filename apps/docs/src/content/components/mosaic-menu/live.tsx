@@ -30,7 +30,7 @@ function PlaygroundMenu({ values }: { values: PlaygroundValues }) {
       <MosaicMenu label="Site menu" tiles={tileSet === "plain" ? PLAIN : ACCENTED} footer={footer} onNavigate={() => false} {...props}>
         <MosaicMenuTrigger />
       </MosaicMenu>
-      <p className="font-mono text-[11px] uppercase tracking-wider text-[rgba(20,19,17,0.5)]">Opens full-screen · Escape closes</p>
+      <p className="font-mono text-[11px] uppercase tracking-wider text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]">Opens full-screen · Escape closes</p>
     </div>
   );
 }
@@ -58,7 +58,7 @@ export const mosaicMenuLive: LiveModule = {
     router: () => (
       <MosaicMenu label="Menu" tiles={ACCENTED} onNavigate={() => false}>
         <MosaicMenuTrigger asChild>
-          <button type="button" className="rounded-full bg-[#141311] px-5 py-3 text-[14px] font-semibold text-[#f3f1ec]">
+          <button type="button" className="rounded-full bg-[light-dark(#141311,#ecebe6)] px-5 py-3 text-[14px] font-semibold text-[light-dark(#f3f1ec,#141311)]">
             Explore
           </button>
         </MosaicMenuTrigger>

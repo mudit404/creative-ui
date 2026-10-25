@@ -41,7 +41,7 @@ function PlaygroundMenu({ values }: { values: PlaygroundValues }) {
           </OrbitalMenuRing>
         </OrbitalMenu>
       </div>
-      <p className="font-mono text-[11px] uppercase tracking-wider text-[rgba(20,19,17,0.5)]" aria-live="polite">
+      <p className="font-mono text-[11px] uppercase tracking-wider text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]" aria-live="polite">
         {last ? `Selected: ${last}` : "Nothing selected yet"}
       </p>
     </div>
@@ -64,7 +64,7 @@ function Controlled() {
           ))}
         </OrbitalMenuRing>
       </OrbitalMenu>
-      <p className="font-mono text-[11px] uppercase tracking-wider text-[rgba(20,19,17,0.5)]">{picked ? `picked ${picked}` : open ? "menu open" : "menu closed"}</p>
+      <p className="font-mono text-[11px] uppercase tracking-wider text-[light-dark(rgba(20,19,17,0.65),rgba(236,235,230,0.65))]">{picked ? `picked ${picked}` : open ? "menu open" : "menu closed"}</p>
     </div>
   );
 }
@@ -109,7 +109,7 @@ export const orbitalMenuLive: LiveModule = {
       </div>
     ),
     arc: () => (
-      <div className="relative h-[260px] w-full max-w-md rounded-2xl bg-[rgba(20,19,17,0.05)]">
+      <div className="relative h-[260px] w-full max-w-md rounded-2xl bg-[light-dark(rgba(20,19,17,0.05),rgba(236,235,230,0.05))]">
         <div className="absolute bottom-6 right-6">
           <OrbitalMenu startAngle={-180} sweep={90} radius={110} showLabels>
             <OrbitalMenuTrigger aria-label="Actions" />
@@ -122,7 +122,7 @@ export const orbitalMenuLive: LiveModule = {
       <div className="flex h-[240px] items-end justify-center pb-4">
         <OrbitalMenu startAngle={-180} sweep={180} spring="soft" swing={60}>
           <OrbitalMenuTrigger asChild>
-            <button type="button" className="rounded-full border border-[#141311] bg-white/60 px-5 py-3 text-[15px] font-semibold text-[#141311]">
+            <button type="button" className="rounded-full border border-[light-dark(#141311,#ecebe6)] bg-[light-dark(rgba(255,255,255,0.6),rgba(255,255,255,0.08))] px-5 py-3 text-[15px] font-semibold text-[light-dark(#141311,#ecebe6)]">
               Share to…
             </button>
           </OrbitalMenuTrigger>
