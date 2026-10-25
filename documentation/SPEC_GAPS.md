@@ -45,3 +45,11 @@ What the README did provide, and what was used verbatim:
 2. Hosting origin for the docs and registry (needed for absolute item URLs).
 3. Whether premium items should be gated at MVP (currently metadata only).
 4. Whether the remaining nine briefs exist elsewhere; each needs a reference and acceptance criteria before implementation.
+
+## Update, 24 October 2026: Collection 02
+
+The user supplied `CREATIVE_UI_COLLECTION_02_MASTER_SPEC.md` (briefs #41–#60 with A–J sections, architecture additions, quality gates and a source ledger). It does not replace the missing 13 documents of the original pack, but each Collection 02 brief carries its own acceptance tests (Cxx-Txx), which the unit and e2e tests reference by id. The spec's `planning/components.json` and `docs/collections/02/` folder were not attached; registry items are built from the briefs directly.
+
+## Update, 25 October 2026: Collection 02 complete
+
+All twenty Collection 02 briefs (#41–#60) are implemented, tested and documented across five batches. Gaps that remain from the briefs themselves: no license was cleared for Dockview, so DockWorkspace is a limited independent implementation and is documented as such (brief #59 section G permits this); the briefs' `planning/components.json` was never supplied, so registry metadata is derived from each brief; and no device matrix beyond headless Chromium has been exercised, which STATUS records honestly.

@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("liquid switch", () => {
   test("toggles by pointer and keyboard, with the thumb travelling", async ({ page }) => {

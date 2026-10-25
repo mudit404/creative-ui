@@ -114,6 +114,204 @@
       ]
     },
     {
+      "name": "bounded-value",
+      "type": "registry:lib",
+      "title": "Bounded value math",
+      "description": "Domain validation, decimal-safe quantization, linear/log scales, detent hysteresis and strict number parsing for numeric inputs.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/bounded-value.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "task-snapshots",
+      "type": "registry:lib",
+      "title": "Task snapshot authority",
+      "description": "Pure reducer for host-reported tasks: newest attempt/revision wins, stale events rejected, terminal attempts frozen, deterministic primary selection.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/task-snapshots.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "compare-schema",
+      "type": "registry:lib",
+      "title": "Compare schema",
+      "description": "Attribute normalisation and comparison: availability states, unit-aware equality with tolerance, schema-ordered rows and differences filtering.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/compare-schema.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "palette-extract",
+      "type": "registry:lib",
+      "title": "Palette extraction",
+      "description": "Deterministic colour extraction from RGBA pixels (alpha threshold, bucket quantisation, distance de-duplication, real sample points), colour parsing and sanitised CSS export.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/palette-extract.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "transactions",
+      "type": "registry:lib",
+      "title": "Request/resolution helpers",
+      "description": "Unique request ids and resolution matching for transactional components: only a resolution carrying the pending id settles it.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/transactions.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "board-moves",
+      "type": "registry:lib",
+      "title": "Board move model",
+      "description": "Immutable container/membership model: validation, id-addressed moves, no-op detection and inverse moves with conflict reporting.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/board-moves.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "patch-graph",
+      "type": "registry:lib",
+      "title": "Patch graph model",
+      "description": "Typed port/connection validation with reasons, diagnostics for invalid edges, nearest-socket snapping and cable path geometry.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/patch-graph.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "time-scale",
+      "type": "registry:lib",
+      "title": "Time scale",
+      "description": "Epoch-ms time scale utilities: validation, deterministic sorting and lane allocation, window clamping/zoom, nice ticks, zone-aware formatting and strict ISO parsing.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/time-scale.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "chart-layout",
+      "type": "registry:lib",
+      "title": "Chart layout",
+      "description": "Snapshot validation (units, ids, nulls), zero-inclusive shared domains, deterministic sorting and keyed row geometry for bar/dot charts.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/chart-layout.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "graph-model",
+      "type": "registry:lib",
+      "title": "Graph model",
+      "description": "Graph validation with diagnostics, adjacency and directed neighbourhoods, a deterministic bounded force layout and viewBox fitting.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/graph-model.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "seek-scheduler",
+      "type": "registry:lib",
+      "title": "Seek scheduler",
+      "description": "Latest-target media seek scheduler with generation tokens, scroll-fraction mapping and chapter validation.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/seek-scheduler.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "three-stage",
+      "type": "registry:lib",
+      "title": "Three.js stage",
+      "description": "Demand-rendered Three.js stage: renderer, camera, lights, bounded orbit, pixel-ratio cap, context-loss handling and disposal.",
+      "dependencies": [
+        "three"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/lib/three-stage.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "devDependencies": [
+        "@types/three"
+      ]
+    },
+    {
+      "name": "exploded-parts",
+      "type": "registry:lib",
+      "title": "Exploded parts",
+      "description": "Part path resolution, overlap validation, rest-transform snapshots and derived explode positions on Three.js trees.",
+      "dependencies": [
+        "three"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/lib/exploded-parts.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "devDependencies": [
+        "@types/three"
+      ]
+    },
+    {
+      "name": "clip-plane",
+      "type": "registry:lib",
+      "title": "Clip plane",
+      "description": "Model-local bounds, normalised offsets, world clipping planes and cap-support rules for Three.js models.",
+      "dependencies": [
+        "three"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/lib/clip-plane.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "devDependencies": [
+        "@types/three"
+      ]
+    },
+    {
+      "name": "finish-options",
+      "type": "registry:lib",
+      "title": "Finish options",
+      "description": "Option group validation, compatibility rules with reasons, selection flags, allowlisted material params and generation ids.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/finish-options.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "strand-renderer",
       "type": "registry:lib",
       "title": "Strand renderer",
@@ -477,6 +675,758 @@
         "navigation",
         "creative"
       ]
+    },
+    {
+      "name": "activity-capsule",
+      "type": "registry:ui",
+      "title": "Activity Capsule",
+      "description": "A morphing status capsule for host-reported tasks: attempt/revision authority, truthful progress, cancel/retry/dismiss as requests, expandable task list and restrained announcements.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "task-snapshots"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/activity-capsule.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "free",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/activity-capsule"
+      },
+      "categories": [
+        "navigation",
+        "status",
+        "creative"
+      ],
+      "author": "Creative UI"
+    },
+    {
+      "name": "compare-workbench",
+      "type": "registry:ui",
+      "title": "Compare Workbench",
+      "description": "Select two to four items into a tray and compare them in a semantic, schema-driven table with unit-aware equality, missing-data states, a differences filter and narrow-screen pair selection.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "compare-schema"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/compare-workbench.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/compare-workbench"
+      },
+      "categories": [
+        "layout",
+        "commerce",
+        "creative"
+      ],
+      "author": "Creative UI"
+    },
+    {
+      "name": "elastic-range",
+      "type": "registry:ui",
+      "title": "Elastic Range",
+      "description": "A bounded single or interval slider whose track bows past its ends. Preview while dragging, one commit per release; keyboard, step buttons and numeric entry as full alternatives.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "bounded-value"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/elastic-range.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "free",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/elastic-range"
+      },
+      "categories": [
+        "inputs",
+        "creative"
+      ],
+      "author": "Creative UI"
+    },
+    {
+      "name": "detent-dial",
+      "type": "registry:ui",
+      "title": "Detent Dial",
+      "description": "A rotary numeric control with hysteretic detents, linear or log scale, vertical drag preview and single commits; arrows, fine steps, numeric entry and Reset without dragging.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "bounded-value"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/detent-dial.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "free",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/detent-dial"
+      },
+      "categories": [
+        "inputs",
+        "creative"
+      ],
+      "author": "Creative UI"
+    },
+    {
+      "name": "palette-composer",
+      "type": "registry:ui",
+      "title": "Palette Composer",
+      "description": "Extract an editable six-slot palette from a local image: bounded decoding, local extraction, stale-result rejection, locked slots, validated edits and sanitised CSS export with clipboard fallback.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "palette-extract"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/palette-composer.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/palette-composer"
+      },
+      "categories": [
+        "media",
+        "creative",
+        "utility"
+      ],
+      "author": "Creative UI"
+    },
+    {
+      "name": "decision-deck",
+      "type": "registry:ui",
+      "title": "Decision Deck",
+      "description": "An undoable, transactional card stack: swipe, keys or buttons emit one decision request; pending until the host resolves; rejected requests restore the card; undo targets a decision id.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "transactions"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/decision-deck.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/decision-deck"
+      },
+      "categories": [
+        "layout",
+        "workflow",
+        "creative"
+      ],
+      "author": "Creative UI"
+    },
+    {
+      "name": "transfer-board",
+      "type": "registry:ui",
+      "title": "Transfer Board",
+      "description": "Move items between named containers with authority: a click-only Move menu, handle drag with placeholder preview and bounded autoscroll, id-addressed revisioned move requests, rejection restore and inverse-move undo.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "board-moves",
+        "transactions"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/transfer-board.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/transfer-board"
+      },
+      "categories": [
+        "layout",
+        "workflow",
+        "creative"
+      ],
+      "author": "Creative UI"
+    },
+    {
+      "name": "cable-patchbay",
+      "type": "registry:ui",
+      "title": "Cable Patchbay",
+      "description": "Connect typed output ports to inputs with slack SVG cables: drag, two taps, keyboard or a text list produce one validated connection request; the host owns connections and settles each by id.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "patch-graph",
+        "transactions"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/cable-patchbay.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/cable-patchbay"
+      },
+      "categories": [
+        "inputs",
+        "creative",
+        "tools"
+      ],
+      "author": "Creative UI"
+    },
+    {
+      "name": "time-lens",
+      "type": "registry:ui",
+      "title": "Time Lens",
+      "description": "Overview band with a brushed window above a magnified detail lane: honest epoch-ms scale, lane-stacked events, zoom/ISO editor/list alternatives, explicit timezone display and preview-vs-commit windows.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "time-scale"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/time-lens.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/time-lens"
+      },
+      "categories": [
+        "media",
+        "data",
+        "creative"
+      ],
+      "author": "Creative UI"
+    },
+    {
+      "name": "continuity-chart",
+      "type": "registry:ui",
+      "title": "Continuity Chart",
+      "description": "Keyed bars that morph into dots and reorder across snapshots without losing identity; zero baseline, explicit nulls, unit diagnostics, authoritative table and values.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "chart-layout"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/continuity-chart.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "free",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/continuity-chart"
+      },
+      "categories": [
+        "media",
+        "data",
+        "creative"
+      ],
+      "author": "Creative UI"
+    },
+    {
+      "name": "focus-graph",
+      "type": "registry:ui",
+      "title": "Focus Graph",
+      "description": "Searchable constellation with a semantic node list, neighbour details, a deterministic bounded force layout or authored positions, and click-only zoom/pan/fit/focus.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "graph-model"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/focus-graph.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/focus-graph"
+      },
+      "categories": [
+        "navigation",
+        "data",
+        "creative"
+      ],
+      "author": "Creative UI"
+    },
+    {
+      "name": "scroll-film",
+      "type": "registry:ui",
+      "title": "Scroll Film",
+      "description": "A scroll-synchronised film with an honest seek contract: clamped media-time range, one seek in flight, requested vs presented times, native playback that wins, transcript and chapters always available.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "seek-scheduler"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/scroll-film.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/scroll-film"
+      },
+      "categories": [
+        "media",
+        "story",
+        "creative"
+      ],
+      "author": "Creative UI"
+    },
+    {
+      "name": "exploded-product",
+      "type": "registry:ui",
+      "title": "Exploded Product",
+      "description": "Move authored product parts apart along declared vectors on a demand-rendered Three.js stage; semantic parts list, progress derived from rest transforms, view presets and poster fallback.",
+      "dependencies": [
+        "three",
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "three-stage",
+        "exploded-parts"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/exploded-product.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/exploded-product"
+      },
+      "categories": [
+        "media",
+        "3d",
+        "creative"
+      ],
+      "author": "Creative UI",
+      "devDependencies": [
+        "@types/three"
+      ]
+    },
+    {
+      "name": "cutaway-viewer",
+      "type": "registry:ui",
+      "title": "Cutaway Viewer",
+      "description": "Clip a prepared model with an axis-aligned plane across its model-local bounds; stencil caps only for declared-closed meshes, uncapped warnings otherwise, presets and no-drag controls.",
+      "dependencies": [
+        "three",
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "three-stage",
+        "clip-plane"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/cutaway-viewer.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/cutaway-viewer"
+      },
+      "categories": [
+        "media",
+        "3d",
+        "creative"
+      ],
+      "author": "Creative UI",
+      "devDependencies": [
+        "@types/three"
+      ]
+    },
+    {
+      "name": "finish-configurator",
+      "type": "registry:ui",
+      "title": "Finish Configurator",
+      "description": "Choose real product finishes on named parts: radio-group options with reasons, synchronous compatibility rules, per-instance material clones, generation-guarded textures and a declared default reset.",
+      "dependencies": [
+        "three",
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "three-stage",
+        "finish-options"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/finish-configurator.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/finish-configurator"
+      },
+      "categories": [
+        "media",
+        "3d",
+        "commerce",
+        "creative"
+      ],
+      "author": "Creative UI",
+      "devDependencies": [
+        "@types/three"
+      ]
+    },
+    {
+      "name": "flap-cells",
+      "type": "registry:lib",
+      "title": "Flap cells",
+      "description": "Grapheme cells, change detection, staggered flip schedules compressed to a settle budget, numeric formatting and shaped-script detection.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/flap-cells.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "split-flap-board",
+      "type": "registry:ui",
+      "title": "Split Flap Board",
+      "description": "Mechanical split-flap cells for changing status values: one truthful accessible string, only changed cells flip, newest value wins, whole-content fallback for shaped scripts, reduced-motion instant swaps.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "flap-cells"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/split-flap-board.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "free",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/split-flap-board"
+      },
+      "categories": [
+        "text",
+        "data",
+        "creative"
+      ],
+      "author": "Creative UI"
+    },
+    {
+      "name": "point-targets",
+      "type": "registry:lib",
+      "title": "Point targets",
+      "description": "Deterministic mask sampling, Morton ordering, resampling to a fixed count, curve offsets and allocation-free morph evaluation.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/point-targets.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "particle-morph",
+      "type": "registry:ui",
+      "title": "Particle Morph",
+      "description": "A bounded, deterministically sampled point cloud that morphs between named image-mask or point targets with Three.js Points; latest request wins, fallback image and label stay truthful, reduced motion jumps.",
+      "dependencies": [
+        "three",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "three-stage",
+        "point-targets"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/particle-morph.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/particle-morph"
+      },
+      "categories": [
+        "media",
+        "3d",
+        "creative"
+      ],
+      "author": "Creative UI",
+      "devDependencies": [
+        "@types/three"
+      ]
+    },
+    {
+      "name": "ascii-grid",
+      "type": "registry:lib",
+      "title": "ASCII grid",
+      "description": "Aspect-preserving glyph grids, responsive columns, luminance sampling, ramp validation and glyph index mapping.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/ascii-grid.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "ascii-media",
+      "type": "registry:ui",
+      "title": "ASCII Media",
+      "description": "Images and video rendered as a calibrated glyph grid on one canvas: native media stays the accessible timeline authority, bounded frame sampling, cross-origin/font/media fallbacks with reasons, native player under reduced motion.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "ascii-grid"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/ascii-media.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "free",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/ascii-media"
+      },
+      "categories": [
+        "media",
+        "creative"
+      ],
+      "author": "Creative UI"
+    },
+    {
+      "name": "voice-pool",
+      "type": "registry:lib",
+      "title": "Voice pool",
+      "description": "Note validation, a bounded polyphonic voice pool with oldest-first eviction and a mallet envelope.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/voice-pool.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "glass-keybed",
+      "type": "registry:ui",
+      "title": "Glass Keybed",
+      "description": "A finite labelled keybed with explicit audio consent: built-in Web Audio mallet voice, bounded polyphony, Stop all, borrowed-context safety, one activation per note and a visual-only fallback.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "voice-pool"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/glass-keybed.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/glass-keybed"
+      },
+      "categories": [
+        "inputs",
+        "audio",
+        "creative"
+      ],
+      "author": "Creative UI"
+    },
+    {
+      "name": "dock-layout",
+      "type": "registry:lib",
+      "title": "Dock layout",
+      "description": "Versioned split/tab layout tree: validation, default layouts, pure moves, removal, ratio clamping, geometry and hit testing.",
+      "files": [
+        {
+          "path": "packages/ui/src/lib/dock-layout.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "dock-workspace",
+      "type": "registry:ui",
+      "title": "Dock Workspace",
+      "description": "Registered panels in split/tab groups with a versioned serializable layout: docking previews that propose one layout, menu and keyboard equivalents, minimum sizes, close permission, safe recovery and a compact single-panel mode.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils",
+        "use-reduced-motion",
+        "dock-layout"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/dock-workspace.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "tier": "premium",
+        "status": "experimental",
+        "version": "0.1.0",
+        "docs": "/components/dock-workspace"
+      },
+      "categories": [
+        "layout",
+        "application"
+      ],
+      "author": "Creative UI"
     }
   ]
 }

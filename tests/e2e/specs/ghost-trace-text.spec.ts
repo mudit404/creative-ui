@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("ghost trace text", () => {
   test("keeps a real heading, traces, and settles", async ({ page }) => {

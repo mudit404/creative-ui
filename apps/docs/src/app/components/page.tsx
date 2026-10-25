@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Explorer } from "~/components/catalog/explorer";
+import { HydrationMarker } from "~/components/site/hydration-marker";
 import { components } from "~/content/components";
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function ComponentsPage() {
         </p>
       </div>
       <Explorer items={components} />
+      <HydrationMarker />
     </main>
   );
 }

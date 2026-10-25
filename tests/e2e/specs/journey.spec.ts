@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Page } from "../fixtures";
 
 /**
  * The developer journey from the product brief, end to end:
@@ -19,7 +19,10 @@ test.describe("landing", () => {
     await expect(page.getByRole("link", { name: "Try the Material Button" })).toBeVisible();
     await expect(page.getByText("npx shadcn@latest add")).toBeVisible();
     // the hero stage hosts the real component with its goo canvas
-    const stage = page.locator('[data-slot="material-button"]').filter({ hasText: "Let’s collaborate" }).first();
+    const stage = page
+      .locator('[data-slot="material-button"]')
+      .filter({ hasText: "Let’s collaborate" })
+      .first();
     await expect(stage).toBeVisible();
     await expect(stage.locator("canvas")).toHaveCount(1);
   });
@@ -50,7 +53,8 @@ test.describe("discovery", () => {
     await expect(cards.first()).toContainText("Rail");
     await page.getByRole("button", { name: "All" }).click();
     // status filter: every card currently carries a status; the filter must partition the catalog
-    const byStatus = async (s: string) => page.locator(`[data-testid="component-card"][data-status="${s}"]`).count();
+    const byStatus = async (s: string) =>
+      page.locator(`[data-testid="component-card"][data-status="${s}"]`).count();
     const planned = await byStatus("planned");
     const experimental = await byStatus("experimental");
     const stable = await byStatus("stable");
@@ -81,7 +85,18 @@ test.describe("component page", () => {
   test("documents the component fully", async ({ page }) => {
     await page.goto("/components/material-button");
     await expect(page.getByRole("heading", { level: 1, name: "Material Button" })).toBeVisible();
-    for (const id of ["playground", "examples", "installation", "api", "css-variables", "accessibility", "performance", "limitations", "source", "provenance"]) {
+    for (const id of [
+      "playground",
+      "examples",
+      "installation",
+      "api",
+      "css-variables",
+      "accessibility",
+      "performance",
+      "limitations",
+      "source",
+      "provenance",
+    ]) {
       await expect(page.locator(`#${id}`)).toHaveCount(1);
     }
     // API table lists the props
@@ -90,7 +105,9 @@ test.describe("component page", () => {
     await expect(page.locator("#source")).toContainText("export const MaterialButton");
     // every example has a live renderer
     await expect(page.getByText("Example renderer missing")).toHaveCount(0);
-    await expect(page.getByTestId("example-link").getByRole("link", { name: "See pricing" })).toBeVisible();
+    await expect(
+      page.getByTestId("example-link").getByRole("link", { name: "See pricing" }),
+    ).toBeVisible();
   });
 
   test("reaches for the pointer and lets go", async ({ page }) => {
@@ -101,32 +118,28 @@ test.describe("component page", () => {
     const canvas = stage.locator("canvas");
     await expect(canvas).toHaveCount(1);
     // move the pointer to within reach above the button and wait for strands
+    const pixels = () =>
+      canvas.evaluate((c: HTMLCanvasElement) => {
+        const ctx = c.getContext("2d")!;
+        const { data } = ctx.getImageData(0, 0, c.width, c.height);
+        let n = 0;
+        for (let i = 3; i < data.length; i += 4) if (data[i]! > 0) n++;
+        return n;
+      });
     await hoverNear(page, '[data-testid="playground-stage"] button', 0, -70);
-    await page.waitForTimeout(600);
-    const drawn = await canvas.evaluate((c: HTMLCanvasElement) => {
-      const ctx = c.getContext("2d")!;
-      const { data } = ctx.getImageData(0, 0, c.width, c.height);
-      let n = 0;
-      for (let i = 3; i < data.length; i += 4) if (data[i]! > 0) n++;
-      return n;
-    });
-    expect(drawn).toBeGreaterThan(200);
+    // strands are simulated per animation frame; poll rather than assume how many frames 600 ms buys on this machine
+    let drawn = 0;
+    await expect.poll(async () => (drawn = await pixels()), { timeout: 5000 }).toBeGreaterThan(200);
     // pull far away: strands snap and the canvas clears
     await page.mouse.move(5, 5, { steps: 10 });
-    await page.waitForTimeout(1500);
-    const after = await canvas.evaluate((c: HTMLCanvasElement) => {
-      const ctx = c.getContext("2d")!;
-      const { data } = ctx.getImageData(0, 0, c.width, c.height);
-      let n = 0;
-      for (let i = 3; i < data.length; i += 4) if (data[i]! > 0) n++;
-      return n;
-    });
-    expect(after).toBeLessThan(drawn);
+    await expect.poll(pixels, { timeout: 5000 }).toBeLessThan(drawn);
   });
 
   test("is keyboard operable", async ({ page }) => {
     await page.goto("/components/material-button");
-    const btn = page.getByTestId("playground-stage").getByRole("button", { name: "Let’s collaborate" });
+    const btn = page
+      .getByTestId("playground-stage")
+      .getByRole("button", { name: "Let’s collaborate" });
     await btn.focus();
     await expect(btn).toBeFocused();
     await page.evaluate(() => {
@@ -163,7 +176,10 @@ test.describe("playground", () => {
     await expect(code).toContainText('size="sm"');
 
     await page.getByLabel("Tone").selectOption("bone");
-    await expect(stage.locator('[data-slot="material-button"]')).toHaveAttribute("data-tone", "bone");
+    await expect(stage.locator('[data-slot="material-button"]')).toHaveAttribute(
+      "data-tone",
+      "bone",
+    );
     await expect(code).toContainText('tone="bone"');
 
     await page.getByLabel("Loading", { exact: true }).check();
@@ -172,7 +188,10 @@ test.describe("playground", () => {
 
     await page.getByLabel("Loading", { exact: true }).uncheck();
     await page.getByLabel("Surface colour", { exact: true }).fill("#1d2a6b");
-    await expect(stage.locator('[data-slot="material-button"]')).toHaveAttribute("style", /--mb-surface:\s*#1d2a6b/);
+    await expect(stage.locator('[data-slot="material-button"]')).toHaveAttribute(
+      "style",
+      /--mb-surface:\s*#1d2a6b/,
+    );
     await expect(code).toContainText('colors={{ surface: "#1d2a6b" }}');
 
     // reduced-motion simulation removes the canvas
@@ -192,7 +211,11 @@ test.describe("playground", () => {
     await expect(code).not.toContainText('size="sm"');
   });
 
-  test("presets apply and copy puts valid code on the clipboard", async ({ page, context, browserName }) => {
+  test("presets apply and copy puts valid code on the clipboard", async ({
+    page,
+    context,
+    browserName,
+  }) => {
     test.skip(browserName !== "chromium", "clipboard permissions are chromium-only in CI");
     await context.grantPermissions(["clipboard-read", "clipboard-write"]);
     await page.goto("/components/material-button");
@@ -210,7 +233,10 @@ test.describe("playground", () => {
 });
 
 test.describe("registry", () => {
-  test("serves a valid shadcn registry item with resolvable dependencies", async ({ request, baseURL }) => {
+  test("serves a valid shadcn registry item with resolvable dependencies", async ({
+    request,
+    baseURL,
+  }) => {
     const index = await request.get("/r/registry.json");
     expect(index.ok()).toBeTruthy();
     const idx = await index.json();

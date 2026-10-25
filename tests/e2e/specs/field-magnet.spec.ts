@@ -1,10 +1,18 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 test.describe("field magnet", () => {
   test("documents the primitive and pulls toward the pointer", async ({ page }) => {
     await page.goto("/components/field-magnet");
     await expect(page.getByRole("heading", { level: 1, name: "Field Magnet" })).toBeVisible();
-    for (const id of ["playground", "examples", "installation", "api", "accessibility", "performance", "source"]) {
+    for (const id of [
+      "playground",
+      "examples",
+      "installation",
+      "api",
+      "accessibility",
+      "performance",
+      "source",
+    ]) {
       await expect(page.locator(`#${id}`)).toHaveCount(1);
     }
     await expect(page.getByText("Example renderer missing")).toHaveCount(0);
@@ -12,6 +20,7 @@ test.describe("field magnet", () => {
     const stage = page.getByTestId("playground-stage");
     const frame = stage.locator('[data-slot="field-magnet"]');
     const moving = frame.locator(":scope > *").first();
+    await frame.scrollIntoViewIfNeeded(); // the probe only runs while the field is in view
     const box = (await frame.boundingBox())!;
 
     // park far away: at rest, no transform
@@ -42,13 +51,17 @@ test.describe("field magnet", () => {
     await page.goto("/components/field-magnet");
     const code = page.getByTestId("playground-code");
     await page.getByLabel("Button label").fill("Talk to us");
-    await expect(page.getByTestId("playground-stage").getByRole("button", { name: "Talk to us" })).toBeVisible();
+    await expect(
+      page.getByTestId("playground-stage").getByRole("button", { name: "Talk to us" }),
+    ).toBeVisible();
     await page.getByLabel("Spring", { exact: true }).selectOption("soft");
     await expect(code).toContainText('spring="soft"');
     await page.getByLabel("Disabled", { exact: true }).check();
     await expect(code).toContainText("disabled");
     await page.getByLabel("Reduced motion").check();
-    await expect(page.getByTestId("playground-stage").locator('[data-slot="field-magnet"]')).toHaveAttribute("data-motion", "reduced");
+    await expect(
+      page.getByTestId("playground-stage").locator('[data-slot="field-magnet"]'),
+    ).toHaveAttribute("data-motion", "reduced");
   });
 
   test("registry item is served with its dependencies", async ({ request, baseURL }) => {

@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../fixtures";
 
 /**
  * Visual regression: static states of the component in both tones and under
@@ -8,6 +8,10 @@ import { expect, test } from "@playwright/test";
  */
 
 test.describe("visual", () => {
+  // Baselines are captured on macOS (chromium-darwin). Other platforms have no snapshots yet, and a missing
+  // snapshot fails the test, so skip until per-platform baselines are published (DECISIONS 012).
+  test.skip(process.platform !== "darwin", "visual baselines exist for chromium-darwin only");
+
   for (const scheme of ["light", "dark"] as const) {
     test(`component page title block, ${scheme} site theme`, async ({ page }) => {
       await page.emulateMedia({ colorScheme: scheme, reducedMotion: "reduce" });
