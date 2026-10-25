@@ -115,8 +115,8 @@ export const GhostTraceText = React.forwardRef<HTMLElement, GhostTraceTextProps>
           // previous measurement; measure relative to the run's baseline or a multi-line headline feeds
           // its ascent back into its height and the ResizeObserver never settles.
           const baseline = Number(el.getAttribute("y")) || 0;
-          const ascent = baseline - b.y;
-          return { width: b.width, ascent, descent: b.height - ascent };
+          const ascent = Math.round(baseline - b.y);
+          return { width: Math.round(b.width), ascent, descent: Math.round(b.height) - ascent };
         } catch {
           return null;
         }
@@ -136,7 +136,18 @@ export const GhostTraceText = React.forwardRef<HTMLElement, GhostTraceTextProps>
     measure();
     const fonts = typeof document !== "undefined" ? document.fonts : undefined;
     fonts?.ready.then(measure).catch(() => {});
-    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(measure) : null;
+    // The host's height is this component's own output (the SVG scales to its viewBox), so a resize that
+    // only changes the height is our own doing; re-measure only when the available width changes.
+    let lastWidth = host.getBoundingClientRect().width;
+    const ro =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver((entries) => {
+            const w = entries[0]?.contentRect.width ?? host.getBoundingClientRect().width;
+            if (Math.abs(w - lastWidth) < 1) return;
+            lastWidth = w;
+            measure();
+          })
+        : null;
     ro?.observe(host);
     return () => {
       cancelled = true;
