@@ -6,15 +6,15 @@ Working name: `creative-ui` (replace before publishing).
 
 ## What is here
 
-| Path | What it is |
-| --- | --- |
-| `packages/ui/src` | The distributable source tree: `components/ui`, `hooks`, `lib`. The registry serves exactly these files. |
-| `apps/docs` | Next.js 16 documentation site: landing, component explorer, per-component pages with a live playground, examples, API reference, source view. Also hosts the registry at `/r/*.json`. |
-| `registry/registry.json` | Registry definition (shadcn schema). `scripts/build-registry.ts` inlines sources and writes `apps/docs/public/r`. |
-| `scripts/scaffold-component.ts` | `pnpm scaffold <slug> <Name>` creates component, tests, docs data, live renderers and registry entry in one go. |
-| `tests/e2e` | Playwright: developer journey, playground, registry, touch, visual baselines. |
-| `examples/vite-consumer` | A clean Vite app used to prove `npx shadcn add <url>` installs and builds. |
-| `documentation/` | Architecture, decisions, component contract, roadmap, agent guide, spec gaps, component briefs. |
+| Path                            | What it is                                                                                                                                                                            |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `packages/ui/src`               | The distributable source tree: `components/ui`, `hooks`, `lib`. The registry serves exactly these files.                                                                              |
+| `apps/docs`                     | Next.js 16 documentation site: landing, component explorer, per-component pages with a live playground, examples, API reference, source view. Also hosts the registry at `/r/*.json`. |
+| `registry/registry.json`        | Registry definition (shadcn schema). `scripts/build-registry.ts` inlines sources and writes `apps/docs/public/r`.                                                                     |
+| `scripts/scaffold-component.ts` | `pnpm scaffold <slug> <Name>` creates component, tests, docs data, live renderers and registry entry in one go.                                                                       |
+| `tests/e2e`                     | Playwright: developer journey, playground, registry, touch, visual baselines.                                                                                                         |
+| `examples/vite-consumer`        | A clean Vite app used to prove `npx shadcn add <url>` installs and builds.                                                                                                            |
+| `documentation/`                | Architecture, decisions, component contract, roadmap, agent guide, spec gaps, component briefs.                                                                                       |
 
 ## Requirements
 
@@ -57,3 +57,7 @@ Set `NEXT_PUBLIC_SITE_URL` / `REGISTRY_URL` to the deployed origin before `pnpm 
 ## Status
 
 See `documentation/STATUS.md` for what is implemented and verified versus proposed.
+
+## License
+
+Copyright © 2026 Mudit Gupta. All rights reserved. This repository is proprietary; see [LICENSE](LICENSE). No permission to use, copy, modify or distribute any part of it is granted without the copyright holder's prior written consent. Third-party dependencies keep their own licences.
