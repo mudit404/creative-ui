@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Wordmark } from "~/components/site/wordmark";
+import { siteUrl } from "~/lib/registry-url";
 
 export function SiteFooter() {
   return (
@@ -23,7 +24,7 @@ export function SiteFooter() {
           <Link href="/docs/roadmap" className="hover:text-ink">
             Roadmap
           </Link>
-          <a href="/r/registry.json" className="hover:text-ink">
+          <a href={`${siteUrl}/r/registry.json`} className="hover:text-ink">
             Registry
           </a>
         </nav>

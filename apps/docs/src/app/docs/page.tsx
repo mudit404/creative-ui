@@ -63,7 +63,7 @@ export default function DocsPage() {
           <code>hooks</code>, utilities to <code>lib</code>. Imports are rewritten to your aliases.
         </p>
         <p>
-          The registry index lives at <a href="/r/registry.json">{siteUrl}/r/registry.json</a>.
+          The registry index lives at <a href={`${siteUrl}/r/registry.json`}>{siteUrl}/r/registry.json</a>.
           Every item is a plain JSON file you can also read or vendor by hand.
         </p>
         <h3>Source ownership and updates</h3>

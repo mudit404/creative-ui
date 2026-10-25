@@ -92,6 +92,10 @@
 - ⌘K search, dark/light theme, responsive layout.
 - `next build`: all routes prerendered static. `typecheck` and `lint` clean.
 
+### Deployment (25 Oct): GitHub Pages static export
+- `.github/workflows/pages.yml` builds the docs as a static export on every push to `main` (or by hand) and publishes `apps/docs/out` with `actions/deploy-pages`; one-time setup is Settings → Pages → Source "GitHub Actions" (free on a public repository). The export is switched on by `STATIC_EXPORT=1` with `STATIC_BASE_PATH=/<repo>` (project sites live under `https://<owner>.github.io/<repo>/`), and both `NEXT_PUBLIC_SITE_URL` and `REGISTRY_URL` are the Pages origin including that path so the registry items embed installable absolute URLs; `turbo.json` declares the two new variables (strict env mode would strip them). In export mode `next.config.ts` turns off Cache Components and partial prefetching (they enable PPR, which `output: "export"` refuses), adds `trailingSlash` (folder-per-route, no rewrite rules) and `images.unoptimized`, and drops `headers()` (GitHub Pages sends `Access-Control-Allow-Origin: *` itself). The two `/r/registry.json` anchors now use the site origin so they survive a base path. CI, the e2e suite and `next start` keep the server build.
+- Verified locally with `STATIC_EXPORT=1 STATIC_BASE_PATH=/creative-ui NEXT_PUBLIC_SITE_URL=https://mudit404.github.io/creative-ui REGISTRY_URL=… pnpm build`, served from a folder named `creative-ui` with a plain static server: 35 component folders, assets and links under `/creative-ui/…`, every visited page hydrates, client-side navigation and the playground work, `r/field-magnet.json` serves with the Pages origin in its `registryDependencies`, zero console errors. The GitHub run itself is the proof.
+
 ### Registry
 - `registry/registry.json` → `pnpm build:registry` → `apps/docs/public/r/*.json` (50 items) validated against the official schema shape, with import-boundary checks.
 - Served with CORS at `/r/<name>.json`; internal dependencies as absolute URLs.
@@ -111,6 +115,7 @@
 - Smooth scrolling was removed from the docs: it made Playwright's scroll-into-view retry loop never settle, and reduced-motion users get instant jumps anyway.
 
 ## Known gaps (honest list)
+- GitHub Pages is free for public repositories only; the registry's premium items would be public there too (premium authentication is still deferred, DECISIONS 012).
 - Contrast is asserted only where axe can measure it: text over images, over component-painted gradients (MaterialButton face, ElasticGrid tiles, GlassKeybed keys) and in overlapping layers (~2.2k nodes) is reviewed by eye, not by the spec.
 - `light-dark()` needs Chrome 123+, Safari 17.5+ or Firefox 120+; older browsers render the light defaults on every surface (documented on the theming page).
 - Visual baselines are macOS/Chromium only; CI on Linux will need its own baselines (`pnpm test:e2e:update` on that platform).
